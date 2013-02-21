@@ -1,0 +1,9 @@
+[main]
+host = https://translations.lizard.net
+type = PO
+
+[nens.model-databank]
+file_filter = model_databank/locale/<lang>/LC_MESSAGES/django.po
+source_file = model_databank/locale/en/LC_MESSAGES/django.po
+source_lang = en
+
