@@ -52,3 +52,4 @@ General considerations
 - metadata
     - metadata in json or xml or nosql (mongodb) or in relational database
     - file based: version-control in theory possible
+
