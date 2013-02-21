@@ -8,4 +8,5 @@ from django.contrib import admin
 from model_databank import models
 
 
-# admin.site.register(models.TODO)
+admin.site.register(models.ModelReference)
+

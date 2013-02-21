@@ -14,6 +14,7 @@ install_requires = [
     'django-nose',
     'lizard-ui >= 4.0b5',
     'translations',
+    'django-autoslug',
 ],
 
 tests_require = [
