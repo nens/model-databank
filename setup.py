@@ -6,20 +6,21 @@ long_description = '\n\n'.join([
     open('README.rst').read(),
     open('CREDITS.rst').read(),
     open('CHANGES.rst').read(),
-    ])
+])
 
 install_requires = [
     'Django',
     'django-extensions',
     'django-nose',
     'lizard-ui >= 4.0b5',
-    ],
+    'translations',
+],
 
 tests_require = [
     'nose',
     'coverage',
     'mock',
-    ]
+]
 
 setup(name='model-databank',
       version=version,
