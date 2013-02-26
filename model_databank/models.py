@@ -36,6 +36,22 @@ class ModelReference(models.Model):
       (MongoDB) metadata document through some kind of admin page wrapping 
       that document.
 
+    - File path convention:
+      
+      To determine the file path automatically and flexibly (still being able
+      to change project names for example), it is probably best to used 
+      project-, model-, version- and variant- ids, for example:
+
+      For original model files:
+      <PROJECT_DIR>/<project_id>/<model_id>/*
+
+      For version files:
+      <PROJECT_DIR>/<project_id>/<model_id>/_versions/<version_id>/*
+
+      For variant (variant of a version) files:
+      <PROJECT_DIR>/<project_id>/<model_id>/_versions/<version_id>/_variants/\
+      <variant_id>/*
+
     """
     MODEL_TYPE_CHOICES = (
         (1, 'Sobek'),
@@ -45,16 +61,50 @@ class ModelReference(models.Model):
     model_type = models.IntegerField(
         verbose_name=_("model type"), choices=MODEL_TYPE_CHOICES)
     
-    # Unique identifier for this model, not sure whether this is the way to go, 
-    # but in order to store metadata in MongoDB without a non-descriptive id
-    # (pk) it could be desirable to have a more descriptive identifier with
-    # automatically generated slug.  
     identifier = models.CharField(
         verbose_name=_("unique identifier"), max_length=200, unique=True)
     slug = AutoSlugField(populate_from='identifier')
+
+    comment = models.CharField(max_length=255, blank=True)
+
+    versions = models.ManyToManyField('self', through='ModelVersion', 
+          symmetrical = False)
+
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         model_type = dict(self.MODEL_TYPE_CHOICES)[self.model_type]
         return _("%(identifier)s (%(type)s model)") % {
             'identifier': self.identifier, 'type': model_type}
+
+
+class Project(models.Model):
+    """Project belonging to an owner."""
+    owner = models.ForeignKey('auth.User')
+    # name should be unique for owner
+    name = models.CharField(verbose_name=_("name"), max_length=100)
+    comment = models.CharField(max_length=255, blank=True)
+    slug = AutoSlugField(populate_from='name')
+    model_references = models.ManyToManyField(ModelReference, 
+                                              related_name='provider')
+
+    def __unicode__(self):
+        return _("%(name)s (owner: %(owner)s)") % {'name': self.name, 
+                                                  'owner': self.owner}
+
+
+class ModelVersion(models.Model):
+    """Intermediate model for ModelReference.versions."""
+    original = models.ForeignKey(ModelReference, related_name='original')
+    version = models.ForeignKey(ModelReference, related_name='version')
+    # name should be unique for original
+    name = models.CharField(verbose_name=_("name"), max_length=100)
+    slug = AutoSlugField(populate_from='name')
+    comment = models.CharField(max_length=255, blank=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return _("%(model)s (version: %(version)s") % {'model': self.original,
+                                                       'version': self.version}     
 
