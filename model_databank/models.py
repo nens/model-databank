@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
 
+from model_databank.conf import settings  # to load app specific settings
+
 
 class ModelReference(models.Model):
     """
@@ -80,10 +82,13 @@ class Project(models.Model):
     owner = models.ForeignKey('auth.User')
     # name should be unique for owner
     name = models.CharField(verbose_name=_("name"), max_length=100)
-    comment = models.CharField(max_length=255, blank=True)
+    comment = models.CharField(verbose_name=_("comment"), max_length=255,
+                               blank=True)
     slug = AutoSlugField(populate_from='name')
     model_references = models.ManyToManyField(ModelReference,
                                               related_name='provider')
+
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return _("%(name)s (owner: %(owner)s)") % {'name': self.name,
@@ -91,12 +96,24 @@ class Project(models.Model):
 
 
 class Version(models.Model):
+    """Version of a model."""
     # specific model reference for this version
-    model = models.ForeignKey(ModelReference, related_name='versions')
+    # model can be null if parent is not null
+    model = models.ForeignKey(ModelReference, related_name='versions',
+                              null=True)
     parent = models.ForeignKey('self', null=True)
+    name = models.CharField(verbose_name=_("name"), max_length=100)
+    comment = models.CharField(verbose_name=_("comment"), max_length=255,
+                               blank=True)
+
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class Variant(models.Model):
-    # specific model reference for this variant
-    model = models.ForeignKey(ModelReference)
+    """Variant of a version."""
+    # version this variant is based on
     version = models.ForeignKey('Version', related_name='variants')
+    name = models.CharField(verbose_name=_("name"), max_length=100)
+    comment = models.CharField(max_length=255, blank=True)
+
+    created = models.DateTimeField(auto_now_add=True)
