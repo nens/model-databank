@@ -10,11 +10,13 @@ long_description = '\n\n'.join([
 
 install_requires = [
     'Django',
+    'South',
     'django-extensions',
     'django-nose',
     'translations',
     'django-autoslug',
     'factory_boy',
+    'django-appconf',
 ],
 
 tests_require = [
