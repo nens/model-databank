@@ -27,15 +27,16 @@ tests_require = [
 
 setup(name='model-databank',
       version=version,
-      description="TODO",
+      description=("Model databank is used for holding reference information "
+          "about water management models, versions and variants."),
       long_description=long_description,
       # Get strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=['Programming Language :: Python',
                    'Framework :: Django',
                    ],
       keywords=[],
-      author='TODO',
-      author_email='TODO@nelen-schuurmans.nl',
+      author='Sander Smits',
+      author_email='sander.smits@nelen-schuurmans.nl',
       url='',
       license='GPL',
       packages=['model_databank'],
