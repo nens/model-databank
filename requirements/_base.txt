@@ -1,0 +1,4 @@
+Django
+git+https://github.com/nens/translations.git
+django-autoslug
+
