@@ -98,15 +98,28 @@ class Project(models.Model):
 class Version(models.Model):
     """Version of a model."""
     # specific model reference for this version
-    # model can be null if parent is not null
-    model = models.ForeignKey(ModelReference, related_name='versions',
-                              null=True)
+    # model_reference can be null if parent is not null
+    model_reference = models.ForeignKey(
+        ModelReference, related_name='versions', null=True)
     parent = models.ForeignKey('self', null=True)
     name = models.CharField(verbose_name=_("name"), max_length=100)
     comment = models.CharField(verbose_name=_("comment"), max_length=255,
                                blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        if self.parent:
+            return _("%(model_reference)s (version: %(version)s "
+                     "(parent: %(parent)s))") % {
+                'model_reference': self.model_reference.identifier,
+                'version': self.name, 'parent': self.parent.name
+            }
+        else:
+            return _("%(model_reference)s (version: %(version)s)") % {
+                'model_reference': self.model_reference.identifier,
+                'version': self.name
+            }
 
 
 class Variant(models.Model):
@@ -117,3 +130,8 @@ class Variant(models.Model):
     comment = models.CharField(max_length=255, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return _("%(version)s - variant: %(variant)s") % {
+            'version': self.version, 'variant': self.name
+        }
