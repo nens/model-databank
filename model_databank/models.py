@@ -15,31 +15,31 @@ class ModelReference(models.Model):
 
     Considerations
     --------------
-    - Model naming: naming this class 'Model' is a no go, since the confusion 
+    - Model naming: naming this class 'Model' is a no go, since the confusion
       it might give with django.db.models.Model.
     - Since it is mainly a reference to either a path or some metadata, we now
       chose to name it ModelReference. Other more or less viable ideas were
       ModelData, ModelInfo, ModelWrapper.
-    
+
     - Metadata:
 
       In flooding relevant information about the different models is stored in
       the model itself; e.g. the SobekModel class has lots of fields that
       defines a Sobek model. A ThreediModel is merely a pointer to the mdu
       filename and to the scenario zip file name.
-      
+
       To make this more flexible one idea is to make this class very compact
-      and to add metadata about it in a document-based database, for example 
+      and to add metadata about it in a document-based database, for example
       something like MongoDB.
-      
+
       In order to make this work we somehow need a way to add and edit this
-      (MongoDB) metadata document through some kind of admin page wrapping 
+      (MongoDB) metadata document through some kind of admin page wrapping
       that document.
 
     - File path convention:
-      
+
       To determine the file path automatically and flexibly (still being able
-      to change project names for example), it is probably best to used 
+      to change project names for example), it is probably best to used
       project-, model-, version- and variant- ids, for example:
 
       For original model files:
@@ -57,18 +57,18 @@ class ModelReference(models.Model):
         (1, 'Sobek'),
         (2, '3Di'),
     )
-    
+
     model_type = models.IntegerField(
         verbose_name=_("model type"), choices=MODEL_TYPE_CHOICES)
-    
+
     identifier = models.CharField(
         verbose_name=_("unique identifier"), max_length=200, unique=True)
     slug = AutoSlugField(populate_from='identifier')
 
     comment = models.CharField(max_length=255, blank=True)
 
-    versions = models.ManyToManyField('self', through='ModelVersion', 
-          symmetrical = False)
+    versions = models.ManyToManyField('self', through='ModelVersion',
+                                      symmetrical=False)
 
     created = models.DateTimeField(auto_now_add=True)
 
@@ -85,12 +85,17 @@ class Project(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=100)
     comment = models.CharField(max_length=255, blank=True)
     slug = AutoSlugField(populate_from='name')
-    model_references = models.ManyToManyField(ModelReference, 
+    model_references = models.ManyToManyField(ModelReference,
                                               related_name='provider')
 
     def __unicode__(self):
-        return _("%(name)s (owner: %(owner)s)") % {'name': self.name, 
-                                                  'owner': self.owner}
+        return _("%(name)s (owner: %(owner)s)") % {'name': self.name,
+                                                   'owner': self.owner}
+
+
+class Version(models.Model):
+    model = models.ForeignKey(ModelReference, related_name='versions')
+    parent = models.ForeignKey('self', null=True)
 
 
 class ModelVersion(models.Model):
@@ -106,5 +111,4 @@ class ModelVersion(models.Model):
 
     def __unicode__(self):
         return _("%(model)s (version: %(version)s") % {'model': self.original,
-                                                       'version': self.version}     
-
+                                                       'version': self.version}
