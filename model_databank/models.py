@@ -67,9 +67,6 @@ class ModelReference(models.Model):
 
     comment = models.CharField(max_length=255, blank=True)
 
-    versions = models.ManyToManyField('self', through='ModelVersion',
-                                      symmetrical=False)
-
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -94,21 +91,12 @@ class Project(models.Model):
 
 
 class Version(models.Model):
+    # specific model reference for this version
     model = models.ForeignKey(ModelReference, related_name='versions')
     parent = models.ForeignKey('self', null=True)
 
 
-class ModelVersion(models.Model):
-    """Intermediate model for ModelReference.versions."""
-    original = models.ForeignKey(ModelReference, related_name='original')
-    version = models.ForeignKey(ModelReference, related_name='version')
-    # name should be unique for original
-    name = models.CharField(verbose_name=_("name"), max_length=100)
-    slug = AutoSlugField(populate_from='name')
-    comment = models.CharField(max_length=255, blank=True)
-
-    created = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return _("%(model)s (version: %(version)s") % {'model': self.original,
-                                                       'version': self.version}
+class Variant(models.Model):
+    # specific model reference for this variant
+    model = models.ForeignKey(ModelReference)
+    version = models.ForeignKey('Version', related_name='variants')
