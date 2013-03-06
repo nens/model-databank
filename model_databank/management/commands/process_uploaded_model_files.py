@@ -1,7 +1,3 @@
-# TODO: create management command that:
-# - looks for unprocessed ModelUpload instances
-# create a Mercurial repo with LargeFiles extension
-# set ModelUpload.is_processed to True
 import os
 import sys
 import shutil

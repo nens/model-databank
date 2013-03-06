@@ -6,11 +6,6 @@
 <div style="margin-top:30px;">&nbsp;
     <div class="row">
         <div class="span10">
-            {% comment %}<form action="." method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                {% csrf_token %}
-                {{ form }}
-            <input type="submit" value="{% trans 'submit' %}" />
-            </form>{% endcomment %}
             {% crispy form %}
         </div>
     </div>
