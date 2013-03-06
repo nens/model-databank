@@ -1,0 +1,18 @@
+{% extends "model_databank/base_site.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div style="margin-top:30px;">&nbsp;
+    <div class="row">
+        <div class="span10">
+            {% comment %}<form action="." method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                {% csrf_token %}
+                {{ form }}
+            <input type="submit" value="{% trans 'submit' %}" />
+            </form>{% endcomment %}
+            {% crispy form %}
+        </div>
+    </div>
+</div>
+{% endblock %}

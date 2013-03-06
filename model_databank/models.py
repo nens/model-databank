@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from __future__ import print_function
+import os
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from autoslug import AutoSlugField
 
 from model_databank.conf import settings  # to load app specific settings
+from model_databank.db.fields import UUIDField
 
 
 class ModelReference(models.Model):
@@ -55,26 +57,81 @@ class ModelReference(models.Model):
       <variant_id>/*
 
     """
+    SOBEK_MODEL_TYPE_ID = 1
+    THREEDI_MODEL_TYPE_ID = 2
     MODEL_TYPE_CHOICES = (
-        (1, 'Sobek'),
-        (2, '3Di'),
+        (SOBEK_MODEL_TYPE_ID, 'Sobek'),
+        (THREEDI_MODEL_TYPE_ID, '3Di'),
     )
 
+    # TODO: consider renaming model_type, possible options: type, ?
     model_type = models.IntegerField(
         verbose_name=_("model type"), choices=MODEL_TYPE_CHOICES)
 
     identifier = models.CharField(
         verbose_name=_("unique identifier"), max_length=200, unique=True)
     slug = AutoSlugField(populate_from='identifier')
+    uuid = UUIDField()
 
     comment = models.CharField(max_length=255, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def path(self):
+        if self.id:
+            return os.path.join(settings.MODEL_DATABANK_DATA_PATH,
+                                str(self.uuid))
+        else:
+            # created with Factory.build for example
+            return None
+
+    def create_version(self, name, comment=None):
+        versions = self.versions
+        if not versions:
+            version = Version(model_reference=self, name=name, comment=comment)
+            version.save()
+            print("successfully saved version: %s" % version)
+            # TODO: log instead of print
+            return version
+        else:
+            # get latest version if any
+            latest_version = versions[0]
+            version = Version(parent=latest_version, name=name,
+                              comment=comment)
+            version.save()
+            print("successfully saved version: %s" % version)
+            # TODO: log instead of print
+            return version
+
     def __unicode__(self):
         model_type = dict(self.MODEL_TYPE_CHOICES)[self.model_type]
         return _("%(identifier)s (%(type)s model)") % {
             'identifier': self.identifier, 'type': model_type}
+
+
+class ModelUpload(models.Model):
+    # TODO: add upload_by field
+    model_reference = models.ForeignKey(
+        ModelReference, related_name='uploads', null=True)
+
+    # identifier is used for new model files uploads
+    identifier = models.CharField(
+        verbose_name=_("unique identifier"), max_length=200, blank=True)
+    description = models.TextField(blank=True)
+
+    file_path = models.FilePathField(max_length=255)
+
+    is_processed = models.BooleanField(default=False)
+
+    uploaded = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        if self.model_reference:
+            return _("Upload for %(model)s (%(path)s)") % {
+                'model': self.model_reference, 'path': self.file_path
+            }
+        return _("New model upload (%(path)s)") % {'path': self.file_path}
 
 
 class Project(models.Model):
@@ -99,22 +156,29 @@ class Version(models.Model):
     """Version of a model."""
     # specific model reference for this version
     # model_reference can be null if parent is not null
+    # equals a tag in DVCS; an approved release
     model_reference = models.ForeignKey(
         ModelReference, related_name='versions', null=True)
+    # TODO: consider not using parent but vcs_commit or vcs_tag field
     parent = models.ForeignKey('self', null=True)
     name = models.CharField(verbose_name=_("name"), max_length=100)
     comment = models.CharField(verbose_name=_("comment"), max_length=255,
                                blank=True)
 
+    # TODO: add `approved` field or use tag to determine whether a commit
+    # is approved
+
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-created',)
 
     def __unicode__(self):
         if self.parent:
             return _("%(model_reference)s (version: %(version)s "
                      "(parent: %(parent)s))") % {
                 'model_reference': self.model_reference.identifier,
-                'version': self.name, 'parent': self.parent.name
-            }
+                'version': self.name, 'parent': self.parent.name}
         else:
             return _("%(model_reference)s (version: %(version)s)") % {
                 'model_reference': self.model_reference.identifier,

@@ -7,7 +7,10 @@ from django.conf.urls.defaults import include
 from django.conf.urls.defaults import patterns
 from django.conf.urls.defaults import url
 from django.contrib import admin
-from lizard_ui.urls import debugmode_urlpatterns
+from django.views.generic import TemplateView
+
+#from lizard_ui.urls import debugmode_urlpatterns
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from model_databank import views
 
@@ -15,7 +18,12 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^ui/', include('lizard_ui.urls')),
+    url(r'^$', TemplateView.as_view(
+        template_name='model_databank/index.html'),
+        name='index'),
+    url(r'^upload_new/$', views.NewModelUploadFormView.as_view(),
+        name='upload_form'),
+#    url(r'^ui/', include('lizard_ui.urls')),
     # url(r'^map/', include('lizard_map.urls')),
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^something/',
@@ -25,4 +33,5 @@ urlpatterns = patterns(
     #     views.SomeClassBasedView.as_view(),
     #     name='name_it_too'),
     )
-urlpatterns += debugmode_urlpatterns()
+#urlpatterns += debugmode_urlpatterns()
+urlpatterns += staticfiles_urlpatterns()

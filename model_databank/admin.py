@@ -8,5 +8,17 @@ from django.contrib import admin
 from model_databank import models
 
 
-admin.site.register(models.ModelReference)
+class ModelReferenceAdmin(admin.ModelAdmin):
 
+    readonly_fields = ('uuid',)
+    list_display = ('identifier', 'model_type', 'uuid', 'created')
+
+
+class ModelUploadAdmin(admin.ModelAdmin):
+
+    list_display = ('model_reference', 'identifier', 'description',
+                    'file_path', 'is_processed', 'uploaded')
+
+
+admin.site.register(models.ModelReference, ModelReferenceAdmin)
+admin.site.register(models.ModelUpload, ModelUploadAdmin)

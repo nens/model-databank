@@ -1,0 +1,18 @@
+{% extends "model_databank/base_site.html" %}
+{% load i18n %}
+{% load webdesign %}
+
+{% block content %}
+<div style="margin-top:40px;">&nbsp;
+    <div class="row">
+        <div class="span2">
+            <ul class="nav nav-stacked">
+                <li><a href="{% url upload_form %}">{% trans "Upload new model" %}</a></li>
+            </ul>
+        </div>
+        <div class="span8">
+            {% lorem 1 p %}
+        </div>
+    </div>
+</div>
+{% endblock %}

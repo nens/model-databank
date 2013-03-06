@@ -17,6 +17,7 @@ install_requires = [
     'django-autoslug',
     'factory_boy',
     'django-appconf',
+    'django-crispy-forms',
 ],
 
 tests_require = [

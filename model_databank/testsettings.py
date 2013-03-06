@@ -1,7 +1,7 @@
 import os
 
-from lizard_ui.settingshelper import setup_logging
-from lizard_ui.settingshelper import STATICFILES_FINDERS
+#from lizard_ui.settingshelper import setup_logging
+#from lizard_ui.settingshelper import STATICFILES_FINDERS
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -14,7 +14,7 @@ SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 # BUILDOUT_DIR/var/static files to give django-staticfiles a proper place
 # to place all collected static files.
 BUILDOUT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, '..'))
-LOGGING = setup_logging(BUILDOUT_DIR)
+#LOGGING = setup_logging(BUILDOUT_DIR)
 
 # ENGINE: 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 # In case of geodatabase, prepend with:
@@ -41,20 +41,25 @@ SITE_ID = 1
 SECRET_KEY = 'This is not secret but that is ok.'
 INSTALLED_APPS = [
     'model_databank',
-    'lizard_ui',
-    'staticfiles',
-    'compressor',
+#    'lizard_ui',
+#    'staticfiles',
+#    'compressor',
     'south',
     'django_nose',
-    'lizard_security',
+#    'lizard_security',
     'django_extensions',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.gis',
     'django.contrib.sites',
-    ]
+    'django.contrib.webdesign',
+    'django.contrib.messages',
+
+    'crispy_forms',
+]
 ROOT_URLCONF = 'model_databank.urls'
 
 MIDDLEWARE_CLASSES = (
@@ -64,8 +69,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'lizard_security.middleware.SecurityMiddleware',
-    'tls.TLSRequestMiddleware',
+#    'lizard_security.middleware.SecurityMiddleware',
+#    'tls.TLSRequestMiddleware',
     )
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -75,7 +80,7 @@ STATIC_URL = '/static_media/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BUILDOUT_DIR, 'var', 'static')
 MEDIA_ROOT = os.path.join(BUILDOUT_DIR, 'var', 'media')
-STATICFILES_FINDERS = STATICFILES_FINDERS
+#STATICFILES_FINDERS = STATICFILES_FINDERS
 
 
 try:
