@@ -3,4 +3,4 @@
 
 django-extensions
 ipython
-
+ipdb
