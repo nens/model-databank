@@ -79,7 +79,7 @@ class ModelReference(models.Model):
 
     @property
     def path(self):
-        if self.id:
+        if self.uuid:
             return os.path.join(settings.MODEL_DATABANK_DATA_PATH,
                                 str(self.uuid))
         else:
@@ -103,6 +103,13 @@ class ModelReference(models.Model):
             print("successfully saved version: %s" % version)
             # TODO: log instead of print
             return version
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('model_reference_detail', [str(self.id)])
+
+    class Meta:
+        ordering = ('-created',)
 
     def __unicode__(self):
         model_type = dict(self.MODEL_TYPE_CHOICES)[self.model_type]
