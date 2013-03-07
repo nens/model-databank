@@ -46,22 +46,25 @@
 
 {% block container %}
 <div class="{% block container_class %}container{% endblock %}">
-    {% block messages %}
-    {% if messages %}
-    <div class="row">
-        <div class="{% block messages_row_class %}span12{% endblock %}">
-            {% for message in messages %}
-            <div class="alert{% if message.tags %} {{ message.tags }}{% endif %}">
-                <a class="close" data-dismiss="alert">Ã—</a>
-                {{ message }}
+    <div class="content">
+        <div style="margin-top: 40px;">&nbsp;</div>
+        {% block messages %}
+        {% if messages %}
+        <div class="row">
+            <div class="{% block messages_row_class %}span12{% endblock %}">
+                {% for message in messages %}
+                <div class="alert{% if message.tags %} {{ message.tags }}{% endif %}">
+                    <a class="close" data-dismiss="alert">&times;</a>
+                    {{ message }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-    </div>
-    {% endif %}
-    {% endblock %}
+        {% endif %}
+        {% endblock %}
 
-    <div class="content">{% block content %}{% endblock %}</div>
+        {% block content %}{% endblock %}
+    </div>
 
     {% block footer %}
     <hr>
