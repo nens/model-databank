@@ -82,6 +82,7 @@ STATIC_ROOT = os.path.join(BUILDOUT_DIR, 'var', 'static')
 MEDIA_ROOT = os.path.join(BUILDOUT_DIR, 'var', 'media')
 #STATICFILES_FINDERS = STATICFILES_FINDERS
 
+HG_CMD = '/usr/local/bin/hg'
 
 try:
     # Import local settings that aren't stored in svn/git.
