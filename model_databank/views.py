@@ -7,6 +7,8 @@ from django.contrib import messages
 import os
 
 from django.utils.translation import ugettext as _
+from django.http import HttpResponse
+from django.core.servers.basehttp import FileWrapper
 # from django.core.urlresolvers import reverse
 # from lizard_map.views import MapView
 # from lizard_ui.views import UiView
@@ -25,11 +27,13 @@ from django.utils.translation import ugettext as _
 #     template_name = 'model_databank/todo2.html'
 #     page_title = _('TODO 2 view')
 
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView, DetailView
 
 from model_databank.conf import settings
 from model_databank.forms import NewModelUploadForm
-from model_databank.models import ModelUpload
+from model_databank.models import ModelUpload, ModelReference
+from model_databank.utils import zip_model_files
+from model_databank.vcs_utils import get_log
 
 
 def handle_uploaded_file(f):
@@ -63,3 +67,33 @@ class NewModelUploadFormView(FormView):
         messages.info(self.request, _("Upload succeeded. Data will be "
                                       "processed soon."))
         return super(NewModelUploadFormView, self).form_valid(form)
+
+
+class ModelDownloadView(DetailView):
+    """Download zip file from tip of repo."""
+    model = ModelReference
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        zip_file_path, revision = zip_model_files(self.object)
+        zip_file = open(zip_file_path, 'rb')
+        response = HttpResponse(FileWrapper(zip_file),
+                                content_type='application/zip')
+        file_name = '%s-%s.zip' % (self.object.slug, revision)
+        response['Content-Disposition'] = 'attachment; filename=%s' % file_name
+        return response
+
+
+class ModelReferenceList(ListView):
+    model = ModelReference
+
+
+class ModelReferenceDetail(DetailView):
+    model = ModelReference
+
+    def get_context_data(self, object, **kwargs):
+        context = super(ModelReferenceDetail, self).get_context_data(
+            object=object, **kwargs)
+        log = get_log(object)
+        context['log'] = log.replace('\n', '<br/>')
+        return context
