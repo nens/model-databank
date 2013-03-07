@@ -7,6 +7,7 @@ class ModelDatabankAppConf(AppConf):
     DATA_PATH = "/tmp/model_databank"  # path to model, version, and variant files
     UPLOAD_PATH = "/tmp/uploads"
     ZIP_EXTRACT_PATH = "/tmp/extracted_zip_files/"
+    DOWNLOAD_PATH = "/tmp/downloads"
 
     class Meta:
         prefix = 'model_databank'
