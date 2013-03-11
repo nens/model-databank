@@ -2,16 +2,14 @@
 {% load i18n %}
 
 {% block content %}
-<div style="margin-top:30px;">&nbsp;
-    <div class="row">
-        <div class="span10">
-            <h2>{{ modelreference }}</h2>
-            <span>uuid: {{ modelreference.uuid }}</span><br/>
-            <a href="{% url model_reference_download modelreference.id %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
-            <h4>log</h4>
-            <div>
-                {% autoescape off %}{{ log }}{% endautoescape %}
-            </div>
+<div class="row">
+    <div class="span10">
+        <h2>{{ modelreference }}</h2>
+        <span>uuid: {{ modelreference.uuid }}</span><br/>
+        <a href="{% url model_reference_download modelreference.id %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
+        <h4>log</h4>
+        <div>
+            {% autoescape off %}{{ log }}{% endautoescape %}
         </div>
     </div>
 </div>

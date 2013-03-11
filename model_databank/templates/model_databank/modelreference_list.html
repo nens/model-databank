@@ -2,19 +2,17 @@
 {% load i18n %}
 
 {% block content %}
-<div style="margin-top:30px;">&nbsp;
-    <div class="row">
-        <div class="span10">
-            {% if modelreference_list %}
-                <ul>
-                {% for obj in modelreference_list %}
-                    <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>
-                {% endfor %}
-                </ul>
-            {% else %}
-                <span>{% trans "No models found." %}</span>
-            {% endif %}
-        </div>
+<div class="row">
+    <div class="span10">
+        {% if modelreference_list %}
+            <ul>
+            {% for obj in modelreference_list %}
+                <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <span>{% trans "No models found." %}</span>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
