@@ -22,7 +22,7 @@ class NewModelUploadForm(forms.Form):
                 'upload_file',
             ),
         )
-        submit = Submit('submit', _('submit'), css_class='btn btn-primary')
+        submit = Submit('submit', _('Submit'), css_class='btn btn-primary')
         self.helper.add_input(submit)
         super(NewModelUploadForm, self).__init__(*args, **kwargs)
 
@@ -42,6 +42,6 @@ class UploadForm(forms.Form):
                 'upload_file',
             ),
         )
-        submit = Submit('submit', _('submit'), css_class='btn btn-primary')
+        submit = Submit('submit', _('Submit'), css_class='btn btn-primary')
         self.helper.add_input(submit)
         super(UploadForm, self).__init__(*args, **kwargs)

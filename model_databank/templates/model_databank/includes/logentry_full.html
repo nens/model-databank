@@ -1,0 +1,16 @@
+<ul>
+    <li><a href="{% url commit_view model_reference_id logentry.node %}">{{ logentry.node }}</a> (revision: {{ logentry.revision }})</li>
+    {% if logentry.tag %}
+    <li>tag: {{ logentry.tag }}</li>
+    {% endif %}
+    <li>{{ logentry.author }} ({{ logentry.author_email }})</li>
+    <li>{{ logentry.date }}</li>
+    <li>{{ logentry.message }}</li>
+    <li>
+        <ul>
+            {% for path in logentry.paths %}
+            <li>{{ path.action }} - {{ path.path }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>

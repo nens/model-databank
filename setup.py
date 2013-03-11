@@ -18,6 +18,7 @@ install_requires = [
     'factory_boy',
     'django-appconf',
     'django-crispy-forms',
+    'BeautifulSoup',
 ],
 
 tests_require = [

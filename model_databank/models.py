@@ -128,6 +128,10 @@ class ModelReference(models.Model):
     def get_absolute_url(self):
         return ('model_reference_detail', [str(self.id)])
 
+    @property
+    def model_type_str(self):
+        return dict(self.MODEL_TYPE_CHOICES)[self.model_type]
+
     class Meta:
         ordering = ('-created',)
 

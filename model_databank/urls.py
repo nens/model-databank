@@ -18,16 +18,20 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^$', TemplateView.as_view(
-        template_name='model_databank/index.html'),
-        name='index'),
+#    url(r'^$', TemplateView.as_view(
+#        template_name='model_databank/index.html'),
+#        name='index'),
+    # formerly r'^models/$'
+    url(r'^$', views.ModelReferenceList.as_view(),
+        name='model_reference_list'),
     url(r'^upload_new/$', views.NewModelUploadFormView.as_view(),
         name='upload_form'),
-    url(r'^models/$', views.ModelReferenceList.as_view(),
-        name='model_reference_list'),
     url(r'^models/(?P<pk>\d+)/download/$',
         views.ModelDownloadView.as_view(),
         name='model_reference_download'),
+    url(r'^models/(?P<pk>\d+)/commit/(?P<revision>\w+)/$',
+        views.CommitView.as_view(),
+        name='commit_view'),
     url(r'^models/(?P<pk>\d+)/$', views.ModelReferenceDetail.as_view(),
         name='model_reference_detail'),
 

@@ -94,6 +94,20 @@ class ModelReferenceDetail(DetailView):
     def get_context_data(self, object, **kwargs):
         context = super(ModelReferenceDetail, self).get_context_data(
             object=object, **kwargs)
-        log = get_log(object)
-        context['log'] = log.replace('\n', '<br/>')
+        log_data = get_log(object)
+        context['log_data'] = log_data
+        return context
+
+
+class CommitView(DetailView):
+    """Show commit specific details."""
+    model = ModelReference
+    template_name = 'model_databank/commit_detail.html'
+
+    def get_context_data(self, object, **kwargs):
+        context = super(CommitView, self).get_context_data(
+            object=object, **kwargs)
+        revision = self.kwargs.get('revision')
+        log_data = get_log(object, revision)
+        context['log_data'] = log_data
         return context

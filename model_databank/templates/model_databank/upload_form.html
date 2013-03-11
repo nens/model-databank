@@ -2,6 +2,15 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
+{% block extrastyle %}
+<style type="text/css">
+textarea {
+    width: 95%;
+    height: 130px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="span10">

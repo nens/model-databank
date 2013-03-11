@@ -4,12 +4,26 @@
 {% block content %}
 <div class="row">
     <div class="span10">
+        <h3>{% trans "Available models" %}</h3> <a href="{% url upload_form %}" style="float: right; clear: both;" class="btn btn-primary">{% trans "Upload new model" %}</a>
         {% if modelreference_list %}
-            <ul>
-            {% for obj in modelreference_list %}
-                <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>
-            {% endfor %}
-            </ul>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Created" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for obj in modelreference_list %}
+                    <tr>
+                        <td><a href="{{ obj.get_absolute_url }}">{{ obj.identifier }}</a></td>
+                        <td>{{ obj.model_type_str }}</td>
+                        <td>{{ obj.created }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <span>{% trans "No models found." %}</span>
         {% endif %}

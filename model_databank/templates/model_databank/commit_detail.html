@@ -1,0 +1,16 @@
+{% extends "model_databank/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+    <div class="span10">
+        <h3>{{ modelreference }}</h3>
+        <h4>{% trans "Commit" %}</h4>
+        <div>
+            {% for logentry in log_data %}
+                {% include "model_databank/includes/logentry_full.html" with model_reference_id=modelreference.id %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
