@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from __future__ import print_function
+import subprocess
 import os
+import shutil
+import zipfile
+import logging
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -11,6 +15,22 @@ from autoslug import AutoSlugField
 
 from model_databank.conf import settings  # to load app specific settings
 from model_databank.db.fields import UUIDField
+
+logger = logging.getLogger(__name__)
+
+HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc')
+
+
+def get_largefiles_file_paths(root_path):
+    paths = []
+    for root, dirs, files in os.walk(root_path):
+        # skip .hg files
+        if '/.hg' in root:
+            continue
+        for f in files:
+            if f[-3:].lower() in HG_LARGEFILES_EXTENSIONS:
+                paths.append(os.path.join(root, f))
+    return paths
 
 
 class ModelReference(models.Model):
@@ -133,7 +153,60 @@ class ModelUpload(models.Model):
 
     uploaded = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
+    def process(self):
+        if self.is_processed:
+            logger.error("Already processed %s." % self)
+            return
+        try:
+            z = zipfile.ZipFile(self.file_path)
+        except zipfile.BadZipfile:
+            logger.error("File is not a zip file: %s\n" %
+                         self.file_path)
+            return
+        except IOError, msg:
+            logger.error("%s\n" % msg)
+            return
+
+        extract_to = os.path.join(
+            settings.MODEL_DATABANK_ZIP_EXTRACT_PATH, str(self.id))
+        z.extractall(path=extract_to)
+
+        # create repo dir if not exist
+        if not self.model_reference:
+            # convert to hg repo
+            os.chdir(extract_to)
+            subprocess.call([settings.HG_CMD, 'init'])
+            # loop through files and add files from largefiles extensions
+            largefiles_file_paths = get_largefiles_file_paths(extract_to)
+            for fp in largefiles_file_paths:
+                # this is needed even when a largefiles patterns entry
+                # is added to ~/.hgrc
+                subprocess.call([settings.HG_CMD, 'add', '--large', fp])
+                logger.info("Added %s as large file to repository\n" % fp)
+
+            subprocess.call([settings.HG_CMD, 'add'])
+            subprocess.call([settings.HG_CMD, 'commit', '-m',
+                             'Initial commit.'])
+            # if we got here, create a ModelReference with uuid for the
+            # repo dir naming
+            model_reference = ModelReference(
+                # for now, assume 3Di
+                model_type=ModelReference.THREEDI_MODEL_TYPE_ID,
+                identifier=self.identifier,
+                comment=self.description)
+            model_reference.save()
+
+            repo_dir = os.path.join(settings.MODEL_DATABANK_DATA_PATH,
+                str(model_reference.uuid))
+            shutil.move(extract_to, repo_dir)
+
+            self.model_reference = model_reference
+            self.is_processed = True
+            self.save()
+            return self
+
+
+def __unicode__(self):
         if self.model_reference:
             return _("Upload for %(model)s (%(path)s)") % {
                 'model': self.model_reference, 'path': self.file_path
