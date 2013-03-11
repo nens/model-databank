@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<log>
+    <logentry revision="1" node="d72a35370a7c761cf791f41feb4b2281b80d4102">
+        <tag>tip</tag>
+        <author email="sander.smits@nelen-schuurmans.nl">Sander Smits</author>
+        <date>2013-03-11T10:42:28+01:00</date>
+        <msg xml:space="preserve">Make grd file smaller to test large file.</msg>
+        <paths>
+            <path action="M">05m_20m_k4_1m.grd</path>
+        </paths>
+    </logentry>
+    <logentry revision="0" node="e7e33d428cf273bb0bfdd4cdccc96ac8c3291de8">
+        <author email="sander.smits@nelen-schuurmans.nl">Sander Smits</author>
+        <date>2013-03-11T04:41:24-05:00</date>
+        <msg xml:space="preserve">Initial commit.</msg>
+        <paths>
+            <path action="A">05m_20m_k4_1m.grd</path>
+            <path action="A">05m_20m_k4_1m.tbl</path>
+            <path action="A">hillb05m.asc</path>
+            <path action="A">CROPFACT</path>
+            <path action="A">CROP_OW.PRN</path>
+            <path action="A">EVAPOR.GEM</path>
+            <path action="A">Hillegersberg</path>
+            <path action="A">Hillegersberg.dia</path>
+            <path action="A">Hillegersberg.mdu</path>
+            <path action="A">ISOCOLOUR.hls</path>
+            <path action="A">ROOT_SIM.INP</path>
+            <path action="A">UNSA_SIM.INP</path>
+            <path action="A">boundary.dat</path>
+            <path action="A">interact.ini</path>
+            <path action="A">interception.rgb</path>
+            <path action="A">land.rgb</path>
+            <path action="A">land.zrgb</path>
+            <path action="A">r.sh</path>
+            <path action="A">subgrid.ini</path>
+            <path action="A">unstruc.hlp</path>
+            <path action="A">water.rgb</path>
+        </paths>
+    </logentry>
+</log>
