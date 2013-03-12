@@ -8,7 +8,7 @@
         <h4>{% trans "Commit" %}</h4>
         <div>
             {% for logentry in log_data %}
-                {% include "model_databank/includes/logentry_full.html" with model_reference_id=modelreference.id %}
+                {% include "model_databank/includes/logentry_full.html" with model_reference_slug=modelreference.slug %}
             {% endfor %}
         </div>
     </div>

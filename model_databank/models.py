@@ -126,7 +126,7 @@ class ModelReference(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('model_reference_detail', [str(self.id)])
+        return ('model_reference_detail', [self.slug])
 
     @property
     def model_type_str(self):

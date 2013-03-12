@@ -10,9 +10,8 @@ from model_databank import models
 
 
 class ModelReferenceAdmin(admin.ModelAdmin):
-
-    readonly_fields = ('uuid',)
-    list_display = ('identifier', 'model_type', 'uuid', 'created')
+    list_display = ('identifier', 'model_type', 'slug', 'uuid', 'created')
+    readonly_fields = ('uuid', 'slug')
 
 
 def process_upload(modeladmin, request, queryset):

@@ -6,7 +6,7 @@
     <div class="span10">
         <h3>{{ modelreference }}</h3>
         <p>{{ modelreference.comment }}</p>
-        <a href="{% url model_reference_download modelreference.id %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
+        <a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
         <h4>{% trans "Commit History" %}</h4>
         <div>
             <table class="table table-striped">
@@ -22,7 +22,7 @@
                 {% for logentry in log_data %}
                 <tr>
                     <td>{{ logentry.author }}</td>
-                    <td><a href="{% url commit_view modelreference.id logentry.node %}">{{ logentry.short_revision }}</a></td>
+                    <td><a href="{% url commit_view modelreference.slug logentry.node %}">{{ logentry.short_revision }}</a></td>
                     <td>{{ logentry.message }}</td>
                     <td>{{ logentry.date|date }}</td>
                 </tr>
