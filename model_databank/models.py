@@ -100,7 +100,8 @@ class ModelReference(models.Model):
     @property
     def path(self):
         if self.uuid:
-            return os.path.join(settings.MODEL_DATABANK_DATA_PATH, self.slug)
+            return os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH,
+                                self.slug)
         else:
             # created with Factory.build for example
             return None
@@ -203,13 +204,18 @@ class ModelUpload(models.Model):
                 str(model_reference.uuid))
             shutil.move(extract_to, repo_dir)
 
+            # create symlink
+            link_dir = os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH,
+                                    model_reference.slug)
+            os.symlink(repo_dir, link_dir)
+
             self.model_reference = model_reference
             self.is_processed = True
             self.save()
             return self
 
 
-def __unicode__(self):
+    def __unicode__(self):
         if self.model_reference:
             return _("Upload for %(model)s (%(path)s)") % {
                 'model': self.model_reference, 'path': self.file_path

@@ -28,8 +28,8 @@ class ModelGenerationTests(TestCase):
 
     def test_path(self):
         mf = self.mfs[0]
-        expected_path = os.path.join(settings.MODEL_DATABANK_DATA_PATH,
-                                     mf.uuid)
+        expected_path = os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH,
+                                     mf.slug)
         self.assertEqual(mf.path, expected_path)
 
     def test_version(self):
