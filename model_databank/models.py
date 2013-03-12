@@ -100,8 +100,7 @@ class ModelReference(models.Model):
     @property
     def path(self):
         if self.uuid:
-            return os.path.join(settings.MODEL_DATABANK_DATA_PATH,
-                                str(self.uuid))
+            return os.path.join(settings.MODEL_DATABANK_DATA_PATH, self.slug)
         else:
             # created with Factory.build for example
             return None
