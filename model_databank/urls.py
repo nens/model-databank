@@ -29,10 +29,10 @@ urlpatterns = patterns(
     url(r'^models/(?P<pk>\d+)/download/$',
         views.ModelDownloadView.as_view(),
         name='model_reference_download'),
-    url(r'^models/(?P<pk>\d+)/commit/(?P<revision>\w+)/$',
+    url(r'^models/(?P<pk>\d+)/commits/(?P<revision>\w+)/$',
         views.CommitView.as_view(),
         name='commit_view'),
-    url(r'^models/(?P<pk>\d+)/$', views.ModelReferenceDetail.as_view(),
+    url(r'^models/(?P<pk>\d+)/commits/$', views.ModelReferenceDetail.as_view(),
         name='model_reference_detail'),
 
 #    url(r'^ui/', include('lizard_ui.urls')),
