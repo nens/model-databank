@@ -19,6 +19,7 @@ def mercurial_date_to_datetime(date_str):
     hour = int(date_str[11:13])
     minute = int(date_str[14:16])
     second = int(date_str[17:19])
+    # TODO: parse timezone
     dt = datetime(year, month, day, hour, minute, second)
     return dt
 
@@ -58,7 +59,6 @@ class MercurialLogData(object):
             log_dict['author_email'] = author_attrs['email']
 
             # commit date
-            # TODO: parse to datetime (+ tz)
             date_tag = logentry.find('date')
             log_dict['date'] = mercurial_date_to_datetime(date_tag.text)
 
