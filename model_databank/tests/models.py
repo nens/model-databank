@@ -26,11 +26,8 @@ class ModelGenerationTests(TestCase):
     def test_number(self):
         self.assertEqual(len(self.mfs), 1000)
 
-    def test_path(self):
+    def test_symlink_path(self):
         mf = self.mfs[0]
         expected_path = os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH,
                                      mf.slug)
-        self.assertEqual(mf.path, expected_path)
-
-    def test_version(self):
-        pass
+        self.assertEqual(mf.symlink, expected_path)

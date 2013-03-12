@@ -17,7 +17,7 @@ def zip_dir(path, zip_file):
 
 
 def zip_model_files(model_reference):
-    repo_path = model_reference.path
+    repo_path = model_reference.symlink
     os.chdir(repo_path)
     subprocess.call([settings.HG_CMD, 'up'])  # update to tip
     latest_revision = get_latest_revision(model_reference)

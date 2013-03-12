@@ -82,7 +82,7 @@ class MercurialLogData(object):
 
 
 def get_log(model_reference, revision=None):
-    repo_path = model_reference.path
+    repo_path = model_reference.symlink
     os.chdir(repo_path)
     cmd_list = [settings.HG_CMD, 'log', '--style=xml']
     if revision:
@@ -93,7 +93,7 @@ def get_log(model_reference, revision=None):
 
 
 def get_latest_revision(model_reference):
-    repo_path = model_reference.path
+    repo_path = model_reference.symlink
     os.chdir(repo_path)
     # assumes repo is always updated to tip
     revision = subprocess.check_output([settings.HG_CMD, 'id', '-i'])

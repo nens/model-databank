@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from __future__ import print_function
+import os
+import shutil
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
@@ -13,10 +15,17 @@ class ModelReferenceAdmin(admin.ModelAdmin):
     list_display = ('identifier', 'model_type', 'slug', 'uuid', 'created')
     readonly_fields = ('uuid', 'slug')
 
+    actions = ['delete_selected']
 
-def process_upload(modeladmin, request, queryset):
-    queryset.update(status='p')
-process_upload.short_description = "Process selected model upload files."
+    def delete_selected(self, request, queryset):
+        for model_reference in queryset:
+            # remove symlink
+            os.unlink(model_reference.symlink)
+            # remove repository
+            shutil.rmtree(model_reference.repository)
+            # remove object
+            model_reference.delete()
+    delete_selected.short_description = _("Delete selected model uploads")
 
 
 class ModelUploadAdmin(admin.ModelAdmin):

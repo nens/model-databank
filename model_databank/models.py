@@ -97,15 +97,6 @@ class ModelReference(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
 
-    @property
-    def path(self):
-        if self.uuid:
-            return os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH,
-                                self.slug)
-        else:
-            # created with Factory.build for example
-            return None
-
     def create_version(self, name, comment=None):
         versions = self.versions
         if not versions:
@@ -127,6 +118,16 @@ class ModelReference(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('model_reference_detail', [self.slug])
+
+    @property
+    def symlink(self):
+        """Symlink to the repository."""
+        return os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH, self.slug)
+
+    @property
+    def repository(self):
+        """Repository path."""
+        return os.path.join(settings.MODEL_DATABANK_DATA_PATH, self.uuid)
 
     @property
     def model_type_str(self):
@@ -200,14 +201,10 @@ class ModelUpload(models.Model):
                 comment=self.description)
             model_reference.save()
 
-            repo_dir = os.path.join(settings.MODEL_DATABANK_DATA_PATH,
-                str(model_reference.uuid))
-            shutil.move(extract_to, repo_dir)
+            shutil.move(extract_to, model_reference.repository)
 
-            # create symlink
-            link_dir = os.path.join(settings.MODEL_DATABANK_SYMLINK_PATH,
-                                    model_reference.slug)
-            os.symlink(repo_dir, link_dir)
+            # create symlink to the repository
+            os.symlink(model_reference.repository, model_reference.symlink)
 
             self.model_reference = model_reference
             self.is_processed = True
