@@ -1,0 +1,17 @@
+{% extends "model_databank/modelreference_base.html" %}
+{% load i18n %}
+
+{% block section_title %}{% trans "Files" %}{% endblock section_title %}
+{% block section_body %}
+<div>
+    <table class="table table-striped">
+        <tbody>
+        {% for item in file_tree %}
+        <tr>
+            <td>{{ item }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock section_body %}

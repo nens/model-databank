@@ -1,35 +1,28 @@
-{% extends "model_databank/base_site.html" %}
+{% extends "model_databank/modelreference_base.html" %}
 {% load i18n %}
 
-{% block content %}
-<div class="row">
-    <div class="span10">
-        <h3>{{ modelreference }}</h3>
-        <p>{{ modelreference.comment }}</p>
-        <a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
-        <h4>{% trans "Commit History" %}</h4>
-        <div>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>{% trans "Author" %}</th>
-                    <th>{% trans "Revision" %}</th>
-                    <th>{% trans "Message" %}</th>
-                    <th>{% trans "Date" %}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for logentry in log_data %}
-                <tr>
-                    <td>{{ logentry.author }}</td>
-                    <td><a href="{% url commit_view modelreference.slug logentry.node %}">{{ logentry.short_revision }}</a></td>
-                    <td>{{ logentry.message }}</td>
-                    <td>{{ logentry.date|date }}</td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+{% block section_title %}{% trans "Commit History" %}{% endblock section_title %}
+{% block section_body %}
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{% trans "Author" %}</th>
+            <th>{% trans "Revision" %}</th>
+            <th>{% trans "Message" %}</th>
+            <th>{% trans "Date" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for logentry in log_data %}
+        <tr>
+            <td>{{ logentry.author }}</td>
+            <td><a href="{% url commit_view modelreference.slug logentry.node %}">{{ logentry.short_revision }}</a></td>
+            <td>{{ logentry.message }}</td>
+            <td>{{ logentry.date|date }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
-{% endblock %}
+{% endblock section_body %}

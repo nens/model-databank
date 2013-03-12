@@ -33,7 +33,7 @@ from model_databank.conf import settings
 from model_databank.forms import NewModelUploadForm
 from model_databank.models import ModelUpload, ModelReference
 from model_databank.utils import zip_model_files
-from model_databank.vcs_utils import get_log
+from model_databank.vcs_utils import get_log, get_file_tree
 
 
 def handle_uploaded_file(f):
@@ -110,4 +110,17 @@ class CommitView(DetailView):
         revision = self.kwargs.get('revision')
         log_data = get_log(object, revision)
         context['log_data'] = log_data
+        return context
+
+
+class FilesView(DetailView):
+    """Show files belonging to the ModelReference instance."""
+    model = ModelReference
+    template_name = 'model_databank/files.html'
+
+    def get_context_data(self, object, **kwargs):
+        context = super(FilesView, self).get_context_data(
+            object=object, **kwargs)
+        file_tree = get_file_tree(object)
+        context['file_tree'] = file_tree
         return context

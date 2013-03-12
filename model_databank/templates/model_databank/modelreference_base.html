@@ -1,0 +1,16 @@
+{% extends "model_databank/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+    <div class="span10">
+        <h3>{{ modelreference }}</h3>
+        <p>{{ modelreference.comment }}</p>
+        <p><strong>{% trans "To clone" %}:</strong> hg clone {{ modelreference.repository_url }}</p>
+        <a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
+        <br />
+        <h4>{% block section_title %}{% endblock section_title %}</h4>
+        {% block section_body %}{% endblock section_body %}
+    </div>
+</div>
+{% endblock %}

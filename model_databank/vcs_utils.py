@@ -99,3 +99,13 @@ def get_latest_revision(model_reference):
     revision = subprocess.check_output([settings.HG_CMD, 'id', '-i'])
     revision = revision.strip()
     return revision
+
+
+def get_file_tree(model_reference):
+    repo_path = model_reference.symlink
+    os.chdir(repo_path)
+    output = subprocess.check_output([settings.HG_CMD, 'status', '--all'])
+    raw_file_tree = output.split('\n')
+    # [2:] removes 'M ' or 'C ' from file or directory name
+    file_tree = [item[2:] for item in raw_file_tree]
+    return file_tree

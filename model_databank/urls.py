@@ -7,7 +7,6 @@ from django.conf.urls.defaults import include
 from django.conf.urls.defaults import patterns
 from django.conf.urls.defaults import url
 from django.contrib import admin
-from django.views.generic import TemplateView
 
 #from lizard_ui.urls import debugmode_urlpatterns
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -32,18 +31,16 @@ urlpatterns = patterns(
     url(r'^models/(?P<slug>[\w-]+)/commits/(?P<revision>\w+)/$',
         views.CommitView.as_view(),
         name='commit_view'),
-    url(r'^models/(?P<slug>[\w-]+)/commits/$', views.ModelReferenceDetail.as_view(),
+    url(r'^models/(?P<slug>[\w-]+)/commits/$',
+        views.ModelReferenceDetail.as_view(),
         name='model_reference_detail'),
+
+    url(r'^models/(?P<slug>[\w-]+)/files/$', views.FilesView.as_view(),
+        name='model_reference_files'),
 
 #    url(r'^ui/', include('lizard_ui.urls')),
     # url(r'^map/', include('lizard_map.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^something/',
-    #     views.some_method,
-    #     name="name_it"),
-    # url(r'^something_else/$',
-    #     views.SomeClassBasedView.as_view(),
-    #     name='name_it_too'),
     )
 #urlpatterns += debugmode_urlpatterns()
 urlpatterns += staticfiles_urlpatterns()

@@ -130,6 +130,11 @@ class ModelReference(models.Model):
         return os.path.join(settings.MODEL_DATABANK_DATA_PATH, self.uuid)
 
     @property
+    def repository_url(self):
+        return "%s/%s" % (settings.MODEL_DATABANK_REPOSITORY_URL_ROOT,
+                          self.slug)
+
+    @property
     def model_type_str(self):
         return dict(self.MODEL_TYPE_CHOICES)[self.model_type]
 

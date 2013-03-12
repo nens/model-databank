@@ -9,6 +9,7 @@ class ModelDatabankAppConf(AppConf):
     UPLOAD_PATH = "/tmp/uploads"
     ZIP_EXTRACT_PATH = "/tmp/extracted_zip_files/"
     DOWNLOAD_PATH = "/tmp/downloads"
+    REPOSITORY_URL_ROOT = 'http://127.0.0.1:8012'
 
     class Meta:
         prefix = 'model_databank'
