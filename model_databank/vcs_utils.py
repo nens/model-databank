@@ -106,6 +106,6 @@ def get_file_tree(model_reference):
     os.chdir(repo_path)
     output = subprocess.check_output([settings.HG_CMD, 'status', '--all'])
     raw_file_tree = output.split('\n')
-    # [2:] removes 'M ' or 'C ' from file or directory name
+    # item[2:] removes 'M ' or 'C ' from file or directory name
     file_tree = [item[2:] for item in raw_file_tree]
     return file_tree
