@@ -16,16 +16,17 @@ install_requires = [
     'translations',
     'django-autoslug',
     'django-staticfiles >= 1.0',
-    'factory_boy',
     'django-appconf',
     'django-crispy-forms',
     'BeautifulSoup',
+    'six',
 ],
 
 tests_require = [
     'nose',
     'coverage',
     'mock',
+    'factory_boy',
 ]
 
 setup(name='model-databank',

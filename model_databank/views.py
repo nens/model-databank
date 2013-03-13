@@ -94,7 +94,7 @@ class NavbarMixin(object):
 
     Does not include the url if the current url equals the reversed url.
     This can be used to display the active navigation link in the template.
-    
+
     """
     navbar_items = (
         (_('Commits'), 'model_reference_detail'),

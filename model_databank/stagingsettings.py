@@ -4,8 +4,8 @@ DATABASES = {
     'default': {
         'NAME': 'model_databank',
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'USER': 'postgres',
-        'PASSWORD': 'ybOQG2b6asezy1khHkGv',
+        'USER': 'threedi',
+        'PASSWORD': 'threedi',
         'HOST': 'nens-3di-db-01.nens.local',
         'PORT': '',
     },
