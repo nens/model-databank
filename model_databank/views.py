@@ -5,6 +5,7 @@ from __future__ import print_function
 import datetime
 from django.contrib import messages
 import os
+from django.core.urlresolvers import reverse
 
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse
@@ -88,14 +89,56 @@ class ModelReferenceList(ListView):
     model = ModelReference
 
 
-class ModelReferenceDetail(DetailView):
+class NavbarMixin(object):
+    """Navigation links for model reference views.
+
+    Does not include the url if the current url equals the reversed url.
+    This can be used to display the active navigation link in the template.
+    
+    """
+    navbar_items = (
+        (_('Commits'), 'model_reference_detail'),
+        (_('Files'), 'model_reference_files'),
+    )
+
+    def get_context_data(self, **kwargs):
+        context = super(NavbarMixin, self).get_context_data(**kwargs)
+        obj = self.get_object()
+        current_url = self.request.path
+        navbar_entries = []
+        for url_name, url_id in self.navbar_items:
+            navbar_entry = {'name': url_name}
+            url = reverse(url_id, kwargs={'slug': obj.slug})
+            if not url == current_url:
+                navbar_entry['url'] = url
+            navbar_entries.append(navbar_entry)
+        context['section_navbar_items'] = navbar_entries
+        return context
+
+
+class ModelReferenceBaseView(NavbarMixin, DetailView):
     model = ModelReference
 
-    def get_context_data(self, object, **kwargs):
-        context = super(ModelReferenceDetail, self).get_context_data(
-            object=object, **kwargs)
-        log_data = get_log(object)
+
+class ModelReferenceDetail(ModelReferenceBaseView):
+
+    def get_context_data(self, **kwargs):
+        context = super(ModelReferenceDetail, self).get_context_data(**kwargs)
+        obj = self.get_object()
+        log_data = get_log(obj)
         context['log_data'] = log_data
+        return context
+
+
+class FilesView(ModelReferenceBaseView):
+    """Show files belonging to the ModelReference instance."""
+    template_name = 'model_databank/files.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FilesView, self).get_context_data(**kwargs)
+        obj = self.get_object()
+        file_tree = get_file_tree(obj)
+        context['file_tree'] = file_tree
         return context
 
 
@@ -104,23 +147,13 @@ class CommitView(DetailView):
     model = ModelReference
     template_name = 'model_databank/commit_detail.html'
 
-    def get_context_data(self, object, **kwargs):
-        context = super(CommitView, self).get_context_data(
-            object=object, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(CommitView, self).get_context_data(**kwargs)
         revision = self.kwargs.get('revision')
-        log_data = get_log(object, revision)
+        obj = self.get_object()
+        log_data = get_log(obj, revision)
         context['log_data'] = log_data
         return context
 
 
-class FilesView(DetailView):
-    """Show files belonging to the ModelReference instance."""
-    model = ModelReference
-    template_name = 'model_databank/files.html'
 
-    def get_context_data(self, object, **kwargs):
-        context = super(FilesView, self).get_context_data(
-            object=object, **kwargs)
-        file_tree = get_file_tree(object)
-        context['file_tree'] = file_tree
-        return context

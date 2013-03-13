@@ -10,7 +10,13 @@
         <a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
         <div class="navbar">
             <ul class="nav">
-                {% block section_navbar %}{% endblock section_navbar %}
+            {% for navbar_entry in section_navbar_items %}
+                {% if navbar_entry.url %}
+                    <li><a href="{{ navbar_entry.url }}">{{ navbar_entry.name }}</a></li>
+                {% else %}
+                    <li class="active"><a>{{ navbar_entry.name }}</a></li>
+                {% endif %}
+            {% endfor %}
             </ul>
         </div>
     </div>

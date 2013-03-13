@@ -2,12 +2,6 @@
 {% load i18n %}
 
 {% block section_title %}{% trans "Files" %}{% endblock section_title %}
-
-{% block section_navbar %}
-<li><a href="{% url model_reference_detail modelreference.slug %}">{% trans "Commits" %}</a></li>
-<li class="active"><a>{% trans "Files" %}</a></li>
-{% endblock section_navbar %}
-
 {% block section_body %}
 <div>
     <table class="table table-striped">
