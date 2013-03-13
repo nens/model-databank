@@ -3,12 +3,22 @@
 
 {% block content %}
 <div class="row">
-    <div class="span10">
+    <div class="span12">
         <h3>{{ modelreference }}</h3>
         <p>{{ modelreference.comment }}</p>
         <p><strong>{% trans "To clone" %}:</strong> hg clone {{ modelreference.repository_url }}</p>
         <a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>
-        <br />
+        <div class="navbar">
+            <ul class="nav">
+                {% block section_navbar %}{% endblock section_navbar %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <hr/>
         <h4>{% block section_title %}{% endblock section_title %}</h4>
         {% block section_body %}{% endblock section_body %}
     </div>
