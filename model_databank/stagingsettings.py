@@ -1,4 +1,4 @@
-from model_databank.settings import *
+from model_databank.testsettings import *
 
 DATABASES = {
     'default': {
