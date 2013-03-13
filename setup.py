@@ -15,6 +15,7 @@ install_requires = [
     'django-nose',
     'translations',
     'django-autoslug',
+    'django-staticfiles >= 1.0',
     'factory_boy',
     'django-appconf',
     'django-crispy-forms',

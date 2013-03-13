@@ -42,7 +42,7 @@ SECRET_KEY = 'This is not secret but that is ok.'
 INSTALLED_APPS = [
     'model_databank',
 #    'lizard_ui',
-#    'staticfiles',
+    'staticfiles',
 #    'compressor',
     'south',
     'django_nose',
