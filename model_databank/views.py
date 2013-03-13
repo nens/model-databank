@@ -51,7 +51,9 @@ class NewModelUploadFormView(FormView):
     """Form view for uploading model files."""
     template_name = 'model_databank/upload_form.html'
     form_class = NewModelUploadForm
-    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('model_reference_list')
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
