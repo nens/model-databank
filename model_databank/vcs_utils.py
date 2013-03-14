@@ -1,4 +1,5 @@
 import os
+import logging
 import subprocess
 from datetime import datetime
 
@@ -6,6 +7,9 @@ from BeautifulSoup import BeautifulSoup as Soup
 
 from model_databank import patch
 from model_databank.conf import settings
+
+
+logger = logging.getLogger(__name__)
 
 
 def mercurial_date_to_datetime(date_str):
@@ -43,8 +47,37 @@ class MercurialLogData(object):
     def __init__(self, xml):
         soup = Soup(xml)
         root_tag = soup.find('log')
-        if root_tag.text:
-            patch_set = patch.fromstring(root_tag.text)
+        # Find a right way to parse the diff/patch (if any). root_tag.text
+        # returns all the tag texts. Probably best to use a regular
+        # expression for this. For example, everything from diff until </log>.
+        # USe patch.py for parsing the patch.
+
+        # Sample root_tag:
+        # ---------------
+        # <log>
+        # <logentry revision="1" node="fbbc56677d59ac31477148cb85655d284100a33a">
+        # <author email="sander.smits@nelen-schuurmans.nl">Sander Smits</author>
+        # <date>2013-03-13T16:43:12+01:00</date>
+        # <msg xml:space="preserve">Disable autostart</msg>
+        # <paths>
+        # <path action="M">Hillegersberg.mdu</path>
+        # </paths>
+        # </logentry>
+        # diff -r 9da59e314661 -r fbbc56677d59 Hillegersberg.mdu
+        # --- a/Hillegersberg.mdu	Wed Mar 13 15:55:18 2013 +0100
+        # +++ b/Hillegersberg.mdu	Wed Mar 13 16:43:12 2013 +0100
+        # @@ -1,7 +1,7 @@
+        # # Generated on 16:29:02, 06-02-2013
+        #
+        # [model]
+        # -AutoStart                    = 4                   # 0: NoAutoStart, 1: AutoStart, 2: AutoStartStop
+        # +AutoStart                    = 0                   # 0: NoAutoStart, 1: AutoStart, 2: AutoStartStop
+        #
+        # [geometry]
+        # WaterLevelFile               =                     # initial water level file
+        #
+        # </log>
+
         self.log_data = []
         for logentry in soup.findAll('logentry'):
             # node and revision
@@ -88,17 +121,33 @@ class MercurialLogData(object):
 def get_log(model_reference, revision=None):
     repo_path = model_reference.symlink
     os.chdir(repo_path)
-    cmd_list = [settings.HG_CMD, 'log', '--style=xml', '--patch']
+    cmd_list = [settings.HG_CMD, 'log', '--style=xml']
     if revision:
         cmd_list.append('--rev=%s' % revision)
         cmd_list.append('--patch')
-    output = subprocess.check_output(cmd_list)
-    if output.startswith('abort:'):
-        # '--patch' does not work on big files
-        cmd_list = cmd_list[:-1]  # do not include '--patch'
-        output = subprocess.check_output(cmd_list)
-    log_data = MercurialLogData(output)
-    return log_data
+    try:
+        xml = subprocess.check_output(cmd_list, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError, error:
+        # error has returncode and output fields. output is set, because
+        # stderr=subprocess.STDOUT is defined
+        if error.output.startswith('abort:'):
+            # '--patch' does not work on big files return output like:
+            # abort: /home/blabla/mercurial/templates/map-cmdline.xml:
+            # no key named '05m_20m_k4_1m.grd@fbac6436ef8a:
+            # not found in manifest'
+            try:
+                # do not include '--patch' this time
+                cmd_list = cmd_list[:-1]
+                xml = subprocess.check_output(cmd_list,
+                                                 stderr=subprocess.STDOUT)
+            except subprocess.CalledProcessError, error:
+                logger.exception("unknown error: %s" % error.output)
+            else:
+                return MercurialLogData(xml)
+        else:
+            logger.exception("unknown error: %s" % error.output)
+    else:
+        return MercurialLogData(xml)
 
 
 def get_latest_revision(model_reference):
