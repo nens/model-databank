@@ -170,11 +170,10 @@ class ModelUpload(models.Model):
         try:
             z = zipfile.ZipFile(self.file_path)
         except zipfile.BadZipfile:
-            logger.error("File is not a zip file: %s\n" %
-                         self.file_path)
+            logger.exception("File is not a zip file: %s" % self.file_path)
             return
-        except IOError, msg:
-            logger.error("%s\n" % msg)
+        except IOError:
+            logger.exception("Zip file path probably not found.")
             return
 
         extract_to = os.path.join(
@@ -209,12 +208,24 @@ class ModelUpload(models.Model):
             shutil.move(extract_to, model_reference.repository)
 
             # create symlink to the repository
-            os.symlink(model_reference.repository, model_reference.symlink)
-
-            self.model_reference = model_reference
-            self.is_processed = True
-            self.save()
-            return self
+            try:
+                os.symlink(model_reference.repository,
+                           model_reference.symlink)
+            except OSError:
+                logger.exception("Failed to create symlink for repository. "
+                                 "Could it be a Windows directory?")
+                # TODO: rollback?
+                # Call model_reference.delete(), which should be overriden.
+                # Override model_reference.delete() by setting `deleted`
+                # boolean field to True. This is done for restoring purposes.
+                # But perhaps in this case it should be deleted totally.
+                # Perhaps by creating a model
+                return
+            else:
+                self.model_reference = model_reference
+                self.is_processed = True
+                self.save()
+                return self
 
     def __unicode__(self):
         if self.model_reference:
@@ -266,7 +277,7 @@ class Version(models.Model):
     def __unicode__(self):
         if self.parent:
             return (_("%(model_reference)s (version: %(version)s "
-                    "(parent: %(parent)s))") %
+                      "(parent: %(parent)s))") %
                     {'model_reference': self.model_reference.identifier,
                      'version': self.name, 'parent': self.parent.name})
         else:

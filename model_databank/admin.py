@@ -3,12 +3,15 @@
 from __future__ import unicode_literals
 from __future__ import print_function
 import os
+import logging
 import shutil
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from model_databank import models
+
+logger = logging.getLogger(__name__)
 
 
 class ModelReferenceAdmin(admin.ModelAdmin):
@@ -39,9 +42,15 @@ class ModelUploadAdmin(admin.ModelAdmin):
     def make_processed(self, request, queryset):
         processed_count = 0
         for obj in queryset:
-            processed_obj = obj.process()
-            if processed_obj:
-                processed_count += 1
+            try:
+                processed_obj = obj.process()
+            except:
+                logger.exception("Caught unexpected exception.")
+            else:
+                if processed_obj:  # could be None in case something went wrong
+                    processed_count += 1
+                else:
+                    logger.error("Could not process %s." % obj)
         if processed_count:
             if processed_count == 1:
                 message_bit = _("1 model upload was")
