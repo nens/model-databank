@@ -20,7 +20,8 @@ class ModelReferenceAdmin(admin.ModelAdmin):
     def delete_selected(self, request, queryset):
         for model_reference in queryset:
             # remove symlink
-            os.unlink(model_reference.symlink)
+            if os.path.exists(model_reference.symlink):
+                os.unlink(model_reference.symlink)
             # remove repository
             shutil.rmtree(model_reference.repository)
             # remove object
