@@ -4,6 +4,7 @@ from datetime import datetime
 
 from BeautifulSoup import BeautifulSoup as Soup
 
+from model_databank import patch
 from model_databank.conf import settings
 
 
@@ -41,6 +42,9 @@ class MercurialLogData(object):
     """
     def __init__(self, xml):
         soup = Soup(xml)
+        root_tag = soup.find('log')
+        if root_tag.text:
+            patch_set = patch.fromstring(root_tag.text)
         self.log_data = []
         for logentry in soup.findAll('logentry'):
             # node and revision
@@ -84,11 +88,16 @@ class MercurialLogData(object):
 def get_log(model_reference, revision=None):
     repo_path = model_reference.symlink
     os.chdir(repo_path)
-    cmd_list = [settings.HG_CMD, 'log', '--style=xml']
+    cmd_list = [settings.HG_CMD, 'log', '--style=xml', '--patch']
     if revision:
         cmd_list.append('--rev=%s' % revision)
-    xml = subprocess.check_output(cmd_list)
-    log_data = MercurialLogData(xml)
+        cmd_list.append('--patch')
+    output = subprocess.check_output(cmd_list)
+    if output.startswith('abort:'):
+        # '--patch' does not work on big files
+        cmd_list = cmd_list[:-1]  # do not include '--patch'
+        output = subprocess.check_output(cmd_list)
+    log_data = MercurialLogData(output)
     return log_data
 
 
