@@ -20,6 +20,7 @@ install_requires = [
     'django-crispy-forms',
     'BeautifulSoup',
     'six',
+    'mercurial',
 ],
 
 tests_require = [
