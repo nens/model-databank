@@ -156,6 +156,3 @@ class CommitView(DetailView):
         log_data = get_log(obj, revision)
         context['log_data'] = log_data
         return context
-
-
-

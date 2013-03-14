@@ -216,7 +216,6 @@ class ModelUpload(models.Model):
             self.save()
             return self
 
-
     def __unicode__(self):
         if self.model_reference:
             return _("Upload for %(model)s (%(path)s)") % {
@@ -266,10 +265,10 @@ class Version(models.Model):
 
     def __unicode__(self):
         if self.parent:
-            return _("%(model_reference)s (version: %(version)s "
-                     "(parent: %(parent)s))") % {
-                'model_reference': self.model_reference.identifier,
-                'version': self.name, 'parent': self.parent.name}
+            return (_("%(model_reference)s (version: %(version)s "
+                    "(parent: %(parent)s))") %
+                    {'model_reference': self.model_reference.identifier,
+                     'version': self.name, 'parent': self.parent.name})
         else:
             return _("%(model_reference)s (version: %(version)s)") % {
                 'model_reference': self.model_reference.identifier,

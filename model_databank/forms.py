@@ -2,13 +2,13 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Fieldset, Submit
 
 
 class NewModelUploadForm(forms.Form):
     """Model for uploading new zipped model files."""
     upload_file = forms.FileField(required=True)
-    model_name =forms.CharField(max_length=200)
+    model_name = forms.CharField(max_length=200)
     description = forms.CharField(widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):

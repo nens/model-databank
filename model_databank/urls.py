@@ -17,10 +17,6 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-#    url(r'^$', TemplateView.as_view(
-#        template_name='model_databank/index.html'),
-#        name='index'),
-    # formerly r'^models/$'
     url(r'^$', views.ModelReferenceList.as_view(),
         name='model_reference_list'),
     url(r'^upload_new/$', views.NewModelUploadFormView.as_view(),
@@ -38,9 +34,7 @@ urlpatterns = patterns(
     url(r'^models/(?P<slug>[\w-]+)/files/$', views.FilesView.as_view(),
         name='model_reference_files'),
 
-#    url(r'^ui/', include('lizard_ui.urls')),
-    # url(r'^map/', include('lizard_map.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    )
+)
 #urlpatterns += debugmode_urlpatterns()
 urlpatterns += staticfiles_urlpatterns()
