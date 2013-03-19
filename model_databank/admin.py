@@ -15,21 +15,22 @@ logger = logging.getLogger(__name__)
 
 
 class ModelReferenceAdmin(admin.ModelAdmin):
-    list_display = ('identifier', 'model_type', 'slug', 'uuid', 'created')
+    list_display = ('identifier', 'model_type', 'slug', 'uuid', 'is_deleted',
+                    'created')
     readonly_fields = ('uuid', 'slug')
 
     actions = ['delete_selected']
 
     def delete_selected(self, request, queryset):
+        # TODO: add try block and return message if something fails
         for model_reference in queryset:
             # remove symlink
             if os.path.exists(model_reference.symlink):
                 os.unlink(model_reference.symlink)
             # remove repository
             shutil.rmtree(model_reference.repository)
-            # remove object
             model_reference.delete()
-    delete_selected.short_description = _("Delete selected model uploads")
+    delete_selected.short_description = _("Delete selected models permanently")
 
 
 class ModelUploadAdmin(admin.ModelAdmin):

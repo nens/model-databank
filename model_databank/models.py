@@ -33,6 +33,12 @@ def get_largefiles_file_paths(root_path):
     return paths
 
 
+class ActiveModelReferenceManager(models.Manager):
+    def get_query_set(self):
+        return super(ActiveModelReferenceManager, self).get_query_set().filter(
+            is_deleted=False)
+
+
 class ModelReference(models.Model):
     """
     Work in progress. Mainly sketching to get a feel with the whole matter.
@@ -88,6 +94,7 @@ class ModelReference(models.Model):
     model_type = models.IntegerField(
         verbose_name=_("model type"), choices=MODEL_TYPE_CHOICES)
 
+    # TODO: identifier should be unique for team, not globally
     identifier = models.CharField(
         verbose_name=_("unique identifier"), max_length=200, unique=True)
     slug = AutoSlugField(populate_from='identifier')
@@ -96,6 +103,11 @@ class ModelReference(models.Model):
     comment = models.CharField(max_length=255, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    is_deleted = models.BooleanField(default=False)  # handle by self.delete()
+
+    objects = models.Manager()
+    active = ActiveModelReferenceManager()
 
     def create_version(self, name, comment=None):
         versions = self.versions
@@ -143,6 +155,43 @@ class ModelReference(models.Model):
     @property
     def model_type_str(self):
         return dict(self.MODEL_TYPE_CHOICES)[self.model_type]
+
+    def safe_delete(self, *args, **kwargs):
+        """
+        'Delete' this model reference while still being restorable by removing
+        its symlink and setting the `is_deleted` field to True.
+
+        Method can be used by end users. Deleting via the admin interface
+        permanently and irreversibly deletes this instance.
+
+        """
+        if not self.is_deleted:
+            try:
+                os.unlink(self.symlink)
+            except OSError:
+                logger.exception(_("Failed to delete symlink: %s.") %
+                                 self.symlink)
+                raise
+            else:
+                self.is_deleted = True
+                self.save()
+
+    def restore(self, *args, **kwargs):
+        """
+        Restore this model reference by re-creating its symlink and setting
+        the `is_deleted` field to False.
+
+        """
+        if self.is_deleted:
+            try:
+                os.symlink(self.repository, self.symlink)
+            except OSError:
+                logger.exception("Failed to create symlink. "
+                                 "Could it be a Windows directory?")
+                raise
+            else:
+                self.is_deleted = False
+                self.save()
 
     class Meta:
         ordering = ('-created',)

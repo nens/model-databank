@@ -16,18 +16,6 @@ from django.core.servers.basehttp import FileWrapper
 
 # from model_databank import models
 
-
-# class TodoView(UiView):
-#     """Simple view without a map."""
-#     template_name = 'model_databank/todo.html'
-#     page_title = _('TODO view')
-
-
-# class Todo2View(MapView):
-#     """Simple view with a map."""
-#     template_name = 'model_databank/todo2.html'
-#     page_title = _('TODO 2 view')
-
 from django.views.generic import FormView, ListView, DetailView
 
 from model_databank.conf import settings
@@ -74,7 +62,7 @@ class NewModelUploadFormView(FormView):
 
 class ModelDownloadView(DetailView):
     """Download zip file from tip of repo."""
-    model = ModelReference
+    queryset = ModelReference.active.all()
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -88,7 +76,7 @@ class ModelDownloadView(DetailView):
 
 
 class ModelReferenceList(ListView):
-    model = ModelReference
+    queryset = ModelReference.active.all()
 
 
 class NavbarMixin(object):
@@ -119,7 +107,7 @@ class NavbarMixin(object):
 
 
 class ModelReferenceBaseView(NavbarMixin, DetailView):
-    model = ModelReference
+    queryset = ModelReference.active.all()
 
 
 class ModelReferenceDetail(ModelReferenceBaseView):
@@ -146,7 +134,7 @@ class FilesView(ModelReferenceBaseView):
 
 class CommitView(DetailView):
     """Show commit specific details."""
-    model = ModelReference
+    queryset = ModelReference.active.all()
     template_name = 'model_databank/commit_detail.html'
 
     def get_context_data(self, **kwargs):
