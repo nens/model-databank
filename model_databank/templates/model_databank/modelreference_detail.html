@@ -25,4 +25,8 @@
         </tbody>
     </table>
 </div>
+{% if log_data.patch %}
+	<h5>{% trans "diff" %}</h5>
+    <div>{{ log_data.patch }}</div>
+{% endif %}
 {% endblock section_body %}

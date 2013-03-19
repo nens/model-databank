@@ -78,6 +78,12 @@ class MercurialLogData(object):
         #
         # </log>
 
+        self.patch = None
+        if root_tag.text:
+            # TODO: PM this is not corrent see comment above
+            self.patch = root_tag.text
+            self.patch = None  # do not set for now
+
         self.log_data = []
         for logentry in soup.findAll('logentry'):
             # node and revision
