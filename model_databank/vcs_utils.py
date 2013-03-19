@@ -128,7 +128,8 @@ class MercurialLogData(object):
 def get_log(model_reference, revision=None):
     repo_path = model_reference.symlink
     os.chdir(repo_path)
-    cmd_list = [settings.HG_CMD, 'log', '--style=xml']
+    # --verbose is needed to include the paths in the xml log
+    cmd_list = [settings.HG_CMD, 'log', '--style=xml', '--verbose']
     if revision:
         cmd_list.append('--rev=%s' % revision)
         cmd_list.append('--patch')
