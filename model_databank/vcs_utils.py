@@ -112,11 +112,12 @@ class MercurialLogData(object):
             # paths
             paths = []
             paths_tag = logentry.find('paths')
-            for path in paths_tag.findAll('path'):
-                path_dict = dict(path.attrs)
-                path_dict['path'] = path.text
-                paths.append(path_dict)
-            log_dict['paths'] = paths
+            if paths_tag:
+                for path in paths_tag.findAll('path'):
+                    path_dict = dict(path.attrs)
+                    path_dict['path'] = path.text
+                    paths.append(path_dict)
+                log_dict['paths'] = paths
             self.log_data.append(log_dict)
 
     def __iter__(self):

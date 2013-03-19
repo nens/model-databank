@@ -6,11 +6,13 @@
     <li>{{ logentry.author }} ({{ logentry.author_email }})</li>
     <li>{{ logentry.date }}</li>
     <li>{{ logentry.message }}</li>
-    <li>
-        <ul>
-            {% for path in logentry.paths %}
-            <li>{{ path.action }} - {{ path.path }}</li>
-            {% endfor %}
-        </ul>
-    </li>
+    {% if logentry.paths %}
+        <li>
+            <ul>
+                {% for path in logentry.paths %}
+                <li>{{ path.action }} - {{ path.path }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endif %}
 </ul>
