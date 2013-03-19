@@ -132,7 +132,7 @@ def get_log(model_reference, revision=None):
     cmd_list = [settings.HG_CMD, 'log', '--style=xml', '--verbose']
     if revision:
         cmd_list.append('--rev=%s' % revision)
-        cmd_list.append('--patch')
+        cmd_list.append('--patch')  # must be the last argument
     try:
         xml = subprocess.check_output(cmd_list, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError, error:
