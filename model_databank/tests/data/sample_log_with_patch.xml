@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<log>
+	<logentry revision="1" node="fbbc56677d59ac31477148cb85655d284100a33a">
+		<author email="sander.smits@nelen-schuurmans.nl">Sander Smits</author>
+		<date>2013-03-13T16:43:12+01:00</date>
+		<msg xml:space="preserve">Disable autostart</msg>
+		<paths>
+			<path action="M">Hillegersberg.mdu</path>
+		</paths>
+	</logentry>
+	diff -r 9da59e314661 -r fbbc56677d59 Hillegersberg.mdu
+	--- a/Hillegersberg.mdu	Wed Mar 13 15:55:18 2013 +0100
+	+++ b/Hillegersberg.mdu	Wed Mar 13 16:43:12 2013 +0100
+	@@ -1,7 +1,7 @@
+	# Generated on 16:29:02, 06-02-2013
+
+	[model]
+	-AutoStart                    = 4                   # 0: NoAutoStart, 1: AutoStart, 2: AutoStartStop
+	+AutoStart                    = 0                   # 0: NoAutoStart, 1: AutoStart, 2: AutoStartStop
+
+	[geometry]
+	WaterLevelFile               =                     # initial water level file
+
+</log>
