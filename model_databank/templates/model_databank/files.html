@@ -1,7 +1,7 @@
 {% extends "model_databank/modelreference_base.html" %}
 {% load i18n %}
 
-{% block section_title %}{% trans "Files" %}{% endblock section_title %}
+{% block section_title %}<a href="{{ modelreference.repository_files_url }}" target="_blank">{% trans "Files" %}</a>{% endblock section_title %}
 {% block section_body %}
 <div>
     <table class="table table-striped">

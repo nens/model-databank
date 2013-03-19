@@ -131,8 +131,14 @@ class ModelReference(models.Model):
 
     @property
     def repository_url(self):
-        return "%s/%s" % (settings.MODEL_DATABANK_REPOSITORY_URL_ROOT,
-                          self.slug)
+        """Return Mercurial repository URL."""
+        url_root = settings.MODEL_DATABANK_REPOSITORY_URL_ROOT.strip('/')
+        return '/'.join([url_root, self.slug])
+
+    @property
+    def repository_files_url(self):
+        """Return Mercurial URL that shows files page."""
+        return '/'.join([self.repository_url, 'file'])
 
     @property
     def model_type_str(self):
