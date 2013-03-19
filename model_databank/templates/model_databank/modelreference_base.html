@@ -6,7 +6,7 @@
     <div class="span12">
         <h3>{{ modelreference }}</h3>
         <p>{{ modelreference.comment }}</p>
-        <p><strong>{% trans "To clone" %}:</strong> hg clone {{ modelreference.repository_url }}</p>
+        <p><strong>{% trans "To clone" %}:</strong> hg clone <a href="{{ modelreference.repository_url }}" target="_blank">{{ modelreference.repository_url }}</a></p>
         {% comment %}<a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>{% endcomment %}
         <div class="navbar">
             <ul class="nav">

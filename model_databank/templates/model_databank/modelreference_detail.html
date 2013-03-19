@@ -1,5 +1,6 @@
 {% extends "model_databank/modelreference_base.html" %}
 {% load i18n %}
+{% load model_databank_tags %}
 
 {% block section_title %}{% trans "Commit History" %}{% endblock section_title %}
 {% block section_body %}
@@ -17,7 +18,7 @@
         {% for logentry in log_data %}
         <tr>
             <td>{{ logentry.author }}</td>
-            <td><a href="{% url commit_view modelreference.slug logentry.node %}">{{ logentry.short_revision }}</a></td>
+            <td><a href="{% mercurial_commit_url modelreference logentry %}" target="_blank">{{ logentry.short_revision }}</a></td>
             <td>{{ logentry.message }}</td>
             <td>{{ logentry.date|date }}</td>
         </tr>
