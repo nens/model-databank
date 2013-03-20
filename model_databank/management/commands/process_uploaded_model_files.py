@@ -13,7 +13,6 @@ class Command(BaseCommand):
 
         if not unprocessed_model_uploads:
             sys.stdout.write("No model uploads to process.\n")
-            sys.exit(1)
 
         for model_upload in unprocessed_model_uploads:
             # (check if this is a zip file, later)
