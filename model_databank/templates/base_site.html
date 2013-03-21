@@ -1,4 +1,4 @@
-{% extends "model_databank/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block title %}{{ PROJECT_NAME }}{% block subtitle %}{% endblock %}{% endblock %}
@@ -8,7 +8,7 @@
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<link type="text/css" href="{{ STATIC_URL }}css/bootstrap/bootstrap.css" media="screen" rel="stylesheet">
+<link type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" media="screen" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}

@@ -1,20 +1,20 @@
-{% extends "model_databank/base_site.html" %}
+{% extends "base_site.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block extrastyle %}
-<style type="text/css">
-textarea {
-    width: 95%;
-    height: 130px;
-}
-</style>
+    <style type="text/css">
+        textarea {
+            width: 95%;
+            height: 130px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="span10">
-        {% crispy form %}
+    <div class="row">
+        <div class="span10">
+            {% crispy form %}
+        </div>
     </div>
-</div>
 {% endblock %}
