@@ -7,9 +7,17 @@ from crispy_forms.layout import Layout, Fieldset, Submit
 
 class NewModelUploadForm(forms.Form):
     """Model for uploading new zipped model files."""
-    upload_file = forms.FileField(required=True)
-    model_name = forms.CharField(max_length=200)
-    description = forms.CharField(widget=forms.Textarea)
+    upload_file = forms.FileField(
+        required=True, label=_("Upload ZIP file"),
+        help_text=_("Provide your model files by compressing them into "
+                    "a zip file."))
+    model_name = forms.CharField(
+        label=_("Model name"), max_length=200,
+        help_text=_("Compact but descriptive name for this model."))
+    description = forms.CharField(
+        label = _("Description"),
+        widget=forms.Textarea,
+        help_text=_("Describe as accurate as possible what this model does."))
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
