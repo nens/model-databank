@@ -18,6 +18,8 @@ from django.core.servers.basehttp import FileWrapper
 
 from django.views.generic import FormView, ListView, DetailView
 
+from braces.views import LoginRequiredMixin
+
 from model_databank.conf import settings
 from model_databank.forms import NewModelUploadForm
 from model_databank.models import ModelUpload, ModelReference
@@ -35,7 +37,7 @@ def handle_uploaded_file(f):
     return file_path
 
 
-class NewModelUploadFormView(FormView):
+class NewModelUploadFormView(LoginRequiredMixin, FormView):
     """Form view for uploading model files."""
     template_name = 'model_databank/upload_form.html'
     form_class = NewModelUploadForm

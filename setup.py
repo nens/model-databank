@@ -21,6 +21,7 @@ install_requires = [
     'BeautifulSoup',
     'six',
     'mercurial',
+    'django-braces',
 ],
 
 tests_require = [
