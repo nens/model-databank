@@ -8,8 +8,8 @@
     <table class="table table-striped">
         <thead>
         <tr>
+	        <th>#</th>
             <th>{% trans "Author" %}</th>
-            <th>{% trans "Revision" %}</th>
             <th>{% trans "Message" %}</th>
             <th>{% trans "Date" %}</th>
         </tr>
@@ -17,10 +17,18 @@
         <tbody>
         {% for logentry in log_data %}
         <tr>
+	        <td>
+		        <a href="{% mercurial_commit_url modelreference logentry %}" target="_blank">
+			        {{ logentry.revision_display_number }}
+		        </a>
+	        </td>
             <td>{{ logentry.author }}</td>
-            <td><a href="{% mercurial_commit_url modelreference logentry %}" target="_blank">{{ logentry.short_revision }}</a></td>
-            <td>{{ logentry.message }}</td>
-            <td>{{ logentry.date|date }}</td>
+            <td>
+	            <a href="{% mercurial_commit_url modelreference logentry %}" target="_blank">
+	                {{ logentry.message }}
+	            </a>
+            </td>
+            <td>{{ logentry.date|date:"SHORT_DATE_FORMAT" }}</td>
         </tr>
         {% endfor %}
         </tbody>

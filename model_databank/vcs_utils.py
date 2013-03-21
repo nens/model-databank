@@ -2,6 +2,7 @@ import os
 import logging
 import subprocess
 from datetime import datetime
+from xml.etree import ElementTree
 
 from BeautifulSoup import BeautifulSoup as Soup
 
@@ -79,16 +80,18 @@ class MercurialLogData(object):
         # </log>
 
         self.patch = None
-        if root_tag.text:
-            # TODO: PM this is not corrent see comment above
-            self.patch = root_tag.text
-            self.patch = None  # do not set for now
+        tree = ElementTree.fromstring(xml)
+        logentry_elements = [el for el in tree.iter() if el.tag=='logentry']
+        if logentry_elements:
+            last_logentry_element = logentry_elements[-1]
+            self.patch = last_logentry_element.tail.strip()
 
         self.log_data = []
         for logentry in soup.findAll('logentry'):
             # node and revision
             log_dict = dict(logentry.attrs)
             log_dict['short_revision'] = log_dict['node'][:10]
+            log_dict['revision_display_number'] = int(log_dict['revision']) + 1
 
             # tag
             tag_tag = logentry.find('tag')
