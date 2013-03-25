@@ -13,11 +13,12 @@ class NewModelUploadForm(forms.Form):
                     "a zip file."))
     model_name = forms.CharField(
         label=_("Model name"), max_length=200,
-        help_text=_("Compact but descriptive name for this model."))
+        help_text=_("Concise and descriptive name for this model."))
     description = forms.CharField(
         label = _("Description"),
         widget=forms.Textarea,
-        help_text=_("Describe as accurate as possible what this model does."))
+        help_text=_("Describe as accurately as possible what this model "
+                    "does."))
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
