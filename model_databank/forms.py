@@ -23,6 +23,7 @@ class NewModelUploadForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
+        self.helper.html5_required = True
         self.helper.layout = Layout(
             Fieldset(
                 'New model upload form',
