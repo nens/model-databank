@@ -6,7 +6,7 @@
     <div class="span12" style="border-bottom: 1px solid #ccc;">
         <h3>{{ modelreference }}</h3>
         <p>{{ modelreference.comment }}</p>
-        <p><pre>{% trans "To clone" %}:<br/>$ hg clone <a href="{{ modelreference.repository_url }}" target="_blank">{{ modelreference.repository_url }}</a></pre></p>
+        <p><pre>{% trans "To get this model on your local computer, run this command" %} <a href="#hg-info-modal" style="font-size: 9px;" role="button" data-toggle="modal">({% trans "more info" %})</a>:<br/>$ hg clone {{ modelreference.repository_url }}</pre></p>
         {% comment %}<a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>{% endcomment %}
         <hr/>
 	    <div class="navbar">
@@ -27,6 +27,65 @@
     <div class="span12">
         <h4>{% block section_title %}{% endblock section_title %}</h4>
         {% block section_body %}{% endblock section_body %}
+    </div>
+</div>
+
+{% comment %}modal html containing mercurial/hg info{% endcomment %}
+<div id="hg-info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="hg-info-modal-label" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="hg-info-modal-label">{% blocktrans %}Get this model on your computer{% endblocktrans %}</h3>
+    </div>
+    <div class="modal-body">
+	    <h4>{% blocktrans %}Download Mercurial{% endblocktrans %}</h4>
+        <p>
+            {% blocktrans %}You'll need to download Mercurial and its `hg` command to get the model files on your computer.{% endblocktrans %}
+	        {% blocktrans %}Mercurial is a version-control system that allows you to record changes made to model files.{% endblocktrans %}
+            {% blocktrans %}Also, with Mercurial you can check out previous versions of the model.{% endblocktrans %}
+	        {% blocktrans %}It can be downloaded from{% endblocktrans %} <a href="http://mercurial.selenic.com/downloads/" target="_blank">http://mercurial.selenic.com/downloads</a>.
+        </p>
+
+	    <h4>{% blocktrans %}Mercurial Quick Start{% endblocktrans %}</h4>
+	    <span>{% blocktrans %}Clone a model and push changes (run these commands from the command-line).{% endblocktrans %}</span>
+	    <p>
+	    <pre>$ hg clone {{ modelreference.repository_url }}
+$ cd {{ modelreference.slug }}
+$ ({% trans "change model file(s)" %})
+$ hg commit -m '{% trans "My changes" %}'
+$ hg push
+</pre>
+	    </p>
+
+        <h4>{% blocktrans %}Step by step{% endblocktrans %}</h4>
+        <h5>{% trans "Clone the model" %}</h5>
+        <p>
+	        <pre>$ hg clone {{ modelreference.repository_url }}</pre>
+	        {% blocktrans %}By using the clone command, the model file repository is downloaded to your computer.{% endblocktrans %}
+            {% blocktrans %}This can take awhile, depending on the size of the model and your internet connection speed.{% endblocktrans %}
+	        {% blocktrans %}Downloading the repository allows you to make incremental changes to model files.{% endblocktrans %}
+	    </p>
+
+	    <h5>{% trans "Change the model" %}</h5>
+	    <p>
+        {% blocktrans %}You can change the model files with your favorite GIS tools.{% endblocktrans %}
+        {% blocktrans %}Just make sure you save the changed files with the same name in the same directory they came from.{% endblocktrans %}
+	    </p>
+
+	    <h5>{% trans "Commit your changes" %}</h5>
+	    <p>
+		    <pre>$ hg commit -m '{% trans "My changes" %}'</pre>
+            {% blocktrans %}After you have saved your changes to the model, you'll need to commit these changes to the repository.{% endblocktrans %}
+            {% blocktrans %}Add a commit message that concisely describes the changes you made.{% endblocktrans %}
+	    </p>
+
+	    <h5>{% trans "Upload your changes" %}</h5>
+	    <p>
+		    <pre>$ hg push</pre>
+            {% blocktrans %}Upload your changes to the server by running the push command.{% endblocktrans %}
+	    </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
     </div>
 </div>
 {% endblock %}
