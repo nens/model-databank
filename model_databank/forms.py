@@ -15,7 +15,7 @@ class NewModelUploadForm(forms.Form):
         label=_("Model name"), max_length=200,
         help_text=_("Concise and descriptive name for this model."))
     description = forms.CharField(
-        label = _("Description"),
+        label=_("Description"),
         widget=forms.Textarea,
         help_text=_("Describe as accurately as possible what this model "
                     "does."))

@@ -6,7 +6,6 @@ from xml.etree import ElementTree
 
 from BeautifulSoup import BeautifulSoup as Soup
 
-from model_databank import patch
 from model_databank.conf import settings
 
 
@@ -47,7 +46,6 @@ class MercurialLogData(object):
     """
     def __init__(self, xml):
         soup = Soup(xml)
-        root_tag = soup.find('log')
         # Find a right way to parse the diff/patch (if any). root_tag.text
         # returns all the tag texts. Probably best to use a regular
         # expression for this. For example, everything from diff until </log>.
@@ -81,7 +79,7 @@ class MercurialLogData(object):
 
         self.patch = None
         tree = ElementTree.fromstring(xml)
-        logentry_elements = [el for el in tree.iter() if el.tag=='logentry']
+        logentry_elements = [el for el in tree.iter() if el.tag == 'logentry']
         if logentry_elements:
             last_logentry_element = logentry_elements[-1]
             self.patch = last_logentry_element.tail.strip()
@@ -150,7 +148,7 @@ def get_log(model_reference, revision=None):
                 # do not include '--patch' this time
                 cmd_list = cmd_list[:-1]
                 xml = subprocess.check_output(cmd_list,
-                                                 stderr=subprocess.STDOUT)
+                                              stderr=subprocess.STDOUT)
             except subprocess.CalledProcessError, error:
                 logger.exception("unknown error: %s" % error.output)
             else:
