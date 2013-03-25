@@ -6,7 +6,7 @@
     <div class="span12" style="border-bottom: 1px solid #ccc;">
         <h3>{{ modelreference }}</h3>
         <p>{{ modelreference.comment }}</p>
-        <p><pre>{% trans "To get this model on your local computer, run this command" %} <a href="#hg-info-modal" style="font-size: 9px;" role="button" data-toggle="modal">({% trans "more info" %})</a>:<br/>$ hg clone {{ modelreference.repository_url }}</pre></p>
+        <p><pre>{% trans "To get this model on your local computer, run this command" %} <a href="#hg-info-modal" style="font-size: 9px;" role="button" data-toggle="modal">({% trans "more info" %})</a>:<br/>$ hg clone <a href="{{ modelreference.repository_url }}" target="_blank">{{ modelreference.repository_url }}</a></pre></p>
         {% comment %}<a href="{% url model_reference_download modelreference.slug %}" style="float: right;" class="btn btn-primary">{% trans "Download" %}</a>{% endcomment %}
         <hr/>
 	    <div class="navbar">
