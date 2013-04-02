@@ -1,5 +1,7 @@
 from django import template
+from django.contrib.auth.models import User
 from django.template import Node, TemplateSyntaxError
+
 
 from model_databank.conf import settings
 
@@ -37,3 +39,20 @@ def mercurial_commit_url(parser, token):
     log_entry = parser.compile_filter(bits[2])
 
     return MercurialCommitNode(model_reference, log_entry)
+
+
+@register.filter
+def pretty_user(user):
+    """
+    Filter for pretty printing user instances. Checks for first and last name
+    and uses those if available. Falls back on username.
+
+    """
+    if not isinstance(user, User):
+        raise TemplateSyntaxError("pretty_user filter expects an "
+                                  "django.contrib.auth.models.USer instance")
+    if user.first_name and user.last_name:
+        return user.get_full_name()
+    else:
+        return user.username
+
