@@ -54,8 +54,8 @@ class NewModelUploadFormView(LoginRequiredMixin, FormView):
         identifier = form.cleaned_data.get('model_name')
         description = form.cleaned_data.get('description')
         model_upload = ModelUpload(
-            identifier=identifier, description=description,
-            file_path=file_path)
+            uploaded_by=self.request.user, identifier=identifier,
+            description=description, file_path=file_path)
         model_upload.save()
         messages.info(self.request, _("Upload succeeded. Data will be "
                                       "processed soon."))

@@ -90,6 +90,8 @@ class ModelReference(models.Model):
         (THREEDI_MODEL_TYPE_ID, '3Di'),
     )
 
+    owner = models.ForeignKey('auth.User', null=True)
+
     # TODO: consider renaming model_type, possible options: type, ?
     model_type = models.IntegerField(
         verbose_name=_("model type"), choices=MODEL_TYPE_CHOICES)
@@ -207,6 +209,8 @@ class ModelUpload(models.Model):
     model_reference = models.ForeignKey(
         ModelReference, related_name='uploads', null=True)
 
+    uploaded_by = models.ForeignKey('auth.User', null=True)
+
     # identifier is used for new model files uploads
     identifier = models.CharField(
         verbose_name=_("unique identifier"), max_length=200, blank=True)
@@ -256,6 +260,7 @@ class ModelUpload(models.Model):
             model_reference = ModelReference(
                 # for now, assume 3Di
                 model_type=ModelReference.THREEDI_MODEL_TYPE_ID,
+                owner=self.uploaded_by,
                 identifier=self.identifier,
                 comment=self.description)
             model_reference.save()
