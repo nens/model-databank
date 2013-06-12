@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.3 (unreleased)
+0.3 (2013-06-12)
 ----------------
 
 - Add api.html template. 
