@@ -5,7 +5,7 @@ Changelog of model-databank
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add api.html template. 
 
 
 0.2 (2013-06-12)
