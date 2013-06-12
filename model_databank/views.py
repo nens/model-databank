@@ -23,8 +23,12 @@ from braces.views import LoginRequiredMixin
 from model_databank.conf import settings
 from model_databank.forms import NewModelUploadForm
 from model_databank.models import ModelUpload, ModelReference
+from model_databank.serializers import ModelReferenceSerializer
 from model_databank.utils import zip_model_files
 from model_databank.vcs_utils import get_log, get_file_tree
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 def handle_uploaded_file(f):
@@ -146,3 +150,15 @@ class CommitView(DetailView):
         log_data = get_log(obj, revision)
         context['log_data'] = log_data
         return context
+
+
+# rest framework views
+class ApiModelReferenceList(APIView):
+    """
+    API view for handling active model references snippets.
+
+    """
+    def get(self, request, format=None):
+        model_references = ModelReference.active.all()
+        serializer = ModelReferenceSerializer(model_references)
+        return Response(serializer.data)

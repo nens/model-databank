@@ -22,6 +22,7 @@ install_requires = [
     'six',
     'mercurial',
     'django-braces',
+    'django-rest-framework',
 ],
 
 tests_require = [

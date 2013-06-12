@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
 
     'crispy_forms',
+    'rest_framework',
 ]
 ROOT_URLCONF = 'model_databank.urls'
 
