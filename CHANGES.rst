@@ -7,6 +7,8 @@ Changelog of model-databank
 
 - Add API for model reference list. 
 
+- Fix installation of django-rest-framework.
+
 
 0.1 (2013-06-12)
 ----------------
