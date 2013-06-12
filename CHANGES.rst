@@ -5,7 +5,7 @@ Changelog of model-databank
 0.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add API for model reference list. 
 
 
 0.1 (2013-06-12)
