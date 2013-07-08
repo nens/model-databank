@@ -102,7 +102,6 @@ class ModelReference(models.Model):
     slug = AutoSlugField(populate_from='identifier')
     uuid = UUIDField()
 
-    comment = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
