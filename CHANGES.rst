@@ -5,19 +5,22 @@ Changelog of model-databank
 0.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add ModelReference.description field to accomodate for
+  ModelUpload.description field.
+
+- Remove ModelReference.comment field.
 
 
 0.3 (2013-06-12)
 ----------------
 
-- Add api.html template. 
+- Add api.html template.
 
 
 0.2 (2013-06-12)
 ----------------
 
-- Add API for model reference list. 
+- Add API for model reference list.
 
 - Fix installation of django-rest-framework.
 
