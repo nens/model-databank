@@ -103,6 +103,7 @@ class ModelReference(models.Model):
     uuid = UUIDField()
 
     comment = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
 
@@ -262,7 +263,7 @@ class ModelUpload(models.Model):
                 model_type=ModelReference.THREEDI_MODEL_TYPE_ID,
                 owner=self.uploaded_by,
                 identifier=self.identifier,
-                comment=self.description)
+                description=self.description)
             model_reference.save()
 
             shutil.move(extract_to, model_reference.repository)
