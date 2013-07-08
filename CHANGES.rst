@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.4 (unreleased)
+0.4 (2013-07-08)
 ----------------
 
 - Add ModelReference.description field to accomodate for
