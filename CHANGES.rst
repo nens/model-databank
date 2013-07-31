@@ -5,7 +5,7 @@ Changelog of model-databank
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix file list.
 
 
 0.4 (2013-07-08)

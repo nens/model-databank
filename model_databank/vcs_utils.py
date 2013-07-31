@@ -2,6 +2,7 @@ import os
 import logging
 import subprocess
 from datetime import datetime
+from operator import itemgetter
 from xml.etree import ElementTree
 
 from BeautifulSoup import BeautifulSoup as Soup
@@ -168,11 +169,51 @@ def get_latest_revision(model_reference):
     return revision
 
 
+def parse_file_line(line):
+    """
+    Command `hg manifest --rev=tip -v` returns something like this:
+    644   .hglf/kaapstad_warp.asc
+    644   .hglf/kaapstad_warp_deflate.tif
+    644   CROPFACT
+    644   CROP_OW.PRN
+    644   EVAPOR.GEM
+    644   Kaapstad.mdu
+    644   ROOT_SIM.INP
+    644   UNSA_SIM.INP
+    644   diepriver.pol
+    644   subgrid.ini
+
+    Parse lines into:
+      - permissions, e.g. 644
+      - filename, e.g. kaapstad_warp.asc
+      - is_largefile, e.g. True
+
+    """
+    permissions = line[:3]
+    rest = line[3:].strip()
+    if rest.startswith('.hglf/'):
+        is_largefile = True
+        filename = rest[6:]
+    else:
+        is_largefile = False
+        filename = rest
+    file_data = {'permissions': permissions, 'filename': filename,
+                 'is_largefile': is_largefile}
+    return file_data
+
+
 def get_file_tree(model_reference):
     repo_path = model_reference.symlink
     os.chdir(repo_path)
-    output = subprocess.check_output([settings.HG_CMD, 'status', '--all'])
+    output = subprocess.check_output([settings.HG_CMD, 'manifest',
+                                      '--rev=tip', '-v'])
     raw_file_tree = output.split('\n')
-    # item[2:] removes 'M ' or 'C ' from file or directory name
-    file_tree = [item[2:] for item in raw_file_tree]
+    file_tree = []
+    for line in raw_file_tree:
+        line = line.strip()
+        if line:
+            file_data = parse_file_line(line)
+            file_tree.append(file_data)
+    # sort by filename
+    file_tree = sorted(file_tree, key=itemgetter('filename'))
     return file_tree
