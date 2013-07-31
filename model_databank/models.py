@@ -9,6 +9,7 @@ import zipfile
 import logging
 
 from django.db import models
+from django.template import loader, Context
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -18,7 +19,7 @@ from model_databank.db.fields import UUIDField
 
 logger = logging.getLogger(__name__)
 
-HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc')
+HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc', 'tif')
 
 
 def get_largefiles_file_paths(root_path):
@@ -31,6 +32,16 @@ def get_largefiles_file_paths(root_path):
             if f[-3:].lower() in HG_LARGEFILES_EXTENSIONS:
                 paths.append(os.path.join(root, f))
     return paths
+
+
+def add_hgignore_file(root_path):
+    hgignore_path = os.path.join(root_path, '.hgignore')
+    hgignore_file = open(hgignore_path, 'w')
+    template = loader.get_template('model_databank/hgignore.txt')
+    context = Context()
+    hgignore_text = template.render(context)
+    hgignore_file.write(hgignore_text)
+    hgignore_file.close()
 
 
 class ActiveModelReferenceManager(models.Manager):
@@ -244,6 +255,8 @@ class ModelUpload(models.Model):
             # convert to hg repo
             os.chdir(extract_to)
             subprocess.call([settings.HG_CMD, 'init'])
+            # add the .hgignore file
+            add_hgignore_file(extract_to)
             # loop through files and add files from largefiles extensions
             largefiles_file_paths = get_largefiles_file_paths(extract_to)
             for fp in largefiles_file_paths:
