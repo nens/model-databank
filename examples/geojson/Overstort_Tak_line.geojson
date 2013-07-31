@@ -1,0 +1,26 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 1, "properties": { "PK_UID": 1, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1500DK11", "ide_gb2": "  ", "ide_kn2": "1500DK11A", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 113271.30000000075, 568029.9 ], [ 113283.5, 568031.9 ] ] } }
+,
+{ "type": "Feature", "id": 2, "properties": { "PK_UID": 2, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1760BG21", "ide_gb2": "  ", "ide_kn2": "ovs_1", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 113769.4, 565729.5 ], [ 113806.2, 565740.60000000149 ] ] } }
+,
+{ "type": "Feature", "id": 3, "properties": { "PK_UID": 3, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1330DH02", "ide_gb2": "  ", "ide_kn2": "ovs_2", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 112307.5, 559797.2 ], [ 112314.4, 559792.60000000149 ] ] } }
+,
+{ "type": "Feature", "id": 4, "properties": { "PK_UID": 4, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1160DC14", "ide_gb2": "  ", "ide_kn2": "ovs_3", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 120802.80000000075, 574731.30000000075 ], [ 120817.10000000149, 574749.2 ] ] } }
+,
+{ "type": "Feature", "id": 5, "properties": { "PK_UID": 5, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "0120US02", "ide_gb2": "  ", "ide_kn2": "ovs_uit_3", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 115011.4, 562675.60000000149 ], [ 115013.4, 562666.80000000075 ] ] } }
+,
+{ "type": "Feature", "id": 6, "properties": { "PK_UID": 6, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "0340TH19", "ide_gb2": "  ", "ide_kn2": "ovs_uit_4", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 114627.0, 557858.0 ], [ 114621.5, 557860.5 ] ] } }
+,
+{ "type": "Feature", "id": 7, "properties": { "PK_UID": 7, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1770BG02", "ide_gb2": "  ", "ide_kn2": "ovs_uit_5", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 116841.0, 569411.60000000149 ], [ 116845.60000000149, 569410.10000000149 ] ] } }
+,
+{ "type": "Feature", "id": 8, "properties": { "PK_UID": 8, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "0220DK05", "ide_gb2": "  ", "ide_kn2": "0220DK5A", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 113279.9, 567279.7 ], [ 113290.7, 567273.4 ] ] } }
+,
+{ "type": "Feature", "id": 9, "properties": { "PK_UID": 9, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "0311OS05", "ide_gb2": "  ", "ide_kn2": "0311OS06", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 118326.5, 560953.10000000149 ], [ 118326.30000000075, 560957.60000000149 ] ] } }
+,
+{ "type": "Feature", "id": 10, "properties": { "PK_UID": 10, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "0220DK06", "ide_gb2": "  ", "ide_kn2": "0220DK6A", "num_mvb": 1, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "0 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 113278.5, 567276.60000000149 ], [ 113290.10000000149, 567270.60000000149 ] ] } }
+
+]
+}

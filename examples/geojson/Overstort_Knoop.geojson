@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 1, "properties": { "PK_UID": 1, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1230OO03", "ide_gb2": "  ", "num_mvb": 0, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "1 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "Point", "coordinates": [ 121929.0, 568053.30000000075 ] } }
+,
+{ "type": "Feature", "id": 2, "properties": { "PK_UID": 2, "opmerking": "  ", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1580OE1A", "ide_gb2": "  ", "num_mvb": 0, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "1 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "Point", "coordinates": [ 121020.60000000149, 566819.10000000149 ] } }
+,
+{ "type": "Feature", "id": 3, "properties": { "PK_UID": 3, "opmerking": "1750.01. 1972", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "1750DW05A", "ide_gb2": "  ", "num_mvb": 0, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "1 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "Point", "coordinates": [ 117007.60000000149, 565525.0 ] } }
+,
+{ "type": "Feature", "id": 4, "properties": { "PK_UID": 4, "opmerking": "0700.01. 1972", "ide_rec": "*OVS", "ide_gb1": "  ", "ide_kn1": "0700DW15", "ide_gb2": "  ", "num_mvb": 0, "ovs_bre": null, "ovs_niv": null, "ovs_coe": null, "str_rch": "1 ", "bws_gem": null, "bws_zom": null, "bws_win": null, "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "Point", "coordinates": [ 117380.7, 565168.2 ] } }
+
+]
+}

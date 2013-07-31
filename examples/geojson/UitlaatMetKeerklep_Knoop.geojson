@@ -1,0 +1,198 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 1, "properties": { "PK_UID": 1, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0010DB11", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115736.2, 564002.60000000149 ] } }
+,
+{ "type": "Feature", "id": 2, "properties": { "PK_UID": 2, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "00200DK24", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113848.30000000075, 568706.4 ] } }
+,
+{ "type": "Feature", "id": 3, "properties": { "PK_UID": 3, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0070OE16", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120962.4, 566461.9 ] } }
+,
+{ "type": "Feature", "id": 4, "properties": { "PK_UID": 4, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0095OS06", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118671.9, 561871.0 ] } }
+,
+{ "type": "Feature", "id": 5, "properties": { "PK_UID": 5, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0130DB5A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115271.80000000075, 563822.80000000075 ] } }
+,
+{ "type": "Feature", "id": 6, "properties": { "PK_UID": 6, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "01935DC15", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120212.0, 574328.10000000149 ] } }
+,
+{ "type": "Feature", "id": 7, "properties": { "PK_UID": 7, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0200DK09", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113176.60000000149, 568308.10000000149 ] } }
+,
+{ "type": "Feature", "id": 8, "properties": { "PK_UID": 8, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02266DB26A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114914.2, 563015.80000000075 ] } }
+,
+{ "type": "Feature", "id": 9, "properties": { "PK_UID": 9, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02266DB40A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114916.0, 563188.5 ] } }
+,
+{ "type": "Feature", "id": 10, "properties": { "PK_UID": 10, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0250DK12A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113082.5, 567981.80000000075 ] } }
+,
+{ "type": "Feature", "id": 11, "properties": { "PK_UID": 11, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0250DB17A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113131.2, 567970.10000000149 ] } }
+,
+{ "type": "Feature", "id": 12, "properties": { "PK_UID": 12, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG01H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116689.60000000149, 571437.4 ] } }
+,
+{ "type": "Feature", "id": 13, "properties": { "PK_UID": 13, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG10H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116746.80000000075, 571396.30000000075 ] } }
+,
+{ "type": "Feature", "id": 14, "properties": { "PK_UID": 14, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG13H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116801.4, 571356.9 ] } }
+,
+{ "type": "Feature", "id": 15, "properties": { "PK_UID": 15, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG19H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116624.10000000149, 571101.80000000075 ] } }
+,
+{ "type": "Feature", "id": 16, "properties": { "PK_UID": 16, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG33H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116671.60000000149, 571064.10000000149 ] } }
+,
+{ "type": "Feature", "id": 17, "properties": { "PK_UID": 17, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG31H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116873.10000000149, 571263.4 ] } }
+,
+{ "type": "Feature", "id": 18, "properties": { "PK_UID": 18, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02640BG45H", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116625.7, 570950.0 ] } }
+,
+{ "type": "Feature", "id": 19, "properties": { "PK_UID": 19, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "02694DH09", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 112454.0, 559782.10000000149 ] } }
+,
+{ "type": "Feature", "id": 20, "properties": { "PK_UID": 20, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0320DB01A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115758.60000000149, 563658.2 ] } }
+,
+{ "type": "Feature", "id": 21, "properties": { "PK_UID": 21, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0320DB27", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115866.7, 563674.10000000149 ] } }
+,
+{ "type": "Feature", "id": 22, "properties": { "PK_UID": 22, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0331OS33", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118644.0, 561441.10000000149 ] } }
+,
+{ "type": "Feature", "id": 23, "properties": { "PK_UID": 23, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0331OS34", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118586.0, 561311.2 ] } }
+,
+{ "type": "Feature", "id": 24, "properties": { "PK_UID": 24, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0332OE23", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120521.4, 566852.60000000149 ] } }
+,
+{ "type": "Feature", "id": 25, "properties": { "PK_UID": 25, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0340TH17", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114755.80000000075, 557729.2 ] } }
+,
+{ "type": "Feature", "id": 26, "properties": { "PK_UID": 26, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0365DB22", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116110.60000000149, 563460.60000000149 ] } }
+,
+{ "type": "Feature", "id": 27, "properties": { "PK_UID": 27, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0365DB16", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116177.7, 563543.9 ] } }
+,
+{ "type": "Feature", "id": 28, "properties": { "PK_UID": 28, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0380DK34", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113579.2, 567521.10000000149 ] } }
+,
+{ "type": "Feature", "id": 29, "properties": { "PK_UID": 29, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0419DB28", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116090.80000000075, 563486.10000000149 ] } }
+,
+{ "type": "Feature", "id": 30, "properties": { "PK_UID": 30, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0450DB19", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115352.10000000149, 562787.2 ] } }
+,
+{ "type": "Feature", "id": 31, "properties": { "PK_UID": 31, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0455DB03C", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115423.80000000075, 562815.4 ] } }
+,
+{ "type": "Feature", "id": 32, "properties": { "PK_UID": 32, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0455DB07A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115488.60000000149, 562847.5 ] } }
+,
+{ "type": "Feature", "id": 33, "properties": { "PK_UID": 33, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0455DB32", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115388.9, 562788.80000000075 ] } }
+,
+{ "type": "Feature", "id": 34, "properties": { "PK_UID": 34, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0630OS21", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118446.7, 561673.9 ] } }
+,
+{ "type": "Feature", "id": 35, "properties": { "PK_UID": 35, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0670DB25", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115950.5, 564134.10000000149 ] } }
+,
+{ "type": "Feature", "id": 36, "properties": { "PK_UID": 36, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0920DB26", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115498.9, 563002.5 ] } }
+,
+{ "type": "Feature", "id": 37, "properties": { "PK_UID": 37, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0970DC12", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120823.60000000149, 574684.2 ] } }
+,
+{ "type": "Feature", "id": 38, "properties": { "PK_UID": 38, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0990DH15", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 111745.30000000075, 560058.4 ] } }
+,
+{ "type": "Feature", "id": 39, "properties": { "PK_UID": 39, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1160DC01", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120269.5, 574671.2 ] } }
+,
+{ "type": "Feature", "id": 40, "properties": { "PK_UID": 40, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1060OE13", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 121020.10000000149, 566817.4 ] } }
+,
+{ "type": "Feature", "id": 41, "properties": { "PK_UID": 41, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1075OS6A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118679.30000000075, 561872.2 ] } }
+,
+{ "type": "Feature", "id": 42, "properties": { "PK_UID": 42, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1075OS8A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118681.5, 561872.10000000149 ] } }
+,
+{ "type": "Feature", "id": 43, "properties": { "PK_UID": 43, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1090OS20", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 119176.4, 562131.60000000149 ] } }
+,
+{ "type": "Feature", "id": 44, "properties": { "PK_UID": 44, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1090DC22", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 119214.60000000149, 562143.10000000149 ] } }
+,
+{ "type": "Feature", "id": 45, "properties": { "PK_UID": 45, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1090OS28", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 119126.60000000149, 562118.9 ] } }
+,
+{ "type": "Feature", "id": 46, "properties": { "PK_UID": 46, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1160DC27A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120404.0, 574690.2 ] } }
+,
+{ "type": "Feature", "id": 47, "properties": { "PK_UID": 47, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1160DC28A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120422.5, 574692.5 ] } }
+,
+{ "type": "Feature", "id": 48, "properties": { "PK_UID": 48, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1160DC32A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120608.60000000149, 574717.5 ] } }
+,
+{ "type": "Feature", "id": 49, "properties": { "PK_UID": 49, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1160DC35A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120736.0, 574734.60000000149 ] } }
+,
+{ "type": "Feature", "id": 50, "properties": { "PK_UID": 50, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1250DB06A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115629.10000000149, 563807.80000000075 ] } }
+,
+{ "type": "Feature", "id": 51, "properties": { "PK_UID": 51, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1330DH10", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 112314.7, 559793.4 ] } }
+,
+{ "type": "Feature", "id": 52, "properties": { "PK_UID": 52, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1500DK29", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113405.30000000075, 568214.60000000149 ] } }
+,
+{ "type": "Feature", "id": 53, "properties": { "PK_UID": 53, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1500DK40B", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113411.4, 568170.10000000149 ] } }
+,
+{ "type": "Feature", "id": 54, "properties": { "PK_UID": 54, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1500DK47", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113533.2, 568220.9 ] } }
+,
+{ "type": "Feature", "id": 55, "properties": { "PK_UID": 55, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1610DK31", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113092.10000000149, 567391.80000000075 ] } }
+,
+{ "type": "Feature", "id": 56, "properties": { "PK_UID": 56, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1610DK34", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113161.60000000149, 567587.2 ] } }
+,
+{ "type": "Feature", "id": 57, "properties": { "PK_UID": 57, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1610DK42", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113071.80000000075, 567282.80000000075 ] } }
+,
+{ "type": "Feature", "id": 58, "properties": { "PK_UID": 58, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1920OS2A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118519.7, 561750.2 ] } }
+,
+{ "type": "Feature", "id": 59, "properties": { "PK_UID": 59, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1920OS30", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118826.10000000149, 561799.5 ] } }
+,
+{ "type": "Feature", "id": 60, "properties": { "PK_UID": 60, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1920OS27", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118844.4, 561799.5 ] } }
+,
+{ "type": "Feature", "id": 61, "properties": { "PK_UID": 61, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1930DB09A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115750.10000000149, 563808.4 ] } }
+,
+{ "type": "Feature", "id": 62, "properties": { "PK_UID": 62, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1960DB18", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114916.7, 563277.5 ] } }
+,
+{ "type": "Feature", "id": 63, "properties": { "PK_UID": 63, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1980DB27", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115946.2, 563924.7 ] } }
+,
+{ "type": "Feature", "id": 64, "properties": { "PK_UID": 64, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1980DB26", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115985.9, 563850.7 ] } }
+,
+{ "type": "Feature", "id": 65, "properties": { "PK_UID": 65, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2030OE13", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120916.9, 566923.10000000149 ] } }
+,
+{ "type": "Feature", "id": 66, "properties": { "PK_UID": 66, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2045DB37", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115826.9, 563642.9 ] } }
+,
+{ "type": "Feature", "id": 67, "properties": { "PK_UID": 67, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2080DB18", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115629.10000000149, 564020.2 ] } }
+,
+{ "type": "Feature", "id": 68, "properties": { "PK_UID": 68, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2140DH17", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 112450.80000000075, 559929.0 ] } }
+,
+{ "type": "Feature", "id": 69, "properties": { "PK_UID": 69, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2140DH18", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 112457.4, 559931.10000000149 ] } }
+,
+{ "type": "Feature", "id": 70, "properties": { "PK_UID": 70, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2145DB10", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116002.30000000075, 563848.2 ] } }
+,
+{ "type": "Feature", "id": 71, "properties": { "PK_UID": 71, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2220OS25", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118687.30000000075, 561162.80000000075 ] } }
+,
+{ "type": "Feature", "id": 72, "properties": { "PK_UID": 72, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2245DB06", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115856.5, 563521.80000000075 ] } }
+,
+{ "type": "Feature", "id": 73, "properties": { "PK_UID": 73, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2285OS2A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118931.2, 562025.60000000149 ] } }
+,
+{ "type": "Feature", "id": 74, "properties": { "PK_UID": 74, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2285OS16B", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118589.60000000149, 561991.10000000149 ] } }
+,
+{ "type": "Feature", "id": 75, "properties": { "PK_UID": 75, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2300DB21", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114702.2, 563731.10000000149 ] } }
+,
+{ "type": "Feature", "id": 76, "properties": { "PK_UID": 76, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2340DB01", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115764.4, 563842.80000000075 ] } }
+,
+{ "type": "Feature", "id": 77, "properties": { "PK_UID": 77, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2380DB14", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115621.10000000149, 563812.4 ] } }
+,
+{ "type": "Feature", "id": 78, "properties": { "PK_UID": 78, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2430DK08A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113433.0, 568555.30000000075 ] } }
+,
+{ "type": "Feature", "id": 79, "properties": { "PK_UID": 79, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2550DB04", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115863.5, 563510.10000000149 ] } }
+,
+{ "type": "Feature", "id": 80, "properties": { "PK_UID": 80, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2560DK11", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113446.4, 568322.2 ] } }
+,
+{ "type": "Feature", "id": 81, "properties": { "PK_UID": 81, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2590OS19", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118692.80000000075, 561356.10000000149 ] } }
+,
+{ "type": "Feature", "id": 82, "properties": { "PK_UID": 82, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2650DB21", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114860.10000000149, 563813.9 ] } }
+,
+{ "type": "Feature", "id": 83, "properties": { "PK_UID": 83, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2660DK13A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113420.30000000075, 568273.2 ] } }
+,
+{ "type": "Feature", "id": 84, "properties": { "PK_UID": 84, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2660DK14A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113429.9, 568275.2 ] } }
+,
+{ "type": "Feature", "id": 85, "properties": { "PK_UID": 85, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2140DH25", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 112519.30000000075, 559859.2 ] } }
+,
+{ "type": "Feature", "id": 86, "properties": { "PK_UID": 86, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "1500DK11A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113283.5, 568031.9 ] } }
+,
+{ "type": "Feature", "id": 87, "properties": { "PK_UID": 87, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "ovs_1", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113806.2, 565740.60000000149 ] } }
+,
+{ "type": "Feature", "id": 88, "properties": { "PK_UID": 88, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "ovs_2", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 112314.4, 559792.60000000149 ] } }
+,
+{ "type": "Feature", "id": 89, "properties": { "PK_UID": 89, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "ovs_3", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 120817.10000000149, 574749.2 ] } }
+,
+{ "type": "Feature", "id": 90, "properties": { "PK_UID": 90, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "ovs_uit_3", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115013.4, 562666.80000000075 ] } }
+,
+{ "type": "Feature", "id": 91, "properties": { "PK_UID": 91, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "ovs_uit_4", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 114621.5, 557860.5 ] } }
+,
+{ "type": "Feature", "id": 92, "properties": { "PK_UID": 92, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "ovs_uit_5", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 116845.60000000149, 569410.10000000149 ] } }
+,
+{ "type": "Feature", "id": 93, "properties": { "PK_UID": 93, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0220DK5A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113290.7, 567273.4 ] } }
+,
+{ "type": "Feature", "id": 94, "properties": { "PK_UID": 94, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0311OS06", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 118326.30000000075, 560957.60000000149 ] } }
+,
+{ "type": "Feature", "id": 95, "properties": { "PK_UID": 95, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "0220DK6A", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 113290.10000000149, 567270.60000000149 ] } }
+,
+{ "type": "Feature", "id": 96, "properties": { "PK_UID": 96, "opmerking": "  ", "ide_rec": "*UIT", "ide_gb1": "  ", "ide_kn1": "2 ", "ide_gb2": "  ", "num_mvb": 0, "bws_gem": null, "bws_zom": null, "bws_win": null }, "geometry": { "type": "Point", "coordinates": [ 115395.7, 562794.0 ] } }
+
+]
+}
