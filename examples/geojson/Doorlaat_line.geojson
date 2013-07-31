@@ -2,9 +2,9 @@
 "type": "FeatureCollection",
                                                                                 
 "features": [
-{ "type": "Feature", "id": 1, "properties": { "PK_UID": 1, "opmerking": "  ", "ide_rec": "*DRL", "ide_gb1": "  ", "ide_kn1": "0450DB05", "ide_gb2": "  ", "ide_kn2": "0920DB08", "num_mvb": 1, "pro_bre": null, "pro_hgt": null, "pro_vrm": "02", "pro_bok": null, "drl_coe": null, "drl_cap": null, "str_rch": "1 ", "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 115451.2, 563011.4 ], [ 115451.5, 563013.2 ] ] } }
+{ "type": "Feature", "id": 1, "properties": { "PK_UID": 1, "opmerking": "  ", "ide_rec": "*DRL", "ide_gb1": "  ", "ide_kn1": "0450DB05", "ide_gb2": "  ", "ide_kn2": "0920DB08", "num_mvb": 1, "pro_bre": null, "pro_hgt": null, "pro_vrm": "02", "pro_bok": null, "drl_coe": null, "drl_cap": null, "str_rch": "1 ", "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 4.797395321490615, 53.052528059339686 ], [ 4.797399575836448, 53.052544255500244 ] ] } }
 ,
-{ "type": "Feature", "id": 2, "properties": { "PK_UID": 2, "opmerking": "  ", "ide_rec": "*DRL", "ide_gb1": "  ", "ide_kn1": "1110DH04", "ide_gb2": "  ", "ide_kn2": "1440DH10", "num_mvb": 1, "pro_bre": null, "pro_hgt": null, "pro_vrm": "02", "pro_bok": null, "drl_coe": null, "drl_cap": null, "str_rch": "1 ", "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 112275.10000000149, 559895.80000000075 ], [ 112282.4, 559870.2 ] ] } }
+{ "type": "Feature", "id": 2, "properties": { "PK_UID": 2, "opmerking": "  ", "ide_rec": "*DRL", "ide_gb1": "  ", "ide_kn1": "1110DH04", "ide_gb2": "  ", "ide_kn2": "1440DH10", "num_mvb": 1, "pro_bre": null, "pro_hgt": null, "pro_vrm": "02", "pro_bok": null, "drl_coe": null, "drl_cap": null, "str_rch": "1 ", "qdh_num": "  ", "qdh_niv": null }, "geometry": { "type": "LineString", "coordinates": [ [ 4.750441337027388, 53.024289813433406 ], [ 4.750553495290098, 53.024060360067431 ] ] } }
 
 ]
 }
