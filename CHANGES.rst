@@ -7,6 +7,8 @@ Changelog of model-databank
 
 - Fix file list.
 
+- Create a bare repository when creating a new repository.
+
 
 0.4 (2013-07-08)
 ----------------
