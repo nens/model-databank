@@ -268,6 +268,8 @@ class ModelUpload(models.Model):
             subprocess.call([settings.HG_CMD, 'add'])
             subprocess.call([settings.HG_CMD, 'commit', '-m',
                              'Initial commit.'])
+            # make it a bare repository (i.e. without a working copy)
+            subprocess.call([settings.HG_CMD, 'update', 'null'])
             # if we got here, create a ModelReference with uuid for the
             # repo dir naming
             model_reference = ModelReference(
