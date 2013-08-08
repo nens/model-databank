@@ -26,7 +26,7 @@ class NewModelUploadForm(forms.Form):
         self.helper.html5_required = True
         self.helper.layout = Layout(
             Fieldset(
-                'New model upload form',
+                _('Model upload form'),
                 'model_name',
                 'description',
                 'upload_file',
