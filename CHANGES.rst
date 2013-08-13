@@ -9,6 +9,8 @@ Changelog of model-databank
 
 - Create a bare repository when creating a new repository.
 
+- Restrict uploading a new model by requiring a permission.
+
 
 0.4 (2013-07-08)
 ----------------

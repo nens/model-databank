@@ -3,12 +3,14 @@
 from __future__ import unicode_literals
 from __future__ import print_function
 import datetime
-from django.contrib import messages
 import os
+
+from django.contrib import messages
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.core.urlresolvers import reverse
 
 from django.utils.translation import ugettext as _
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.servers.basehttp import FileWrapper
 # from django.core.urlresolvers import reverse
 # from lizard_map.views import MapView
@@ -18,7 +20,7 @@ from django.core.servers.basehttp import FileWrapper
 
 from django.views.generic import FormView, ListView, DetailView
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from model_databank.conf import settings
 from model_databank.forms import NewModelUploadForm
@@ -41,8 +43,40 @@ def handle_uploaded_file(f):
     return file_path
 
 
-class NewModelUploadFormView(LoginRequiredMixin, FormView):
+class ImprovedPermissinRequiredMixin(PermissionRequiredMixin):
+    """
+    This 'improved' PermissionRequiredMixin adds a message to the user if
+    permission is denied and redirects to the homepage.
+
+    """
+    def dispatch(self, request, *args, **kwargs):
+        if self.permission_required is None:
+            raise ImproperlyConfigured(
+                "'PermissionRequiredMixin' requires 'permission_required' "
+                "attribute to be set.")
+
+        # Check to see if the request's user has the required permission.
+        has_permission = request.user.has_perm(self.permission_required)
+
+        if not has_permission:  # If the user lacks the permission
+            if self.raise_exception:  # *and* if an exception was desired
+                raise PermissionDenied  # return a forbidden response.
+            else:
+                # add not allowed message to request and redirect to home page
+                messages.error(request, _("You are not allowed to upload a "
+                                          "new model. Please contact your "
+                                          "administrator or project leader "
+                                          "for more details."))
+                return HttpResponseRedirect('/')
+
+        return super(ImprovedPermissinRequiredMixin, self).dispatch(
+            request, *args, **kwargs)
+
+
+class NewModelUploadFormView(
+        LoginRequiredMixin, ImprovedPermissinRequiredMixin, FormView):
     """Form view for uploading model files."""
+    permission_required = 'model_databank.add_modelupload'
     template_name = 'model_databank/upload_form.html'
     form_class = NewModelUploadForm
 
