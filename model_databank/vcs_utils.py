@@ -163,8 +163,8 @@ def get_log(model_reference, revision=None):
 def get_latest_revision(model_reference):
     repo_path = model_reference.symlink
     os.chdir(repo_path)
-    # assumes repo is always updated to tip
-    revision = subprocess.check_output([settings.HG_CMD, 'id', '-i'])
+    revision = subprocess.check_output([settings.HG_CMD, 'id', '-i', '--rev',
+                                        'tip'])
     revision = revision.strip()
     return revision
 
@@ -217,3 +217,15 @@ def get_file_tree(model_reference):
     # sort by filename
     file_tree = sorted(file_tree, key=itemgetter('filename'))
     return file_tree
+
+
+def get_last_update_date(model_reference):
+    repo_path = model_reference.symlink
+    os.chdir(repo_path)
+    last_date_info = subprocess.check_output([settings.HG_CMD, 'log', '--template',
+                                         '"{date|hgdate}"', '--rev', 'tip'])
+    last_date_info = last_date_info.strip('"')  # remove double quotes
+    timestamp, offset = last_date_info.split()
+    timestamp = int(timestamp)
+    # TODO: consider caching the return value
+    return datetime.fromtimestamp(timestamp)

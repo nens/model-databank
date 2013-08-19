@@ -11,6 +11,8 @@ Changelog of model-databank
 
 - Restrict uploading a new model by requiring a permission.
 
+- Add last update date as column to repo list.
+
 
 0.4 (2013-07-08)
 ----------------

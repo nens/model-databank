@@ -16,6 +16,7 @@
                         <th>{% trans "Type" %}</th>
 	                    <th>{% trans "Owner" %}</th>
                         <th>{% trans "Created" %}</th>
+                        <th>{% trans "Last Update" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +25,8 @@
                         <td><a href="{{ obj.get_absolute_url }}">{{ obj.identifier }}</a></td>
 	                    <td>{{ obj.model_type_str }}</td>
 	                    <td>{% if obj.owner %}{{ obj.owner|pretty_user }}{% else %}-{% endif %}</td>
-                        <td>{{ obj.created }}</td>
+                        <td>{{ obj.created|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ obj|last_update_date|date:"SHORT_DATE_FORMAT" }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

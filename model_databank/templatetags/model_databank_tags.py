@@ -4,6 +4,7 @@ from django.template import Node, TemplateSyntaxError
 
 
 from model_databank.conf import settings
+from model_databank.vcs_utils import get_last_update_date
 
 register = template.Library()
 
@@ -55,4 +56,9 @@ def pretty_user(user):
         return user.get_full_name()
     else:
         return user.username
+
+
+@register.filter
+def last_update_date(model_reference):
+    return get_last_update_date(model_reference)
 
