@@ -5,6 +5,8 @@ Changelog of model-databank
 0.5 (unreleased)
 ----------------
 
+- Upgraded for use in Django 1.5.
+
 - Fix file list.
 
 - Create a bare repository when creating a new repository.

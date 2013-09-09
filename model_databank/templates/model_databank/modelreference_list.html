@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
     <div class="span12">
-        <h3>{% trans "Available models" %}</h3> <a href="{% url upload_form %}" style="float: right; clear: both;" class="btn btn-primary">{% trans "Upload new model" %}</a>
+        <h3>{% trans "Available models" %}</h3> <a href="{% url 'upload_form' %}" style="float: right; clear: both;" class="btn btn-primary">{% trans "Upload new model" %}</a>
         <br/><br/>
         <hr/>
         {% if modelreference_list %}

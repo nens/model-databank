@@ -1,7 +1,9 @@
 Model databank
 ==============
 
-Models, scenarios and results data bank for water management purposes.
+Models, scenarios and results data bank for water management purposes. This is
+the model databank django app. Include it in your site. It requires Django 1.5.
+
 
 General requirements
 --------------------
