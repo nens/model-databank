@@ -24,6 +24,7 @@ from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from model_databank.conf import settings
 from model_databank.forms import NewModelUploadForm
+from model_databank.hgweb_views import repo_detail
 from model_databank.models import ModelUpload, ModelReference
 from model_databank.serializers import ModelReferenceSerializer
 from model_databank.utils import zip_model_files
@@ -169,6 +170,8 @@ class FilesView(ModelReferenceBaseView):
         obj = self.get_object()
         file_tree = get_file_tree(obj)
         context['file_tree'] = file_tree
+        # content = repo_detail(self.request, 'admin', '%s/file/tip' % obj.slug)
+        # context['content'] = content
         return context
 
 

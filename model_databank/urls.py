@@ -13,7 +13,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from model_databank import views
+from model_databank import views, hgweb_views
 
 admin.autodiscover()
 
@@ -35,6 +35,8 @@ urlpatterns = patterns(
 
     url(r'^models/(?P<slug>[\w-]+)/files/$', views.FilesView.as_view(),
         name='model_reference_files'),
+    # url('^models/(?P<username>[\w-]+)/(?P<pattern>[\w-]+)',
+    #     hgweb_views.repo_detail, name='repo_detail'),
 
     url(r'^admin/', include(admin.site.urls)),
 )

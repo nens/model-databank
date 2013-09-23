@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+	<link type="text/css" href="/static_media/css/bootstrap.css" media="screen" rel="stylesheet">
+    <link type="text/css" href="/static_media/css/main.css" media="screen" rel="stylesheet">
+
+
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/static_media/js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".alert").alert();
+			$("a[rel=tooltip]").tooltip();
+			$("form :input:visible:enabled:first").focus();
+		});
+	</script>
+
+
+</head>
+
+<body>
+
+
+<header>
+    <div id="logo-row" class="navbar">
+        <div id="logo">
+            <a href="/" title="Terug naar begin"><img src="/static_media/lizard_ui/logo.png" alt="Lizard"></a>
+        </div>
+
+        <div id="site-actions">
+            <ul class="nav">
+                <li>
+
+                        <a href="#" class="None">
+                        <i class="icon-user icon-white"></i>
+
+                            Sander Smits
+
+                        </a>
+                </li>
+                <li>
+                    <a href="/accounts/logout/?next=/">Logout</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</header>
+
+
+
+	<div class="container">
+		<div class="content">
+
+
+
+
+
+<div class="row">
+    <div class="span12" style="border-bottom: 1px solid #ccc;">
+        <h3>HHNKiPad (3Di model)</h3>
+        <p>HHNK 3Di model for iPad demo.</p>
+        <p><pre>To get this model on your local computer, run this command <a href="#hg-info-modal" style="font-size: 9px;" role="button" data-toggle="modal">(more info)</a>:<br/>$ hg clone <a href="http://hg-test.3di.lizard.net/hhnkipad" target="_blank">http://hg-test.3di.lizard.net/hhnkipad</a></pre></p>
+
+        <hr/>
+	    <div class="navbar tabs">
+            <ul class="nav">
+
+
+                    <li><a href="/model_databank/models/hhnkipad/commits/">Commits</a></li>
+
+
+
+                    <li class="active"><a>Files</a></li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <h4><a href="http://hg-test.3di.lizard.net/hhnkipad/file" target="_blank">Files</a></h4>
+
+<div>
+    <table class="table table-striped">
+        <tbody>
+
+        <tr>
+            <td>CROPFACT</td>
+        </tr>
+
+        <tr>
+            <td>CROP_OW.PRN</td>
+        </tr>
+
+        <tr>
+            <td>EVAPOR.GEM</td>
+        </tr>
+
+        <tr>
+            <td>HHNKiPad.mdu</td>
+        </tr>
+
+        <tr>
+            <td>ISOCOLOUR.hls</td>
+        </tr>
+
+        <tr>
+            <td>ROOT_SIM.INP</td>
+        </tr>
+
+        <tr>
+            <td>UNSA_SIM.INP</td>
+        </tr>
+
+        <tr>
+            <td>admin/grid.grd</td>
+        </tr>
+
+        <tr>
+            <td>admin/table.tbl</td>
+        </tr>
+
+        <tr>
+            <td>interact.ini</td>
+        </tr>
+
+        <tr>
+            <td>interception.rgb</td>
+        </tr>
+
+        <tr>
+            <td>land.rgb</td>
+        </tr>
+
+        <tr>
+            <td>land.zrgb</td>
+        </tr>
+
+        <tr>
+            <td>structures/hhnk_keringen_stuwen_v11.inp</td>
+        </tr>
+
+        <tr>
+            <td>subgrid.ini</td>
+        </tr>
+
+        <tr>
+            <td>subgrid/hhnk_bath.tif</td>
+        </tr>
+
+        <tr>
+            <td>unstruc.hlp</td>
+        </tr>
+
+        <tr>
+            <td>water.rgb</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+    </div>
+</div>
+
+
+<div id="hg-info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="hg-info-modal-label" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="hg-info-modal-label">Get this model on your computer</h3>
+    </div>
+    <div class="modal-body">
+	    <h4>Download Mercurial</h4>
+        <p>
+            You'll need to download Mercurial and its `hg` command to get the model files on your computer.
+	        Mercurial is a version-control system that allows you to record changes made to model files.
+            Also, with Mercurial you can check out previous versions of the model.
+	        It can be downloaded from <a href="http://mercurial.selenic.com/downloads/" target="_blank">http://mercurial.selenic.com/downloads</a>.
+        </p>
+
+	    <h4>Mercurial Quick Start</h4>
+	    <span>Clone a model and push changes (run these commands from the command-line).</span>
+	    <p>
+	    <pre>$ hg clone http://hg-test.3di.lizard.net/hhnkipad
+$ cd hhnkipad
+$ (change model file(s))
+$ hg commit -m 'My changes'
+$ hg push
+</pre>
+	    </p>
+
+        <h4>Step by step</h4>
+        <h5>Clone the model</h5>
+        <p>
+	        <pre>$ hg clone http://hg-test.3di.lizard.net/hhnkipad</pre>
+	        By using the clone command, the model file repository is downloaded to your computer.
+            This can take awhile, depending on the size of the model and your internet connection speed.
+	        Downloading the repository allows you to make incremental changes to model files.
+	    </p>
+
+	    <h5>Change the model</h5>
+	    <p>
+        You can change the model files with your favorite GIS tools.
+        Just make sure you save the changed files with the same name in the same directory they came from.
+	    </p>
+
+	    <h5>Commit your changes</h5>
+	    <p>
+		    <pre>$ hg commit -m 'My changes'</pre>
+            After you have saved your changes to the model, you'll need to commit these changes to the repository.
+            Add a commit message that concisely describes the changes you made.
+	    </p>
+
+	    <h5>Upload your changes</h5>
+	    <p>
+		    <pre>$ hg push</pre>
+            Upload your changes to the server by running the push command.
+	    </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+		</div>
+
+
+			<hr/>
+			<footer>
+                <p>&copy; Nelen & Schuurmans 2013. All rights reserved.</p>
+			</footer>
+
+	</div>
+
+
+</body>
+</html>
