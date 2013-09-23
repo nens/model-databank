@@ -5,7 +5,7 @@ DATABASES = {
         'NAME': 'model_databank',
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'USER': 'threedi',
-        'PASSWORD': 'threedi',
+        'PASSWORD': 'klsdhadkjw',
         'HOST': 'nens-3di-db-01.nens.local',
         'PORT': '',
     },
