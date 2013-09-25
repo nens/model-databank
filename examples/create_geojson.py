@@ -20,17 +20,21 @@ WGS84 = ('+proj=latlong +datum=WGS84')
 
 wgs84_projection = Proj(WGS84)
 
-engine = create_engine('sqlite:////home/jsmits/Development/projects/3di/spatialite/HydroBaseUrban_Texel.sqlite')
+# TODO: make this accept any spatialite database as command-line argument
+engine = create_engine('sqlite:////home/jsmits/Development/projects/3di/'
+                       'spatialite/HydroBaseUrban_Texel.sqlite')
+
 
 @event.listens_for(engine, "connect")
 def connect(dbapi_connection, connection_rec):
     dbapi_connection.enable_load_extension(True)
-           
-connection = engine.raw_connection().connection 
+
+connection = engine.raw_connection().connection
 metadata = MetaData(engine)
 metadata.reflect()
-tables = [table for table in metadata.tables.keys() if not table.lower() == table]
-session = sessionmaker(bind=engine)() 
+tables = [table for table in metadata.tables.keys()
+          if not table.lower() == table]
+session = sessionmaker(bind=engine)()
 session.execute("select load_extension('/usr/lib/libspatialite.so')")
 
 for table in tables:
@@ -43,17 +47,21 @@ for table in tables:
         except AttributeError:
             print "no Geometry column found in table %s" % table
             break
-        geometry_as_wkt = session.execute("SELECT ST_AsText(X'%s')" % geometry_as_hex).fetchone()[0]
-        properties = [(key, row[key]) for key in row.keys() if key not in ['PK_UID', 'Geometry']]
+        geometry_as_wkt = session.execute("SELECT ST_AsText(X'%s')" %
+                                          geometry_as_hex).fetchone()[0]
+        properties = [(key, row[key]) for key in row.keys()
+                      if key not in ['PK_UID', 'Geometry']]
         geometry = wkt.loads(geometry_as_wkt)
         # convert projection (RD) to WGS84
         orig_coords = geometry._get_coords()
         wgs84_coords = []
         for orig_x, orig_y in orig_coords:
-            wgs84_x, wgs84_y = transform(Proj(RD), wgs84_projection, orig_x, orig_y)
+            wgs84_x, wgs84_y = transform(Proj(RD), wgs84_projection, orig_x,
+                                         orig_y)
             wgs84_coords.append((wgs84_x, wgs84_y))
         geometry._set_coords(wgs84_coords)
-        feature = Feature(id=int(pk), geometry=geometry, properties=dict(properties))
+        feature = Feature(id=int(pk), geometry=geometry,
+                          properties=dict(properties))
         features.append(feature)
 
     output = dumps(FeatureCollection(features))
@@ -61,3 +69,6 @@ for table in tables:
     f.write(output)
     f.close()
 
+if __name__ == '__main__':
+    # TODO: implement this properly
+    pass
