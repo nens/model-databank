@@ -19,7 +19,7 @@ from model_databank.db.fields import UUIDField
 
 logger = logging.getLogger(__name__)
 
-HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc', 'tif')
+HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc', 'tif', 'sqlite')
 
 
 def get_largefiles_file_paths(root_path):
