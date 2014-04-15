@@ -19,7 +19,7 @@ from model_databank.db.fields import UUIDField
 
 logger = logging.getLogger(__name__)
 
-HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc', 'tif')
+HG_LARGEFILES_EXTENSIONS = ('grd', 'tbl', 'asc', 'tif', 'sqlite')
 
 
 def get_largefiles_file_paths(root_path):
@@ -29,7 +29,10 @@ def get_largefiles_file_paths(root_path):
         if '/.hg' in root:
             continue
         for f in files:
-            if f[-3:].lower() in HG_LARGEFILES_EXTENSIONS:
+            fn, ext = os.path.splitext(f)
+            if ext and ext.startswith('.'):
+                ext = ext[1:].lower()  # remove the dot
+            if ext in HG_LARGEFILES_EXTENSIONS:
                 paths.append(os.path.join(root, f))
     return paths
 
@@ -267,7 +270,7 @@ class ModelUpload(models.Model):
 
             subprocess.call([settings.HG_CMD, 'add'])
             subprocess.call([settings.HG_CMD, 'commit', '-m',
-                             'Initial commit.'])
+                             'Initial commit.', '--user', 'Model Databank'])
             # make it a bare repository (i.e. without a working copy)
             subprocess.call([settings.HG_CMD, 'update', 'null'])
             # if we got here, create a ModelReference with uuid for the
