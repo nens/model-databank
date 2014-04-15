@@ -15,6 +15,10 @@ Changelog of model-databank
 
 - Add last update date as column to repo list.
 
+- Use "Model Databank" as first committer.
+  
+- Add sqlite to large files.
+
 
 0.4 (2013-07-08)
 ----------------
