@@ -1,13 +1,73 @@
-import sys
 
+import os
+import sys
+import datetime
+import random
+import shutil
+import string
+
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+from django.core.exceptions import ObjectDoesNotExist
+
 from model_databank.models import ModelUpload
+
+
+def random_str(n):
+    """
+    A further improvement, using an existing
+    library attribute.
+    """
+    out_str = ""
+    for i in xrange(n):
+        out_str += random.choice(string.ascii_lowercase)
+    return out_str
+
+
+def get_ftp_user(username='ftp', password=None):
+    try:
+        return User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        password = password or random_str(32)
+        return User.objects.create_user(username=username, password=password,
+                                        email='f@f.nl')
 
 
 class Command(BaseCommand):
     help = 'Process the uploaded unprocessed model zip files.'
 
     def handle(self, *args, **options):
+        # Check whether there are zip files in the
+        # MODEL_DATABANK_FTP_UPLOAD_PATH and put them in the regular upload
+        # directory and create a ModelUpload instance of them, so the can be
+        # processed.
+        ftp_upload_path = getattr(settings, 'MODEL_DATABANK_FTP_UPLOAD_PATH',
+                                  None)
+        if not ftp_upload_path:
+            sys.stdout.write(
+                "No MODEL_DATABANK_FTP_UPLOAD_PATH in settings.\n")
+        else:
+            for fn in os.listdir(ftp_upload_path):
+                uploaded_file = os.path.join(ftp_upload_path, fn)
+                fn_wo_zip = fn.rstrip('.zip').capitalize()
+                ftp_user = get_ftp_user()
+                now = datetime.datetime.now()
+                file_name = '%s.zip' % now.strftime('%Y%m%d%H%M%S')
+                file_path = os.path.join(settings.MODEL_DATABANK_UPLOAD_PATH,
+                                         file_name)
+                try:
+                    shutil.move(uploaded_file, file_path)
+                    model_upload = ModelUpload(
+                        uploaded_by=ftp_user, identifier=fn_wo_zip,
+                        description='TODO', file_path=file_path)
+                    model_upload.save()
+                except Exception, err:
+                    sys.stdout.write(
+                        "An error occurred trying to prepare a ModelUpload "
+                        "instance. Error: %s.\n" % err)
+
+        # now, process the unprocessed ModelUpload instances
         unprocessed_model_uploads = ModelUpload.objects.filter(
             is_processed=False)
 
