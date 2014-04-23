@@ -289,7 +289,8 @@ class ModelUpload(models.Model):
                 model_type=ModelReference.THREEDI_MODEL_TYPE_ID,
                 owner=self.uploaded_by,
                 identifier=self.identifier,
-                description=self.description)
+                description=self.description,
+                organisation=self.organisation)
             model_reference.save()
 
             shutil.move(extract_to, model_reference.repository)

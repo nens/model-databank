@@ -128,8 +128,12 @@ class ModelReferenceList(ListView):
 
     def get_queryset(self):
         queryset = super(ModelReferenceList, self).get_queryset()
-        return queryset.filter(
-            organisation__unique_id__in=self.organisation_ids)
+        if self.request.user.is_superuser:
+            # show all models for superusers
+            return queryset
+        else:
+            return queryset.filter(
+                organisation__unique_id__in=self.organisation_ids)
 
     def dispatch(self, request, *args, **kwargs):
         # set the user's unique organisation ids
