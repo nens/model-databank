@@ -60,5 +60,4 @@ def pretty_user(user):
 
 @register.filter
 def last_update_date(model_reference):
-    return get_last_update_date(model_reference)
-
+    return model_reference.last_repo_update

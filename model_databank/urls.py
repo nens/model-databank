@@ -21,7 +21,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.ModelReferenceList.as_view(),
         name='model_reference_list'),
-    url(r'^upload_new/$', views.NewModelUploadFormView.as_view(),
+    url(r'^upload_new/$', views.ModelUploadFormView.as_view(),
         name='upload_form'),
     url(r'^models/(?P<slug>[\w-]+)/download/$',
         views.ModelDownloadView.as_view(),
