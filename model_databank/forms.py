@@ -9,8 +9,8 @@ from lizard_auth_client.models import Organisation
 
 def get_organisation_choices(user):
     """Create organisation choices for model upload form."""
-    if user:
-        # get the organisation for this user
+    if user and not user.is_superuser:
+        # get the organisation for this user if this user is not a superuser
         organisations = []
         user_organisation_roles = user.userorganisationrole_set.all()
         for uor in user_organisation_roles:

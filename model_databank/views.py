@@ -129,7 +129,7 @@ class ModelReferenceList(ListView):
     def get_queryset(self):
         queryset = super(ModelReferenceList, self).get_queryset()
         if self.request.user.is_superuser:
-            # show all models for superusers
+            # show all models when user is a superuser
             return queryset
         else:
             return queryset.filter(
