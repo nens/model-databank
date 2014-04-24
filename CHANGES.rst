@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.5 (unreleased)
+0.5 (2014-04-24)
 ----------------
 
 - Upgraded for use in Django 1.5.
