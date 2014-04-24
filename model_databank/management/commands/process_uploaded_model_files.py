@@ -5,6 +5,7 @@ import datetime
 import random
 import shutil
 import string
+import time
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -56,6 +57,13 @@ class Command(BaseCommand):
                         for dirpath, dirnames, files
                         in os.walk(ftp_upload_path)
                         for f in files if f.endswith('.zip')]
+            # apply last modified time filter; only process zipfiles that are
+            # not changed for at least 60 seconds
+            zipfiles = [zipfile for zipfile in zipfiles
+                        if time.time() > os.path.getmtime(zipfile) + 60]
+            if not zipfiles:
+                sys.stdout.write("No zipfiles found for processing.\n")
+            # filter on last modified date
             for zipfile in zipfiles:
                 fpath, fn = os.path.split(zipfile)
                 org_name = os.path.split(fpath)[1]
@@ -87,7 +95,7 @@ class Command(BaseCommand):
                             "An error occurred trying to prepare a "
                             "ModelUpload instance. Error: %s.\n" % err)
 
-        # now, process the unprocessed ModelUpload instances
+        # make mercurial repositories of the unprocessed ModelUpload instances
         unprocessed_model_uploads = ModelUpload.objects.filter(
             is_processed=False)
 
@@ -95,5 +103,6 @@ class Command(BaseCommand):
             sys.stdout.write("No model uploads to process.\n")
 
         for model_upload in unprocessed_model_uploads:
-            # (check if this is a zip file, later)
             model_upload.process()
+            sys.stdout.write("Made mercurial repository for %s.\n" %
+                             model_upload)
