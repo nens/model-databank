@@ -1,4 +1,3 @@
-from lizard_auth_client.models import Organisation
 import os
 import sys
 import datetime
@@ -11,6 +10,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
+
+from lizard_auth_client.models import Organisation
 
 from model_databank.models import ModelUpload
 
