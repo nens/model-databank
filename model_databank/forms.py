@@ -4,8 +4,27 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit
 
+from lizard_auth_client.models import Organisation
 
-class NewModelUploadForm(forms.Form):
+
+def get_organisation_choices(user):
+    """Create organisation choices for model upload form."""
+    if user and not user.is_superuser:
+        # get the organisation for this user if this user is not a superuser
+        organisations = []
+        user_organisation_roles = user.userorganisationrole_set.all()
+        for uor in user_organisation_roles:
+            organisations.append(uor.organisation)
+    else:
+        organisations = Organisation.objects.all()
+    organisation_choices = []
+    for organisation in organisations:
+        organisation_choices.append((organisation.unique_id,
+                                     organisation.name))
+    return tuple(organisation_choices)
+
+
+class ModelUploadForm(forms.Form):
     """Model for uploading new zipped model files."""
     upload_file = forms.FileField(
         required=True, label=_("Upload ZIP file"),
@@ -19,8 +38,20 @@ class NewModelUploadForm(forms.Form):
         widget=forms.Textarea,
         help_text=_("Describe as accurately as possible what this model "
                     "does."))
+    organisation = forms.ChoiceField(
+        label=_("Organisation"),
+        widget=forms.Select,
+        choices=[],
+        help_text=_("Pick the organisation this model belongs too."))
 
     def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request')
+        if request:
+            organisation_choices = get_organisation_choices(
+                request.user)
+            # set organisation choices
+            self.base_fields['organisation'].choices = organisation_choices
+
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.html5_required = True
@@ -30,11 +61,12 @@ class NewModelUploadForm(forms.Form):
                 'model_name',
                 'description',
                 'upload_file',
+                'organisation',
             ),
         )
         submit = Submit('submit', _('Submit'), css_class='btn btn-primary')
         self.helper.add_input(submit)
-        super(NewModelUploadForm, self).__init__(*args, **kwargs)
+        super(ModelUploadForm, self).__init__(*args, **kwargs)
 
 
 class UploadForm(forms.Form):

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from __future__ import print_function
+
 import subprocess
 import os
 import shutil
@@ -14,6 +15,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
 
+from lizard_auth_client.models import Organisation
+
+from model_databank.vcs_utils import get_last_update_date
 from model_databank.conf import settings  # to load app specific settings
 from model_databank.db.fields import UUIDField
 
@@ -105,6 +109,7 @@ class ModelReference(models.Model):
     )
 
     owner = models.ForeignKey('auth.User', null=True)
+    organisation = models.ForeignKey(Organisation, blank=True, null=True)
 
     # TODO: consider renaming model_type, possible options: type, ?
     model_type = models.IntegerField(
@@ -119,6 +124,9 @@ class ModelReference(models.Model):
     description = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
+    # last repo update is filled with a cronjob that runs every 15 minutes
+    # check for the latest commit
+    last_repo_update = models.DateTimeField(blank=True, null=True)
 
     is_deleted = models.BooleanField(default=False)  # handle by self.delete()
 
@@ -164,6 +172,13 @@ class ModelReference(models.Model):
         return '/'.join([url_root, self.slug])
 
     @property
+    def repository_ssh_url(self):
+        """Return Mercurial repository path. Can be used for cloning over
+        SSH."""
+        return "/".join([settings.MODEL_DATABANK_REPOSITORY_SSH_URL_ROOT,
+                         self.symlink])
+
+    @property
     def repository_files_url(self):
         """Return Mercurial URL that shows files page."""
         return '/'.join([self.repository_url, 'file'])
@@ -171,6 +186,11 @@ class ModelReference(models.Model):
     @property
     def model_type_str(self):
         return dict(self.MODEL_TYPE_CHOICES)[self.model_type]
+
+    @property
+    def organisation_uuid(self):
+        if self.organisation:
+            return self.organisation.unique_id
 
     def safe_delete(self, *args, **kwargs):
         """
@@ -224,6 +244,7 @@ class ModelUpload(models.Model):
         ModelReference, related_name='uploads', null=True)
 
     uploaded_by = models.ForeignKey('auth.User', null=True)
+    organisation = models.ForeignKey(Organisation, blank=True, null=True)
 
     # identifier is used for new model files uploads
     identifier = models.CharField(
@@ -280,7 +301,8 @@ class ModelUpload(models.Model):
                 model_type=ModelReference.THREEDI_MODEL_TYPE_ID,
                 owner=self.uploaded_by,
                 identifier=self.identifier,
-                description=self.description)
+                description=self.description,
+                organisation=self.organisation)
             model_reference.save()
 
             shutil.move(extract_to, model_reference.repository)
@@ -303,6 +325,12 @@ class ModelUpload(models.Model):
                 self.model_reference = model_reference
                 self.is_processed = True
                 self.save()
+
+                # set the last repo update date
+                last_repo_update = get_last_update_date(model_reference)
+                model_reference.last_repo_update = last_repo_update
+                model_reference.save()
+
                 return self
 
     def __unicode__(self):

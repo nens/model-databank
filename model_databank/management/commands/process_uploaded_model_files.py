@@ -1,15 +1,17 @@
-
 import os
 import sys
 import datetime
 import random
 import shutil
 import string
+import time
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
+
+from lizard_auth_client.models import Organisation
 
 from model_databank.models import ModelUpload
 
@@ -48,26 +50,53 @@ class Command(BaseCommand):
             sys.stdout.write(
                 "No MODEL_DATABANK_FTP_UPLOAD_PATH in settings.\n")
         else:
-            for fn in os.listdir(ftp_upload_path):
-                uploaded_file = os.path.join(ftp_upload_path, fn)
-                fn_wo_zip = fn.rstrip('.zip').capitalize()
-                ftp_user = get_ftp_user()
-                now = datetime.datetime.now()
-                file_name = '%s.zip' % now.strftime('%Y%m%d%H%M%S')
-                file_path = os.path.join(settings.MODEL_DATABANK_UPLOAD_PATH,
-                                         file_name)
+            # get all zipfiles; return absolute paths to zipfiles
+            # directory the zipfile is in, should be the organisation name
+            # these directories are generated with the
+            # create_organisations_upload_directories command
+            zipfiles = [os.path.join(dirpath, f)
+                        for dirpath, dirnames, files
+                        in os.walk(ftp_upload_path)
+                        for f in files if f.endswith('.zip')]
+            # apply last modified time filter; only process zipfiles that are
+            # not changed for at least 60 seconds
+            zipfiles = [zipfile for zipfile in zipfiles
+                        if time.time() > os.path.getmtime(zipfile) + 60]
+            if not zipfiles:
+                sys.stdout.write("No zipfiles found for processing.\n")
+            # filter on last modified date
+            for zipfile in zipfiles:
+                fpath, fn = os.path.split(zipfile)
+                org_name = os.path.split(fpath)[1]
                 try:
-                    shutil.move(uploaded_file, file_path)
-                    model_upload = ModelUpload(
-                        uploaded_by=ftp_user, identifier=fn_wo_zip,
-                        description='TODO', file_path=file_path)
-                    model_upload.save()
-                except Exception, err:
+                    organisation = Organisation.objects.get(name=org_name)
+                except ObjectDoesNotExist:
+                    sys.stdout.write("No organisation found with name %s.\n" %
+                                     org_name)
+                    continue
+                else:
                     sys.stdout.write(
-                        "An error occurred trying to prepare a ModelUpload "
-                        "instance. Error: %s.\n" % err)
+                        "Processing zipfile %s for organisation %s...\n" % (
+                            fn, organisation))
+                    fn_wo_zip = fn.rstrip('.zip').capitalize()
+                    ftp_user = get_ftp_user()
+                    now = datetime.datetime.now()
+                    file_name = '%s.zip' % now.strftime('%Y%m%d%H%M%S')
+                    file_path = os.path.join(
+                        settings.MODEL_DATABANK_UPLOAD_PATH, file_name)
+                    try:
+                        shutil.move(zipfile, file_path)
+                        model_upload = ModelUpload(
+                            uploaded_by=ftp_user, identifier=fn_wo_zip,
+                            description='', file_path=file_path,
+                            organisation=organisation)
+                        model_upload.save()
+                    except Exception, err:
+                        sys.stdout.write(
+                            "An error occurred trying to prepare a "
+                            "ModelUpload instance. Error: %s.\n" % err)
 
-        # now, process the unprocessed ModelUpload instances
+        # make mercurial repositories of the unprocessed ModelUpload instances
         unprocessed_model_uploads = ModelUpload.objects.filter(
             is_processed=False)
 
@@ -75,5 +104,6 @@ class Command(BaseCommand):
             sys.stdout.write("No model uploads to process.\n")
 
         for model_upload in unprocessed_model_uploads:
-            # (check if this is a zip file, later)
             model_upload.process()
+            sys.stdout.write("Made mercurial repository for %s.\n" %
+                             model_upload)

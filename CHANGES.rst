@@ -19,6 +19,14 @@ Changelog of model-databank
   
 - Add sqlite to large files.
 
+- Add organisations to models.
+
+- Create an upload directory for manually uploading models.
+
+- Add slug and ssh url to api list view.
+
+- Improve copyright year.
+
 
 0.4 (2013-07-08)
 ----------------

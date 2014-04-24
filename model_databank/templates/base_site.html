@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load model_databank_tags %}
 
 {% block title %}{{ PROJECT_NAME }}{% block subtitle %}{% endblock %}{% endblock %}
 
@@ -68,7 +69,7 @@
     {% block footer %}
     <hr/>
     <footer>
-        {% block footer_content %}<p>&copy; Nelen & Schuurmans 2013. {% trans "All rights reserved." %}</p>{% endblock %}
+        {% block footer_content %}<p>&copy; Nelen & Schuurmans {% copyright_year 2013 %}. {% trans "All rights reserved." %}</p>{% endblock %}
     </footer>
     {% endblock %}
 </div>

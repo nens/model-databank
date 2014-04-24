@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from __future__ import print_function
 import datetime
+from lizard_auth_client.models import Organisation
 import os
 
 from django.contrib import messages
@@ -12,18 +13,13 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.servers.basehttp import FileWrapper
-# from django.core.urlresolvers import reverse
-# from lizard_map.views import MapView
-# from lizard_ui.views import UiView
-
-# from model_databank import models
 
 from django.views.generic import FormView, ListView, DetailView
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from model_databank.conf import settings
-from model_databank.forms import NewModelUploadForm
+from model_databank.forms import ModelUploadForm
 from model_databank.models import ModelUpload, ModelReference
 from model_databank.serializers import ModelReferenceSerializer
 from model_databank.utils import zip_model_files
@@ -73,15 +69,22 @@ class ImprovedPermissinRequiredMixin(PermissionRequiredMixin):
             request, *args, **kwargs)
 
 
-class NewModelUploadFormView(
+class ModelUploadFormView(
         LoginRequiredMixin, ImprovedPermissinRequiredMixin, FormView):
     """Form view for uploading model files."""
     permission_required = 'model_databank.add_modelupload'
     template_name = 'model_databank/upload_form.html'
-    form_class = NewModelUploadForm
+    form_class = ModelUploadForm
 
     def get_success_url(self):
         return reverse('model_reference_list')
+
+    def get_form_kwargs(self):
+        kwargs = super(ModelUploadFormView, self).get_form_kwargs()
+        # add request to get the organisation the request.user belongs to in
+        # the form
+        kwargs.update(request=self.request)
+        return kwargs
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
@@ -91,13 +94,16 @@ class NewModelUploadFormView(
         file_path = handle_uploaded_file(self.request.FILES['upload_file'])
         identifier = form.cleaned_data.get('model_name')
         description = form.cleaned_data.get('description')
+        organisation_uuid = form.cleaned_data.get('organisation')
+        organisation = Organisation.objects.get(unique_id=organisation_uuid)
         model_upload = ModelUpload(
             uploaded_by=self.request.user, identifier=identifier,
-            description=description, file_path=file_path)
+            description=description, file_path=file_path,
+            organisation=organisation)
         model_upload.save()
         messages.info(self.request, _("Upload succeeded. Data will be "
                                       "processed soon."))
-        return super(NewModelUploadFormView, self).form_valid(form)
+        return super(ModelUploadFormView, self).form_valid(form)
 
 
 class ModelDownloadView(DetailView):
@@ -116,7 +122,26 @@ class ModelDownloadView(DetailView):
 
 
 class ModelReferenceList(ListView):
+    # get the user organisation ids and only show the ModelReference for that
+    # uuid
     queryset = ModelReference.active.all()
+
+    def get_queryset(self):
+        queryset = super(ModelReferenceList, self).get_queryset()
+        if self.request.user.is_superuser:
+            # show all models when user is a superuser
+            return queryset
+        else:
+            return queryset.filter(
+                organisation__unique_id__in=self.organisation_ids)
+
+    def dispatch(self, request, *args, **kwargs):
+        # set the user's unique organisation ids
+        self.organisation_ids = \
+            request.user.userorganisationrole_set.values_list(
+                'organisation__unique_id', flat=True).distinct()
+        return super(ModelReferenceList, self).dispatch(request, args,
+                                                        kwargs)
 
 
 class NavbarMixin(object):

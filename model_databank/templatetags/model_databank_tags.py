@@ -1,10 +1,10 @@
+import datetime
+
 from django import template
 from django.contrib.auth.models import User
 from django.template import Node, TemplateSyntaxError
 
-
 from model_databank.conf import settings
-from model_databank.vcs_utils import get_last_update_date
 
 register = template.Library()
 
@@ -60,5 +60,13 @@ def pretty_user(user):
 
 @register.filter
 def last_update_date(model_reference):
-    return get_last_update_date(model_reference)
+    return model_reference.last_repo_update
 
+
+@register.simple_tag
+def copyright_year(start_year):
+    start_year = int(start_year)
+    year = datetime.datetime.now().year
+    if year > start_year:
+        return "%s-%s" % (start_year, year)
+    return year
