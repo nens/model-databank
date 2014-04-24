@@ -49,7 +49,7 @@ class ModelUploadForm(forms.Form):
         if request:
             organisation_choices = get_organisation_choices(
                 request.user)
-            # add dynamic organisation field here or update its choices
+            # set organisation choices
             self.base_fields['organisation'].choices = organisation_choices
 
         self.helper = FormHelper()
