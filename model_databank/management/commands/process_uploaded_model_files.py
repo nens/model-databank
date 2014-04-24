@@ -79,7 +79,7 @@ class Command(BaseCommand):
                         shutil.move(zipfile, file_path)
                         model_upload = ModelUpload(
                             uploaded_by=ftp_user, identifier=fn_wo_zip,
-                            description='TODO', file_path=file_path,
+                            description='', file_path=file_path,
                             organisation=organisation)
                         model_upload.save()
                     except Exception, err:
