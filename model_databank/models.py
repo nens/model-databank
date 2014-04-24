@@ -172,6 +172,13 @@ class ModelReference(models.Model):
         return '/'.join([url_root, self.slug])
 
     @property
+    def repository_ssh_url(self):
+        """Return Mercurial repository path. Can be used for cloning over
+        SSH."""
+        return "/".join([settings.MODEL_DATABANK_REPOSITORY_SSH_URL_ROOT,
+                         self.symlink])
+
+    @property
     def repository_files_url(self):
         """Return Mercurial URL that shows files page."""
         return '/'.join([self.repository_url, 'file'])
@@ -179,6 +186,11 @@ class ModelReference(models.Model):
     @property
     def model_type_str(self):
         return dict(self.MODEL_TYPE_CHOICES)[self.model_type]
+
+    @property
+    def organisation_uuid(self):
+        if self.organisation:
+            return self.organisation.unique_id
 
     def safe_delete(self, *args, **kwargs):
         """
