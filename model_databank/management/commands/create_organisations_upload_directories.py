@@ -8,7 +8,7 @@ from lizard_auth_client.models import Organisation
 
 
 class Command(BaseCommand):
-    help = 'Update `last_repo_update` of ModelReference instances.'
+    help = 'Create upload directories per organisation.'
 
     def handle(self, *args, **options):
         # Check latest commit/update of the repo and if it differs from
