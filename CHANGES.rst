@@ -5,7 +5,7 @@ Changelog of model-databank
 0.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix anonymous user bug.
 
 
 0.5 (2014-04-24)
