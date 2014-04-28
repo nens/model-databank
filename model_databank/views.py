@@ -131,15 +131,21 @@ class ModelReferenceList(ListView):
         if self.request.user.is_superuser:
             # show all models when user is a superuser
             return queryset
-        else:
+        elif self.request.user.is_authenticated():
             return queryset.filter(
                 organisation__unique_id__in=self.organisation_ids)
+        else:
+            # anonymous user; return empty queryset
+            return ModelReference.objects.none()
 
     def dispatch(self, request, *args, **kwargs):
         # set the user's unique organisation ids
-        self.organisation_ids = \
-            request.user.userorganisationrole_set.values_list(
-                'organisation__unique_id', flat=True).distinct()
+        if request.user.is_authenticated():
+            self.organisation_ids = \
+                request.user.userorganisationrole_set.values_list(
+                    'organisation__unique_id', flat=True).distinct()
+        else:
+            self.organisation_ids = []
         return super(ModelReferenceList, self).dispatch(request, args,
                                                         kwargs)
 
