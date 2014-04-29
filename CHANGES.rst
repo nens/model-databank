@@ -5,7 +5,7 @@ Changelog of model-databank
 0.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add check for duplicate ftp upload. 
 
 
 0.6 (2014-04-28)

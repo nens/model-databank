@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from lizard_auth_client.models import Organisation
 
-from model_databank.models import ModelUpload
+from model_databank.models import ModelUpload, ModelReference
 
 
 def random_str(n):
@@ -79,6 +79,19 @@ class Command(BaseCommand):
                         "Processing zipfile %s for organisation %s...\n" % (
                             fn, organisation))
                     fn_wo_zip = fn.rstrip('.zip').capitalize()
+
+                    # check for duplicate model name
+                    try:
+                        ModelReference.objects.get(identifier=fn_wo_zip)
+                    except ObjectDoesNotExist:
+                        pass
+                    else:
+                        sys.stdout.write(
+                            "Model with name %s already exists. Removing "
+                            "uploaded zipfile %s." % (fn_wo_zip, fn))
+                        os.remove(zipfile)
+                        continue
+
                     ftp_user = get_ftp_user()
                     now = datetime.datetime.now()
                     file_name = '%s.zip' % now.strftime('%Y%m%d%H%M%S')
