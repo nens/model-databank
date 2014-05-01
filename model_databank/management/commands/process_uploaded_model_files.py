@@ -94,7 +94,8 @@ class Command(BaseCommand):
 
                     ftp_user = get_ftp_user()
                     now = datetime.datetime.now()
-                    file_name = '%s.zip' % now.strftime('%Y%m%d%H%M%S')
+                    file_name = '%s_%s.zip' % (
+                        fn_wo_zip, now.strftime('%Y%m%d%H%M%S%f'))
                     file_path = os.path.join(
                         settings.MODEL_DATABANK_UPLOAD_PATH, file_name)
                     try:
