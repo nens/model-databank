@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.8 (unreleased)
+0.8 (2014-05-01)
 ----------------
 
 - Improve processed zip filename. 
