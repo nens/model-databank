@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.10 (unreleased)
+0.10 (2014-05-15)
 -----------------
 
 - Remove uploaded zipfiles after 14 days and other small fixes to that script.
