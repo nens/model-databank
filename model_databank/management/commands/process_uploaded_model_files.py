@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 from lizard_auth_client.models import Organisation
 
@@ -121,3 +122,24 @@ class Command(BaseCommand):
             model_upload.process()
             sys.stdout.write("Made mercurial repository for %s.\n" %
                              model_upload)
+
+        # cleanup uploaded zip files that are older than 30 days
+        delete_after = datetime.datetime.now() - datetime.timedelta(days=30)
+        old_model_uploads = ModelUpload.objects.filter(
+            ~Q(file_path=''), uploaded__lte=delete_after)
+        if not old_model_uploads:
+            sys.stdout.write("No model upload zipfiles found for removal "
+                             "(older than 30 days).\n")
+        for old_model_upload in old_model_uploads:
+            try:
+                os.remove(old_model_upload.file_path)
+            except OSError, err:
+                sys.stdout.write(
+                    "Removing old model upload zipfile %s failed. Error: %s.\n"
+                    % (old_model_upload.file_path, err))
+            else:
+                old_file_path = old_model_upload.file_path
+                old_model_upload.file_path = ''
+                old_model_upload.save()
+                sys.stdout.write("Removed old model upload zipfile %s.\n" %
+                                 old_file_path)
