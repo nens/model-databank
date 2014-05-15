@@ -5,7 +5,7 @@ Changelog of model-databank
 0.10 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Remove uploaded zipfiles after 14 days and other small fixes to that script.
 
 
 0.9 (2014-05-15)

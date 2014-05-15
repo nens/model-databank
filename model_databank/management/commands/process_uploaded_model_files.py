@@ -123,23 +123,29 @@ class Command(BaseCommand):
             sys.stdout.write("Made mercurial repository for %s.\n" %
                              model_upload)
 
-        # cleanup uploaded zip files that are older than 30 days
-        delete_after = datetime.datetime.now() - datetime.timedelta(days=30)
+        # cleanup uploaded zip files that are older than 14 days
+        delete_after = datetime.datetime.now() - datetime.timedelta(days=14)
         old_model_uploads = ModelUpload.objects.filter(
             ~Q(file_path=''), uploaded__lte=delete_after)
         if not old_model_uploads:
             sys.stdout.write("No model upload zipfiles found for removal "
-                             "(older than 30 days).\n")
+                             "(older than 14 days).\n")
         for old_model_upload in old_model_uploads:
+            make_file_path_empty = False
             try:
                 os.remove(old_model_upload.file_path)
+                make_file_path_empty = True
             except OSError, err:
-                sys.stdout.write(
-                    "Removing old model upload zipfile %s failed. Error: %s.\n"
-                    % (old_model_upload.file_path, err))
-            else:
-                old_file_path = old_model_upload.file_path
+                if 'no such file' in str(err).lower():
+                    # zipfile probably removed by hand already, so set file
+                    # path to '' anyway
+                    make_file_path_empty = True
+                else:
+                    sys.stdout.write(
+                        "Removing old model upload zipfile %s failed. Error: "
+                        "%s.\n" % (old_model_upload.file_path, err))
+            if make_file_path_empty:
                 old_model_upload.file_path = ''
                 old_model_upload.save()
-                sys.stdout.write("Removed old model upload zipfile %s.\n" %
-                                 old_file_path)
+                sys.stdout.write("Made file_path emtpy for %s.\n"
+                                 % old_model_upload)
