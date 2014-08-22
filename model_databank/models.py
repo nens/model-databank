@@ -195,6 +195,11 @@ class ModelReference(models.Model):
         if self.organisation:
             return self.organisation.unique_id
 
+    @property
+    def model_type(self):
+        if self.type:
+            return self.type.slug
+
     def safe_delete(self, *args, **kwargs):
         """
         'Delete' this model reference while still being restorable by removing
