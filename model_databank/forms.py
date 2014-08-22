@@ -6,6 +6,8 @@ from crispy_forms.layout import Layout, Fieldset, Submit
 
 from lizard_auth_client.models import Organisation
 
+from model_databank.models import ModelType
+
 
 def get_organisation_choices(user):
     """Create organisation choices for model upload form."""
@@ -22,6 +24,16 @@ def get_organisation_choices(user):
         organisation_choices.append((organisation.unique_id,
                                      organisation.name))
     return tuple(organisation_choices)
+
+
+def get_model_type_choices():
+    """Model type choices for model upload form. Default is 3Di because it is
+    the first."""
+    model_types = ModelType.objects.all()
+    model_type_choices = []
+    for model_type in model_types:
+        model_type_choices.append((model_type.pk, model_type.name))
+    return tuple(model_type_choices)
 
 
 class ModelUploadForm(forms.Form):
@@ -43,14 +55,22 @@ class ModelUploadForm(forms.Form):
         widget=forms.Select,
         choices=[],
         help_text=_("Pick the organisation this model belongs too."))
+    model_type = forms.ChoiceField(
+        label=_("Model type"),
+        widget=forms.Select,
+        choices=[],
+        help_text=_("Choose model type."))
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request')
         if request:
+            # set organisation choices
             organisation_choices = get_organisation_choices(
                 request.user)
-            # set organisation choices
             self.base_fields['organisation'].choices = organisation_choices
+            # set model type choices
+            model_type_choices = get_model_type_choices()
+            self.base_fields['model_type'].choices = model_type_choices
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -62,28 +82,9 @@ class ModelUploadForm(forms.Form):
                 'description',
                 'upload_file',
                 'organisation',
+                'model_type',
             ),
         )
         submit = Submit('submit', _('Submit'), css_class='btn btn-primary')
         self.helper.add_input(submit)
         super(ModelUploadForm, self).__init__(*args, **kwargs)
-
-
-class UploadForm(forms.Form):
-    """Model for uploading zipped models."""
-    upload_file = forms.FileField(required=True)
-    description = forms.CharField(widget=forms.Textarea)
-
-    def __init__(self, *args, **kwargs):
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-        self.helper.layout = Layout(
-            Fieldset(
-                'Model upload form',
-                'description',
-                'upload_file',
-            ),
-        )
-        submit = Submit('submit', _('Submit'), css_class='btn btn-primary')
-        self.helper.add_input(submit)
-        super(UploadForm, self).__init__(*args, **kwargs)

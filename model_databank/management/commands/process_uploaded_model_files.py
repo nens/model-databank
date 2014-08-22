@@ -14,7 +14,7 @@ from django.db.models import Q
 
 from lizard_auth_client.models import Organisation
 
-from model_databank.models import ModelUpload, ModelReference
+from model_databank.models import ModelUpload, ModelReference, ModelType
 
 
 def random_str(n):
@@ -99,12 +99,16 @@ class Command(BaseCommand):
                         fn_wo_zip, now.strftime('%Y%m%d%H%M%S%f'))
                     file_path = os.path.join(
                         settings.MODEL_DATABANK_UPLOAD_PATH, file_name)
+                    # For now, assume a model uploaded by FTP is a 3Di model;
+                    # this can be changed via the ModelReference admin page.
+                    default_model_type = ModelType.objects.get(slug='3di')
                     try:
                         shutil.move(zipfile, file_path)
                         model_upload = ModelUpload(
                             uploaded_by=ftp_user, identifier=fn_wo_zip,
                             description='', file_path=file_path,
-                            organisation=organisation)
+                            organisation=organisation,
+                            model_type=default_model_type)
                         model_upload.save()
                     except Exception, err:
                         sys.stdout.write(

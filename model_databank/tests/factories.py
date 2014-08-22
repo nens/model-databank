@@ -11,8 +11,6 @@ class ModelReferenceFactory(factory.Factory):
     """
     FACTORY_FOR = models.ModelReference
 
-    # use 3Di as default model type
-    model_type = models.ModelReference.THREEDI_MODEL_TYPE_ID
     identifier = factory.Sequence(lambda n: 'model {0}'.format(n))
 
 

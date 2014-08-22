@@ -14,8 +14,12 @@ from model_databank import models
 logger = logging.getLogger(__name__)
 
 
+class ModelTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+
+
 class ModelReferenceAdmin(admin.ModelAdmin):
-    list_display = ('identifier', 'model_type', 'slug', 'uuid', 'is_deleted',
+    list_display = ('identifier', 'type', 'slug', 'uuid', 'is_deleted',
                     'created')
     readonly_fields = ('uuid', 'slug')
 
@@ -36,7 +40,7 @@ class ModelReferenceAdmin(admin.ModelAdmin):
 class ModelUploadAdmin(admin.ModelAdmin):
 
     list_display = ('model_reference', 'identifier', 'description',
-                    'file_path', 'is_processed', 'uploaded')
+                    'file_path', 'model_type', 'is_processed', 'uploaded')
 
     actions = ['make_processed']
 
@@ -64,5 +68,6 @@ class ModelUploadAdmin(admin.ModelAdmin):
     make_processed.short_description = _("Process selected model uploads")
 
 
+admin.site.register(models.ModelType, ModelTypeAdmin)
 admin.site.register(models.ModelReference, ModelReferenceAdmin)
 admin.site.register(models.ModelUpload, ModelUploadAdmin)
