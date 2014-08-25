@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.11 (unreleased)
+0.11 (2014-08-25)
 -----------------
 
 - Store model type in database to make it easier to add a model type. 
