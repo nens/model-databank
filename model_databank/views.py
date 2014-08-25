@@ -20,7 +20,7 @@ from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from model_databank.conf import settings
 from model_databank.forms import ModelUploadForm
-from model_databank.models import ModelUpload, ModelReference
+from model_databank.models import ModelUpload, ModelReference, ModelType
 from model_databank.serializers import ModelReferenceSerializer
 from model_databank.utils import zip_model_files
 from model_databank.vcs_utils import get_log, get_file_tree
@@ -96,10 +96,12 @@ class ModelUploadFormView(
         description = form.cleaned_data.get('description')
         organisation_uuid = form.cleaned_data.get('organisation')
         organisation = Organisation.objects.get(unique_id=organisation_uuid)
+        model_type_id = form.cleaned_data.get('model_type')
+        model_type = ModelType.objects.get(pk=model_type_id)
         model_upload = ModelUpload(
             uploaded_by=self.request.user, identifier=identifier,
             description=description, file_path=file_path,
-            organisation=organisation)
+            organisation=organisation, model_type=model_type)
         model_upload.save()
         messages.info(self.request, _("Upload succeeded. Data will be "
                                       "processed soon."))

@@ -57,6 +57,20 @@ class ActiveModelReferenceManager(models.Manager):
             is_deleted=False)
 
 
+class ModelType(models.Model):
+    """ModelType is used in the ModelReference class to determine which type
+    a model is, e.g.: 3Di, 3Di (urban), Sobek, etc.
+    """
+    name = models.CharField(verbose_name=_("name"), max_length=15, unique=True)
+    slug = AutoSlugField(populate_from='name')
+
+    class Meta:
+        ordering = ('pk',)
+
+    def __unicode__(self):
+        return self.name
+
+
 class ModelReference(models.Model):
     """
     Work in progress. Mainly sketching to get a feel with the whole matter.
@@ -101,19 +115,12 @@ class ModelReference(models.Model):
       <variant_id>/*
 
     """
-    SOBEK_MODEL_TYPE_ID = 1
-    THREEDI_MODEL_TYPE_ID = 2
-    MODEL_TYPE_CHOICES = (
-        (SOBEK_MODEL_TYPE_ID, 'Sobek'),
-        (THREEDI_MODEL_TYPE_ID, '3Di'),
-    )
 
     owner = models.ForeignKey('auth.User', null=True)
     organisation = models.ForeignKey(Organisation, blank=True, null=True)
 
-    # TODO: consider renaming model_type, possible options: type, ?
-    model_type = models.IntegerField(
-        verbose_name=_("model type"), choices=MODEL_TYPE_CHOICES)
+    type = models.ForeignKey(ModelType, null=True,
+                             verbose_name=_("model type"))
 
     # TODO: identifier should be unique for team, not globally
     identifier = models.CharField(
@@ -184,13 +191,14 @@ class ModelReference(models.Model):
         return '/'.join([self.repository_url, 'file'])
 
     @property
-    def model_type_str(self):
-        return dict(self.MODEL_TYPE_CHOICES)[self.model_type]
-
-    @property
     def organisation_uuid(self):
         if self.organisation:
             return self.organisation.unique_id
+
+    @property
+    def model_type(self):
+        if self.type:
+            return self.type.slug
 
     def safe_delete(self, *args, **kwargs):
         """
@@ -233,9 +241,11 @@ class ModelReference(models.Model):
         ordering = ('-created',)
 
     def __unicode__(self):
-        model_type = dict(self.MODEL_TYPE_CHOICES)[self.model_type]
-        return _("%(identifier)s (%(type)s model)") % {
-            'identifier': self.identifier, 'type': model_type}
+        if self.type:
+            return _("%(identifier)s (%(type)s)") % {
+                'identifier': self.identifier, 'type': self.type.slug}
+        else:
+            return self.identifier
 
 
 class ModelUpload(models.Model):
@@ -250,6 +260,8 @@ class ModelUpload(models.Model):
     identifier = models.CharField(
         verbose_name=_("unique identifier"), max_length=200, blank=True)
     description = models.TextField(blank=True)
+    model_type = models.ForeignKey(ModelType, null=True,
+                                   verbose_name=_("model type"))
 
     file_path = models.FilePathField(max_length=255)
 
@@ -297,8 +309,7 @@ class ModelUpload(models.Model):
             # if we got here, create a ModelReference with uuid for the
             # repo dir naming
             model_reference = ModelReference(
-                # for now, assume 3Di
-                model_type=ModelReference.THREEDI_MODEL_TYPE_ID,
+                type=self.model_type,
                 owner=self.uploaded_by,
                 identifier=self.identifier,
                 description=self.description,
