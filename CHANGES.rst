@@ -5,7 +5,9 @@ Changelog of model-databank
 0.12 (unreleased)
 -----------------
 
-- Update bootstrap.py.
+- Update bootstrap.py, zc.buildout and zc.recipe.egg. 
+  
+- Pin Django to 1.5: same as threedi-msr.
 
 
 0.11 (2014-08-25)
