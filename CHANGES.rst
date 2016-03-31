@@ -5,7 +5,7 @@ Changelog of model-databank
 0.12 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Update bootstrap.py.
 
 
 0.11 (2014-08-25)
