@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.12 (unreleased)
+0.12 (2016-04-20)
 -----------------
 
 - Add search field to ModelReference and ModelUpload admin pages.
