@@ -5,6 +5,8 @@ Changelog of model-databank
 0.12 (unreleased)
 -----------------
 
+- Add search field to ModelReference and ModelUpload admin pages.
+
 - Update bootstrap.py, zc.buildout and zc.recipe.egg. 
   
 - Pin Django to 1.5: same as threedi-msr.
