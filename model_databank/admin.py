@@ -42,6 +42,9 @@ class ModelUploadAdmin(admin.ModelAdmin):
 
     list_display = ('model_reference', 'identifier', 'description',
                     'file_path', 'model_type', 'is_processed', 'uploaded')
+    search_fields = (
+        'model_reference__identifier', 'model_reference__slug', 'identifier',
+        'description')
 
     actions = ['make_processed']
 

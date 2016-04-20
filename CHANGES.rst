@@ -5,7 +5,7 @@ Changelog of model-databank
 0.12 (unreleased)
 -----------------
 
-- Add search to ModelReference admin page.
+- Add search field to ModelReference and ModelUpload admin pages.
 
 - Update bootstrap.py, zc.buildout and zc.recipe.egg. 
   
