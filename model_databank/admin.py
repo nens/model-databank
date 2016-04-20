@@ -22,6 +22,7 @@ class ModelReferenceAdmin(admin.ModelAdmin):
     list_display = ('identifier', 'type', 'slug', 'uuid', 'is_deleted',
                     'created')
     readonly_fields = ('uuid', 'slug')
+    search_fields = ('identifier', 'slug')
 
     actions = ['delete_selected']
 
