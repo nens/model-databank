@@ -42,12 +42,9 @@ SITE_ID = 1
 SECRET_KEY = 'This is not secret but that is ok.'
 INSTALLED_APPS = [
     'model_databank',
-#    'lizard_ui',
     'staticfiles',
-#    'compressor',
     'south',
     'django_nose',
-#    'lizard_security',
     'django_extensions',
 
     'django.contrib.admin',
@@ -71,8 +68,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-#    'lizard_security.middleware.SecurityMiddleware',
-#    'tls.TLSRequestMiddleware',
     ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
