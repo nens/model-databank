@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.servers.basehttp import FileWrapper
+from wsgiref.util import FileWrapper
 
 from django.views.generic import FormView, ListView, DetailView
 

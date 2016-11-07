@@ -16,6 +16,7 @@ SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 BUILDOUT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, '..'))
 #LOGGING = setup_logging(BUILDOUT_DIR)
 
+
 # ENGINE: 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 # In case of geodatabase, prepend with:
 # django.contrib.gis.db.backends.(postgis)
@@ -63,7 +64,7 @@ INSTALLED_APPS = [
 ]
 ROOT_URLCONF = 'model_databank.urls'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -72,7 +73,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 #    'lizard_security.middleware.SecurityMiddleware',
 #    'tls.TLSRequestMiddleware',
-    )
+    ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -94,6 +95,8 @@ STATICFILES_FINDERS = (
     # Enable support for django-compressor.
     'compressor.finders.CompressorFinder',
 )
+
+
 
 # from lizard_ui/settingshelper.py
 def setup_logging(buildout_dir,
