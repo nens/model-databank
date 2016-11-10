@@ -11,7 +11,6 @@ long_description = '\n\n'.join([
 install_requires = [
     'BeautifulSoup',
     'Django',
-    'South',
     'django-extensions',
     'django-nose',
     'translations',

@@ -20,11 +20,11 @@ class ModelGenerationTests(TestCase):
 
     def setUp(self):
         self.mfs = []
-        for i in range(1000):
-            self.mfs.append(ModelReferenceFactory.create())
+        for i in range(10):
+            self.mfs.append(ModelReferenceFactory.stub())
 
     def test_number(self):
-        self.assertEqual(len(self.mfs), 1000)
+        self.assertEqual(len(self.mfs), 10)
 
     def test_symlink_path(self):
         mf = self.mfs[0]

@@ -6,8 +6,6 @@ from __future__ import print_function
 from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
-
-#from lizard_ui.urls import debugmode_urlpatterns
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -42,6 +40,4 @@ api_urlpatterns = [
         name='api_model_reference_list'),
 ]
 urlpatterns += format_suffix_patterns(api_urlpatterns)
-
-#urlpatterns += debugmode_urlpatterns()
 urlpatterns += staticfiles_urlpatterns()

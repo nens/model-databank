@@ -1,8 +1,5 @@
 import os
 
-# from lizard_ui.settingshelper import setup_logging
-# from lizard_ui.settingshelper import STATICFILES_FINDERS
-
 DEBUG = True
 TEMPLATE_DEBUG = True
 
@@ -42,18 +39,16 @@ SITE_ID = 1
 SECRET_KEY = 'This is not secret but that is ok.'
 INSTALLED_APPS = [
     'model_databank',
-    'staticfiles',
-    'south',
     'django_nose',
     'django_extensions',
-
+    'lizard_auth_client',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.gis',
     'django.contrib.sites',
-    'django.contrib.webdesign',
+    #'django.contrib.webdesign',
     'django.contrib.messages',
 
     'crispy_forms',
@@ -176,7 +171,76 @@ def setup_logging(buildout_dir,
             'console', 'logfile']
     return result
 
-LOGGING = setup_logging(BUILDOUT_DIR)
+LOGGING = {
+    'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'verbose': {
+            'format': '%(asctime)s %(name)s %(levelname)s %(message)s'
+        }
+    },
+    'handlers': {},
+    'loggers': {
+        '': {
+            'handlers': ['logstash', 'console', 'logfile', 'sentry'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'django.db.backends': {
+            'handlers': ['null'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        'django.request': {
+            'handlers': ['logstash'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'celery': {
+            'handlers': ['logstash', 'console'],
+            'level': 'DEBUG',
+        },
+    },
+   'version': 1
+}
+
+null_handler_params = {'class': 'logging.NullHandler', 'level': 'DEBUG'}
+NULL_HANDLER_PARAMS = null_handler_params
+
+handlers = [
+    ('console', {
+        'class': 'logging.StreamHandler',
+        'formatter': 'verbose',
+        'level': 'DEBUG'
+    }),
+    ('logfile', {
+        'class': 'logging.FileHandler',
+        'filename': '/srv/var/log/django.log',
+        'formatter': 'verbose',
+        'level': 'DEBUG'
+    }),
+    ('null', null_handler_params),
+]
+
+# sentry handler
+handlers.append(
+    ('sentry',
+            null_handler_params
+        )
+)
+
+# logstash handler
+handlers.append(
+    ('logstash',
+            null_handler_params
+        )
+)
+
+for handler_name, handler_params in handlers:
+    LOGGING['handlers'][handler_name] = handler_params
+
 
 try:
     # Import local settings that aren't stored in svn/git.
