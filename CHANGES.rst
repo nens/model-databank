@@ -5,7 +5,7 @@ Changelog of model-databank
 0.13 (unreleased)
 -----------------
 
-- Upgraded to django 1.10.3
+- Upgrade to Django 1.10.3.
 
 
 0.12 (2016-04-20)
@@ -13,15 +13,15 @@ Changelog of model-databank
 
 - Add search field to ModelReference and ModelUpload admin pages.
 
-- Update bootstrap.py, zc.buildout and zc.recipe.egg. 
-  
+- Update bootstrap.py, zc.buildout and zc.recipe.egg.
+
 - Pin Django to 1.5: same as threedi-msr.
 
 
 0.11 (2014-08-25)
 -----------------
 
-- Store model type in database to make it easier to add a model type. 
+- Store model type in database to make it easier to add a model type.
 
 
 0.10 (2014-05-15)
@@ -39,13 +39,13 @@ Changelog of model-databank
 0.8 (2014-05-01)
 ----------------
 
-- Improve processed zip filename. 
+- Improve processed zip filename.
 
 
 0.7 (2014-04-29)
 ----------------
 
-- Add check for duplicate ftp upload. 
+- Add check for duplicate ftp upload.
 
 
 0.6 (2014-04-28)
@@ -68,7 +68,7 @@ Changelog of model-databank
 - Add last update date as column to repo list.
 
 - Use "Model Databank" as first committer.
-  
+
 - Add sqlite to large files.
 
 - Add organisations to models.
