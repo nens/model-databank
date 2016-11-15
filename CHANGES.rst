@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.13 (unreleased)
+0.13 (2016-11-15)
 -----------------
 
 - Upgrade to Django 1.10.3.
