@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 {% load model_databank_tags %}
 
 {% block title %}{{ PROJECT_NAME }}{% block subtitle %}{% endblock %}{% endblock %}
@@ -9,12 +10,12 @@
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<link type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" media="screen" rel="stylesheet">
+<link type="text/css" href="{% static 'css/bootstrap.css' %}" media="screen" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".alert").alert();

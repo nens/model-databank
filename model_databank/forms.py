@@ -14,7 +14,7 @@ def get_organisation_choices(user):
     if user and not user.is_superuser:
         # get the organisation for this user if this user is not a superuser
         organisations = []
-        user_organisation_roles = user.userorganisationrole_set.all()
+        user_organisation_roles = user.user_organisation_roles.all()
         for uor in user_organisation_roles:
             organisations.append(uor.organisation)
     else:

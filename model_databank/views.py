@@ -144,7 +144,7 @@ class ModelReferenceList(ListView):
         # set the user's unique organisation ids
         if request.user.is_authenticated():
             self.organisation_ids = \
-                request.user.userorganisationrole_set.values_list(
+                request.user.user_organisation_roles.values_list(
                     'organisation__unique_id', flat=True).distinct()
         else:
             self.organisation_ids = []

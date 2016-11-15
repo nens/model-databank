@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.gis',
+    'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.messages',
 
@@ -62,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    ]
+]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
