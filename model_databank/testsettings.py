@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.gis',
     'django.contrib.sites',
-    #'django.contrib.webdesign',
     'django.contrib.messages',
 
     'crispy_forms',
@@ -82,8 +81,6 @@ STATICFILES_FINDERS = (
     'staticfiles.finders.AppDirectoriesFinder',
     # Enable 'old' /media directories in addition to /static.
     'staticfiles.finders.LegacyAppDirectoriesFinder',
-    # Enable support for django-compressor.
-    'compressor.finders.CompressorFinder',
 )
 
 
