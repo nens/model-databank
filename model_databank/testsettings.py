@@ -239,6 +239,8 @@ handlers.append(
 for handler_name, handler_params in handlers:
     LOGGING['handlers'][handler_name] = handler_params
 
+# for testing
+MODEL_DATABANK_SYMLINK_PATH = '/test_model_databank/symlinks'
 
 try:
     # Import local settings that aren't stored in svn/git.

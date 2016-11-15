@@ -13,6 +13,7 @@ class ModelReferenceFactory(factory.django.DjangoModelFactory):
         model = models.ModelReference
 
     identifier = factory.Sequence(lambda n: 'model {0}'.format(n))
+    slug = factory.Sequence(lambda n: 'slug_{0}'.format(n))
 
 
 class VersionFactory(factory.Factory):

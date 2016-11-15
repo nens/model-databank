@@ -19,9 +19,7 @@ class ExampleTest(TestCase):
 class ModelGenerationTests(TestCase):
 
     def setUp(self):
-        self.mfs = []
-        for i in range(10):
-            self.mfs.append(ModelReferenceFactory.stub())
+        self.mfs = ModelReferenceFactory.build_batch(10)
 
     def test_number(self):
         self.assertEqual(len(self.mfs), 10)
