@@ -1,8 +1,5 @@
 import os
 
-# from lizard_ui.settingshelper import setup_logging
-# from lizard_ui.settingshelper import STATICFILES_FINDERS
-
 DEBUG = True
 TEMPLATE_DEBUG = True
 
@@ -15,6 +12,7 @@ SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 # to place all collected static files.
 BUILDOUT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, '..'))
 #LOGGING = setup_logging(BUILDOUT_DIR)
+
 
 # ENGINE: 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 # In case of geodatabase, prepend with:
@@ -41,21 +39,16 @@ SITE_ID = 1
 SECRET_KEY = 'This is not secret but that is ok.'
 INSTALLED_APPS = [
     'model_databank',
-#    'lizard_ui',
-    'staticfiles',
-#    'compressor',
-    'south',
     'django_nose',
-#    'lizard_security',
     'django_extensions',
-
+    'lizard_auth_client',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.gis',
+    'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.webdesign',
     'django.contrib.messages',
 
     'crispy_forms',
@@ -63,16 +56,14 @@ INSTALLED_APPS = [
 ]
 ROOT_URLCONF = 'model_databank.urls'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-#    'lizard_security.middleware.SecurityMiddleware',
-#    'tls.TLSRequestMiddleware',
-    )
+]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -91,9 +82,9 @@ STATICFILES_FINDERS = (
     'staticfiles.finders.AppDirectoriesFinder',
     # Enable 'old' /media directories in addition to /static.
     'staticfiles.finders.LegacyAppDirectoriesFinder',
-    # Enable support for django-compressor.
-    'compressor.finders.CompressorFinder',
 )
+
+
 
 # from lizard_ui/settingshelper.py
 def setup_logging(buildout_dir,
@@ -178,7 +169,78 @@ def setup_logging(buildout_dir,
             'console', 'logfile']
     return result
 
-LOGGING = setup_logging(BUILDOUT_DIR)
+LOGGING = {
+    'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'verbose': {
+            'format': '%(asctime)s %(name)s %(levelname)s %(message)s'
+        }
+    },
+    'handlers': {},
+    'loggers': {
+        '': {
+            'handlers': ['logstash', 'console', 'logfile', 'sentry'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'django.db.backends': {
+            'handlers': ['null'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        'django.request': {
+            'handlers': ['logstash'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'celery': {
+            'handlers': ['logstash', 'console'],
+            'level': 'DEBUG',
+        },
+    },
+   'version': 1
+}
+
+null_handler_params = {'class': 'logging.NullHandler', 'level': 'DEBUG'}
+NULL_HANDLER_PARAMS = null_handler_params
+
+handlers = [
+    ('console', {
+        'class': 'logging.StreamHandler',
+        'formatter': 'verbose',
+        'level': 'DEBUG'
+    }),
+    ('logfile', {
+        'class': 'logging.FileHandler',
+        'filename': '/srv/var/log/django.log',
+        'formatter': 'verbose',
+        'level': 'DEBUG'
+    }),
+    ('null', null_handler_params),
+]
+
+# sentry handler
+handlers.append(
+    ('sentry',
+            null_handler_params
+        )
+)
+
+# logstash handler
+handlers.append(
+    ('logstash',
+            null_handler_params
+        )
+)
+
+for handler_name, handler_params in handlers:
+    LOGGING['handlers'][handler_name] = handler_params
+
+# for testing
+MODEL_DATABANK_SYMLINK_PATH = '/test_model_databank/symlinks'
 
 try:
     # Import local settings that aren't stored in svn/git.

@@ -5,7 +5,7 @@ Changelog of model-databank
 0.13 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Upgraded to django 1.10.3
 
 
 0.12 (2016-04-20)

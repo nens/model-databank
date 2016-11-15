@@ -12,3 +12,4 @@ DATABASES = {
 }
 
 UI_GAUGES_SITE_ID = ''
+

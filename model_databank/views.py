@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.servers.basehttp import FileWrapper
+from wsgiref.util import FileWrapper
 
 from django.views.generic import FormView, ListView, DetailView
 
@@ -144,7 +144,7 @@ class ModelReferenceList(ListView):
         # set the user's unique organisation ids
         if request.user.is_authenticated():
             self.organisation_ids = \
-                request.user.userorganisationrole_set.values_list(
+                request.user.user_organisation_roles.values_list(
                     'organisation__unique_id', flat=True).distinct()
         else:
             self.organisation_ids = []

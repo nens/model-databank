@@ -11,7 +11,6 @@ long_description = '\n\n'.join([
 install_requires = [
     'BeautifulSoup',
     'Django',
-    'South',
     'django-extensions',
     'django-nose',
     'translations',
@@ -19,7 +18,6 @@ install_requires = [
     'django-autoslug',
     'django-braces',
     'django-crispy-forms',
-    'django-staticfiles >= 1.0',
     'djangorestframework',
     'lizard-auth-client',
     'mercurial',
