@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.14 (unreleased)
+0.14 (2017-02-14)
 -----------------
 
 - Fix /api/models endpoint.
