@@ -227,5 +227,5 @@ class ApiModelReferenceList(APIView):
     """
     def get(self, request, format=None):
         model_references = ModelReference.active.all()
-        serializer = ModelReferenceSerializer(model_references)
+        serializer = ModelReferenceSerializer(model_references, many=True)
         return Response(serializer.data)
