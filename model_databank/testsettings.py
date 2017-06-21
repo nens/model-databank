@@ -28,7 +28,7 @@ DATABASES = {
     # that as an error.
     'default': {
         'NAME': os.path.join(BUILDOUT_DIR, 'var', 'sqlite', 'test.db'),
-        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+        'ENGINE': 'django.db.backends.sqlite3',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',  # empty string for localhost.
@@ -84,163 +84,14 @@ STATICFILES_FINDERS = (
     'staticfiles.finders.LegacyAppDirectoriesFinder',
 )
 
-
-
-# from lizard_ui/settingshelper.py
-def setup_logging(buildout_dir,
-                  console_level='DEBUG',
-                  file_level='WARN',
-                  sentry_level=None,
-                  sql=False):
-    """Return configuration dict for logging.
-
-    Some keyword arguments can be used to configure the logging.
-
-    - ``console_level='DEBUG'`` sets the console level. None means quiet.
-
-    - ``file_level='WARN'`` sets the var/log/django.log level. None means
-      quiet.
-
-    - ``sentry_level=None`` sets the sentry level. None means sentry logging
-        is removed from the logging.
-
-    - ``sql=False`` switches sql statement logging on or off.
-
-    """
-    result = {
-        'version': 1,
-        'disable_existing_loggers': True,
-        'formatters': {
-            'verbose': {
-                'format': '%(asctime)s %(name)s %(levelname)s\n%(message)s',
-                },
-            'simple': {
-                'format': '%(levelname)s %(message)s'
-            },
-            },
-        'handlers': {
-            'null': {
-                'level': 'DEBUG',
-                'class': 'django.utils.log.NullHandler',
-                },
-            'console': {
-                'level': console_level,
-                'class': 'logging.StreamHandler',
-                'formatter': 'simple'
-            },
-            'logfile': {
-                'level': file_level,
-                'class': 'logging.FileHandler',
-                'formatter': 'verbose',
-                'filename': os.path.join(buildout_dir,
-                                         'var', 'log', 'django.log'),
-                },
-            'sentry': {
-                'level': sentry_level,
-                'class': 'raven.contrib.django.handlers.SentryHandler',
-                'formatter': 'verbose'
-            },
-            },
-        'loggers': {
-            '': {
-                'handlers': [],
-                'propagate': True,
-                'level': 'DEBUG',
-                },
-            'django.db.backends': {
-                'handlers': ['null'],  # Quiet by default!
-                'propagate': False,
-                'level': 'DEBUG',
-                },
-            },
-        }
-    if console_level is not None:
-        result['loggers']['']['handlers'].append('console')
-    if file_level is not None:
-        result['loggers']['']['handlers'].append('logfile')
-    if sentry_level is not None:
-        result['loggers']['']['handlers'].append('sentry')
-    else:
-        # When sentry is still in the handlers sentry needs to be installed
-        # which gave import errors in Django 1.4.
-        del result['handlers']['sentry']
-    if sql:
-        result['loggers']['django.db.backends']['handlers'] = [
-            'console', 'logfile']
-    return result
-
-LOGGING = {
-    'disable_existing_loggers': True,
-    'formatters': {
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-        'verbose': {
-            'format': '%(asctime)s %(name)s %(levelname)s %(message)s'
-        }
-    },
-    'handlers': {},
-    'loggers': {
-        '': {
-            'handlers': ['logstash', 'console', 'logfile', 'sentry'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
-        'django.db.backends': {
-            'handlers': ['null'],
-            'level': 'DEBUG',
-            'propagate': False
-        },
-        'django.request': {
-            'handlers': ['logstash'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'celery': {
-            'handlers': ['logstash', 'console'],
-            'level': 'DEBUG',
-        },
-    },
-   'version': 1
-}
-
-null_handler_params = {'class': 'logging.NullHandler', 'level': 'DEBUG'}
-NULL_HANDLER_PARAMS = null_handler_params
-
-handlers = [
-    ('console', {
-        'class': 'logging.StreamHandler',
-        'formatter': 'verbose',
-        'level': 'DEBUG'
-    }),
-    ('logfile', {
-        'class': 'logging.FileHandler',
-        'filename': '/srv/var/log/django.log',
-        'formatter': 'verbose',
-        'level': 'DEBUG'
-    }),
-    ('null', null_handler_params),
-]
-
-# sentry handler
-handlers.append(
-    ('sentry',
-            null_handler_params
-        )
-)
-
-# logstash handler
-handlers.append(
-    ('logstash',
-            null_handler_params
-        )
-)
-
-for handler_name, handler_params in handlers:
-    LOGGING['handlers'][handler_name] = handler_params
+LOGGING = {}
 
 # for testing
 MODEL_DATABANK_SYMLINK_PATH = '/test_model_databank/symlinks'
+
+# Just a placeholder, is used in the model-databank code, but needs to be set
+# to the correct URL in the surrounding project: threedi-msr.
+PERMISSION_API_URL = ''
 
 try:
     # Import local settings that aren't stored in svn/git.

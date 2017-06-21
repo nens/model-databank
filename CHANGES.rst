@@ -5,7 +5,10 @@ Changelog of model-databank
 0.15 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Upgrade bootstrap.py, use ez_setup.py and pin zc.buildout to 2.9.3.
+
+- Handle access permission by the 3Di permission API (change_model permission
+  required).
 
 
 0.14 (2017-02-14)

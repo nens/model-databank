@@ -3,28 +3,27 @@ import factory
 from model_databank import models
 
 
-class ModelReferenceFactory(factory.django.DjangoModelFactory):
+class ModelReferenceFactory(factory.DjangoModelFactory):
     """ModelReference factory.
 
     Can generate many ModelReference instances in a for loop, for example.
 
     """
-    class Meta:
-        model = models.ModelReference
+    FACTORY_FOR = models.ModelReference
 
     identifier = factory.Sequence(lambda n: 'model {0}'.format(n))
     slug = factory.Sequence(lambda n: 'slug_{0}'.format(n))
 
 
-class VersionFactory(factory.Factory):
-    class Meta:
-        model = models.Version
+class VersionFactory(factory.DjangoModelFactory):
+    """Version factory."""
+    FACTORY_FOR =  models.Version
 
     name = factory.Sequence(lambda n: 'version {0}'.format(n))
 
 
-class VariantFactory(factory.Factory):
-    class Meta:
-        model = models.Variant
+class VariantFactory(factory.DjangoModelFactory):
+    """Variant factory."""
+    FACTORY_FOR = models.Variant
 
     name = factory.Sequence(lambda n: 'variant {0}'.format(n))

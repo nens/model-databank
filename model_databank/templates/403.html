@@ -1,0 +1,21 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}<style>
+  .col-centered{
+    float: none;
+    margin: 0 auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-2 col-centered text-center">
+      <h3>{% blocktrans %}You are not allowed to access this page [403].{% endblocktrans %}</h3>
+      <a href="{% url 'model_reference_list' %}" class="btn btn-primary">{% trans "Home" %}</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{%  endblock %}

@@ -1,6 +1,10 @@
-import subprocess
+# (c) Nelen & Schuurmans.  GPL licensed, see LICENSE.rst.
+# -*- coding: utf-8 -*-
 import os
+import subprocess
 import zipfile
+
+import requests
 
 from model_databank.conf import settings
 from model_databank.vcs_utils import get_latest_revision
@@ -28,3 +32,19 @@ def zip_model_files(model_reference):
     zip_dir(repo_path, zip_file)
     zip_file.close()
     return zip_file_full_path, latest_revision
+
+
+def get_organisation_ids_by_user_permission(user, permission):
+    """
+    Return the organisation ids the user has the permission for.
+
+    :raise - requests.exceptions.HttpError when status code is not ok (2xx)
+    :return - list of organisation ids
+
+    """
+    permissions_api_url = '{}{}/{}/'.format(
+        settings.PERMISSIONS_API_URL, user.username, permission)
+    # get the organisation ids for the username / role combo
+    resp = requests.get(permissions_api_url)
+    resp.raise_for_status()
+    return resp.json()

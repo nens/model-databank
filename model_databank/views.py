@@ -1,32 +1,38 @@
 # (c) Nelen & Schuurmans.  GPL licensed, see LICENSE.rst.
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from __future__ import print_function
+from __future__ import unicode_literals
+
 import datetime
-from lizard_auth_client.models import Organisation
 import os
 
 from django.contrib import messages
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
-
+from django.http import HttpResponse
 from django.utils.translation import ugettext as _
-from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import DetailView
+from django.views.generic import FormView
+from django.views.generic import ListView
+
 from wsgiref.util import FileWrapper
 
-from django.views.generic import FormView, ListView, DetailView
-
-from braces.views import LoginRequiredMixin, PermissionRequiredMixin
-
-from model_databank.conf import settings
-from model_databank.forms import ModelUploadForm
-from model_databank.models import ModelUpload, ModelReference, ModelType
-from model_databank.serializers import ModelReferenceSerializer
-from model_databank.utils import zip_model_files
-from model_databank.vcs_utils import get_log, get_file_tree
+from lizard_auth_client.models import Organisation
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from model_databank.conf import settings
+from model_databank.forms import ModelUploadForm
+from model_databank.mixins import RoleRequiredRemoteMixin
+from model_databank.models import ModelReference
+from model_databank.models import ModelType
+from model_databank.models import ModelUpload
+from model_databank.serializers import ModelReferenceSerializer
+from model_databank.utils import get_organisation_ids_by_user_permission
+from model_databank.utils import zip_model_files
+from model_databank.vcs_utils import get_file_tree
+from model_databank.vcs_utils import get_log
 
 
 def handle_uploaded_file(f):
@@ -39,40 +45,14 @@ def handle_uploaded_file(f):
     return file_path
 
 
-class ImprovedPermissinRequiredMixin(PermissionRequiredMixin):
-    """
-    This 'improved' PermissionRequiredMixin adds a message to the user if
-    permission is denied and redirects to the homepage.
-
-    """
-    def dispatch(self, request, *args, **kwargs):
-        if self.permission_required is None:
-            raise ImproperlyConfigured(
-                "'PermissionRequiredMixin' requires 'permission_required' "
-                "attribute to be set.")
-
-        # Check to see if the request's user has the required permission.
-        has_permission = request.user.has_perm(self.permission_required)
-
-        if not has_permission:  # If the user lacks the permission
-            if self.raise_exception:  # *and* if an exception was desired
-                raise PermissionDenied  # return a forbidden response.
-            else:
-                # add not allowed message to request and redirect to home page
-                messages.error(request, _("You are not allowed to upload a "
-                                          "new model. Please contact your "
-                                          "administrator or project leader "
-                                          "for more details."))
-                return HttpResponseRedirect('/')
-
-        return super(ImprovedPermissinRequiredMixin, self).dispatch(
-            request, *args, **kwargs)
-
-
 class ModelUploadFormView(
-        LoginRequiredMixin, ImprovedPermissinRequiredMixin, FormView):
+        LoginRequiredMixin, RoleRequiredRemoteMixin, FormView):
     """Form view for uploading model files."""
-    permission_required = 'model_databank.add_modelupload'
+    permission_denied_message = _(
+        "You don't have enough permissions to access this page.\n"
+        "Please contact your administrator to get permission."
+    )
+    role_required = 'change_model'
     template_name = 'model_databank/upload_form.html'
     form_class = ModelUploadForm
 
@@ -124,32 +104,26 @@ class ModelDownloadView(DetailView):
 
 
 class ModelReferenceList(ListView):
-    # get the user organisation ids and only show the ModelReference for that
-    # uuid
+    """
+    List view showing ModelReference instances.
+
+    Get the user organisation ids and only show the ModelReference instances
+    for those organisations.
+
+    """
     queryset = ModelReference.active.all()
 
     def get_queryset(self):
         queryset = super(ModelReferenceList, self).get_queryset()
-        if self.request.user.is_superuser:
-            # show all models when user is a superuser
-            return queryset
-        elif self.request.user.is_authenticated():
+        if self.request.user.is_authenticated():
+            # organisation ids belonging to the change_model permission
+            organisation_ids = get_organisation_ids_by_user_permission(
+                self.request.user, 'change_model')
             return queryset.filter(
-                organisation__unique_id__in=self.organisation_ids)
+                organisation__unique_id__in=organisation_ids)
         else:
             # anonymous user; return empty queryset
             return ModelReference.objects.none()
-
-    def dispatch(self, request, *args, **kwargs):
-        # set the user's unique organisation ids
-        if request.user.is_authenticated():
-            self.organisation_ids = \
-                request.user.user_organisation_roles.values_list(
-                    'organisation__unique_id', flat=True).distinct()
-        else:
-            self.organisation_ids = []
-        return super(ModelReferenceList, self).dispatch(request, args,
-                                                        kwargs)
 
 
 class NavbarMixin(object):
@@ -180,11 +154,22 @@ class NavbarMixin(object):
 
 
 class ModelReferenceBaseView(NavbarMixin, DetailView):
-    queryset = ModelReference.active.all()
+    """
+    Base view for ModelReference detail views.
+
+    Uses the organisation ids from the RoleRequiredRemoteMixin to filter the
+    queryset, that is used by the get_object method.
+
+    """
+    def get_queryset(self):
+        queryset = ModelReference.active.all()
+        organisation_ids = get_organisation_ids_by_user_permission(
+            self.request.user, 'change_model')
+        return queryset.filter(organisation__unique_id__in=organisation_ids)
 
 
 class ModelReferenceDetail(ModelReferenceBaseView):
-
+    """ModelReference detail view."""
     def get_context_data(self, **kwargs):
         context = super(ModelReferenceDetail, self).get_context_data(**kwargs)
         obj = self.get_object()

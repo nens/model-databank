@@ -19,6 +19,7 @@ install_requires = [
     'django-braces',
     'django-crispy-forms',
     'djangorestframework',
+    'factory_boy',
     'lizard-auth-client',
     'mercurial',
     'six',

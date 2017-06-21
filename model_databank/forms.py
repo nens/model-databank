@@ -1,24 +1,29 @@
+# (c) Nelen & Schuurmans.  GPL licensed, see LICENSE.rst.
+# -*- coding: utf-8 -*-
+import logging
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit
+from crispy_forms.layout import Fieldset
+from crispy_forms.layout import Layout
+from crispy_forms.layout import Submit
 
 from lizard_auth_client.models import Organisation
 
 from model_databank.models import ModelType
+from model_databank.utils import get_organisation_ids_by_user_permission
+
+logger = logging.getLogger(__name__)
 
 
 def get_organisation_choices(user):
     """Create organisation choices for model upload form."""
-    if user and not user.is_superuser:
-        # get the organisation for this user if this user is not a superuser
-        organisations = []
-        user_organisation_roles = user.user_organisation_roles.all()
-        for uor in user_organisation_roles:
-            organisations.append(uor.organisation)
-    else:
-        organisations = Organisation.objects.all()
+    allowed_organisation_ids = get_organisation_ids_by_user_permission(
+        user, 'change_model')
+    organisations = Organisation.objects.filter(
+        unique_id__in=allowed_organisation_ids)
     organisation_choices = []
     for organisation in organisations:
         organisation_choices.append((organisation.unique_id,
