@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.15 (unreleased)
+0.15 (2017-06-21)
 -----------------
 
 - Upgrade bootstrap.py, use ez_setup.py and pin zc.buildout to 2.9.3.
