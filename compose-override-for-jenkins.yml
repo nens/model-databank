@@ -1,0 +1,11 @@
+# The Jenkinsfile copies this file to docker-compose.override.yml
+# The purpose is to share buildout eggs/download caches between various
+# branches, hopefully resulting in huge speedups.
+version: '3.0'
+
+services:
+
+  model-databank:
+    volumes:
+      - /var/lib/jenkins/3di-buildout-cache/eggs:/root/.buildout/eggs
+      - /var/lib/jenkins/3di-buildout-cache/downloads:/root/.buildout/downloads

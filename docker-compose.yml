@@ -1,0 +1,12 @@
+version: '3.0'
+
+# N.B.: do not use this to run a local development environment; it won't
+# probably work for that yet; for now, this is only used by Jenkins to run the
+# tests with docker-compose
+services:
+
+  model-databank:
+    build: .
+    volumes:
+      - .:/srv
+    working_dir: /srv

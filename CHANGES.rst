@@ -5,7 +5,7 @@ Changelog of model-databank
 0.16 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Run tests on Jenkins with Jenkinsfile and docker-compose.
 
 
 0.15 (2017-06-21)
