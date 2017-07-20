@@ -7,7 +7,9 @@ import datetime
 import os
 
 from django.contrib import messages
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
@@ -46,7 +48,7 @@ def handle_uploaded_file(f):
 
 
 class ModelUploadFormView(
-        LoginRequiredMixin, RoleRequiredRemoteMixin, FormView):
+        RoleRequiredRemoteMixin, FormView):
     """Form view for uploading model files."""
     permission_denied_message = _(
         "You don't have enough permissions to access this page.\n"
@@ -87,10 +89,31 @@ class ModelUploadFormView(
                                       "processed soon."))
         return super(ModelUploadFormView, self).form_valid(form)
 
+    # N.B. the methods below this point are needed because the
+    # RoleRequiredRemoteMixin overrides the dispatch() method
+    def handle_not_logged_in(self):
+        return redirect_to_login(
+            self.request.get_full_path(), settings.LOGIN_URL,
+            REDIRECT_FIELD_NAME)
 
-class ModelDownloadView(DetailView):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_not_logged_in()
+        return super(ModelUploadFormView, self).dispatch(
+            request, *args, **kwargs)
+
+
+class ModelDownloadView(LoginRequiredMixin, DetailView):
     """Download zip file from tip of repo."""
     queryset = ModelReference.active.all()
+
+    def get_queryset(self):
+        queryset = super(ModelDownloadView, self).get_queryset()
+        # organisation ids belonging to the change_model permission
+        organisation_ids = get_organisation_ids_by_user_permission(
+            self.request.user, 'change_model')
+        return queryset.filter(
+            organisation__unique_id__in=organisation_ids)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -103,7 +126,7 @@ class ModelDownloadView(DetailView):
         return response
 
 
-class ModelReferenceList(ListView):
+class ModelReferenceList(LoginRequiredMixin, ListView):
     """
     List view showing ModelReference instances.
 
@@ -115,15 +138,11 @@ class ModelReferenceList(ListView):
 
     def get_queryset(self):
         queryset = super(ModelReferenceList, self).get_queryset()
-        if self.request.user.is_authenticated():
-            # organisation ids belonging to the change_model permission
-            organisation_ids = get_organisation_ids_by_user_permission(
-                self.request.user, 'change_model')
-            return queryset.filter(
-                organisation__unique_id__in=organisation_ids)
-        else:
-            # anonymous user; return empty queryset
-            return ModelReference.objects.none()
+        # organisation ids belonging to the change_model permission
+        organisation_ids = get_organisation_ids_by_user_permission(
+            self.request.user, 'change_model')
+        return queryset.filter(
+            organisation__unique_id__in=organisation_ids)
 
 
 class NavbarMixin(object):
@@ -153,7 +172,7 @@ class NavbarMixin(object):
         return context
 
 
-class ModelReferenceBaseView(NavbarMixin, DetailView):
+class ModelReferenceBaseView(LoginRequiredMixin, NavbarMixin, DetailView):
     """
     Base view for ModelReference detail views.
 
@@ -190,10 +209,18 @@ class FilesView(ModelReferenceBaseView):
         return context
 
 
-class CommitView(DetailView):
+class CommitView(LoginRequiredMixin, DetailView):
     """Show commit specific details."""
     queryset = ModelReference.active.all()
     template_name = 'model_databank/commit_detail.html'
+
+    def get_queryset(self):
+        queryset = super(CommitView, self).get_queryset()
+        # organisation ids belonging to the change_model permission
+        organisation_ids = get_organisation_ids_by_user_permission(
+            self.request.user, 'change_model')
+        return queryset.filter(
+            organisation__unique_id__in=organisation_ids)
 
     def get_context_data(self, **kwargs):
         context = super(CommitView, self).get_context_data(**kwargs)
@@ -208,6 +235,9 @@ class CommitView(DetailView):
 class ApiModelReferenceList(APIView):
     """
     API view for handling active model references snippets.
+
+    N.B.: no restrictions on this view -> open for everybody! Is used by inpy
+    (get_model_repositories).
 
     """
     def get(self, request, format=None):

@@ -5,6 +5,9 @@ Changelog of model-databank
 0.16 (unreleased)
 -----------------
 
+- Require login for page views. Handle permissions via the 3Di permissions
+  backend.
+
 - Run tests on Jenkins with Jenkinsfile and docker-compose.
 
 

@@ -1,3 +1,11 @@
+# (c) Nelen & Schuurmans.  GPL licensed, see LICENSE.rst.
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from django.contrib.auth.models import User
+
 import factory
 
 from model_databank import models
@@ -27,3 +35,10 @@ class VariantFactory(factory.DjangoModelFactory):
     FACTORY_FOR = models.Variant
 
     name = factory.Sequence(lambda n: 'variant {0}'.format(n))
+
+
+class UserFactory(factory.DjangoModelFactory):
+    """Factory for User"""
+    FACTORY_FOR = User
+
+    username = factory.Sequence(lambda n: 'user_{0}'.format(n))

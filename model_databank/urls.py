@@ -1,9 +1,8 @@
 # (c) Nelen & Schuurmans.  GPL licensed, see LICENSE.rst.
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from __future__ import print_function
+from __future__ import unicode_literals
 
-from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -31,8 +30,6 @@ urlpatterns = [
 
     url(r'^models/(?P<slug>[\w-]+)/files/$', views.FilesView.as_view(),
         name='model_reference_files'),
-
-    url(r'^admin/', include(admin.site.urls)),
 ]
 
 api_urlpatterns = [
