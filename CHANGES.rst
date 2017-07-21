@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.16 (unreleased)
+0.16 (2017-07-21)
 -----------------
 
 - Require login for page views. Handle permissions via the 3Di permissions
