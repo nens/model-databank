@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.17 (unreleased)
+0.17 (2017-07-27)
 -----------------
 
 - Fix bug in ``process_uploaded_model_files`` management command (caused by
