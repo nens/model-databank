@@ -5,7 +5,9 @@ Changelog of model-databank
 0.17 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Fix bug in ``process_uploaded_model_files`` management command (caused by
+  upgrading Django to 1.11.x -> template.render() expects a dict as argument,
+  not a Context instance).
 
 
 0.16 (2017-07-21)

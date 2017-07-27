@@ -10,7 +10,7 @@ import zipfile
 import logging
 
 from django.db import models
-from django.template import loader, Context
+from django.template import loader
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -45,7 +45,7 @@ def add_hgignore_file(root_path):
     hgignore_path = os.path.join(root_path, '.hgignore')
     hgignore_file = open(hgignore_path, 'w')
     template = loader.get_template('model_databank/hgignore.txt')
-    context = Context()
+    context = {}
     hgignore_text = template.render(context)
     hgignore_file.write(hgignore_text)
     hgignore_file.close()
