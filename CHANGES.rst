@@ -2,7 +2,7 @@ Changelog of model-databank
 ===================================================
 
 
-0.18 (unreleased)
+0.18 (2018-07-11)
 -----------------
 
 - Added pagination for commits/files page.
