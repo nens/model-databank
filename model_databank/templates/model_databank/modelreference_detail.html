@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for logentry in log_data %}
+        {% for logentry in log_data_page %}
         <tr>
 	        <td>
 		        <a href="{% mercurial_commit_url modelreference logentry %}" target="_blank">
@@ -34,7 +34,20 @@
         </tbody>
     </table>
 </div>
-{% if log_data.patch %}
+<div class="pagination">
+  <span class="step-links">
+    {% if log_data_page.has_previous %}
+      <a href="?page={{ log_data_page.previous_page_number }}">previous</a>
+    {% endif %}
+    <span class="current">
+        Page {{ log_data_page.number }} of {{ log_data_page.paginator.num_pages }}.
+    </span>
+    {% if log_data_page.has_next %}
+        <a href="?page={{ log_data_page.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% if log_data_page.patch %}
 	<h5>{% trans "diff" %}</h5>
     <div>{{ log_data.patch }}</div>
 {% endif %}

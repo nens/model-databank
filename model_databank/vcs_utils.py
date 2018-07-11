@@ -127,11 +127,13 @@ class MercurialLogData(object):
             yield item
 
 
-def get_log(model_reference, revision=None):
+def get_log(model_reference, revision=None, limit=None):
     repo_path = model_reference.symlink
     os.chdir(repo_path)
     # --verbose is needed to include the paths in the xml log
     cmd_list = [settings.HG_CMD, 'log', '--style=xml', '--verbose']
+    if limit:
+        cmd_list.append('--limit=%s'  % limit)
     if revision:
         cmd_list.append('--rev=%s' % revision)
         cmd_list.append('--patch')  # must be the last argument

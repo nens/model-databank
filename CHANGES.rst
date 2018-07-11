@@ -5,7 +5,9 @@ Changelog of model-databank
 0.18 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Added pagination for commits/files page.
+
+- Added a limit to the max number of commits shown for a ReferenceModel
 
 
 0.17 (2017-07-27)

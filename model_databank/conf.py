@@ -19,6 +19,9 @@ class ModelDatabankAppConf(AppConf):
 
     REPOSITORY_URL_ROOT: root url for cloning repositories.
 
+    MAX_REVISIONS: maximum total number of revisions shown for a model
+
+    MAX_REVISIONS_PER_PAGE: maximum number of revisions per page.
     """
     DATA_PATH = "/tmp/model_databank_repositories"
     SYMLINK_PATH = "/tmp/model_databank"
@@ -26,6 +29,8 @@ class ModelDatabankAppConf(AppConf):
     ZIP_EXTRACT_PATH = "/tmp/extracted_zip_files/"
     DOWNLOAD_PATH = "/tmp/downloads"
     REPOSITORY_URL_ROOT = 'http://127.0.0.1:8012'
+    MAX_REVISIONS = 500
+    MAX_REVISIONS_PER_PAGE = 100
 
     class Meta:
         prefix = 'model_databank'

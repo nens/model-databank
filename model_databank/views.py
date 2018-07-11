@@ -11,6 +11,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 from django.views.generic import DetailView
@@ -192,8 +193,13 @@ class ModelReferenceDetail(ModelReferenceBaseView):
     def get_context_data(self, **kwargs):
         context = super(ModelReferenceDetail, self).get_context_data(**kwargs)
         obj = self.get_object()
-        log_data = get_log(obj)
-        context['log_data'] = log_data
+        log_data = get_log(obj,
+                           limit=settings.MODEL_DATABANK_MAX_REVISIONS).log_data
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(log_data,
+                              settings.MODEL_DATABANK_MAX_REVISIONS_PER_PAGE)
+        log_data_page = paginator.page(page)
+        context['log_data_page'] = log_data_page
         return context
 
 
@@ -205,7 +211,10 @@ class FilesView(ModelReferenceBaseView):
         context = super(FilesView, self).get_context_data(**kwargs)
         obj = self.get_object()
         file_tree = get_file_tree(obj)
-        context['file_tree'] = file_tree
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(file_tree, 100)
+        file_tree_page = paginator.page(page)
+        context['file_tree_page'] = file_tree_page
         return context
 
 

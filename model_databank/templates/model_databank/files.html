@@ -6,12 +6,25 @@
 <div>
     <table class="table table-striped">
         <tbody>
-        {% for item in file_tree %}
+        {% for item in file_tree_page %}
         <tr>
             <td>{{ item.filename }}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="pagination">
+  <span class="step-links">
+    {% if file_tree_page.has_previous %}
+      <a href="?page={{ file_tree_page.previous_page_number }}">previous</a>
+    {% endif %}
+    <span class="current">
+        Page {{ file_tree_page.number }} of {{ file_tree_page.paginator.num_pages }}.
+    </span>
+    {% if file_tree_page.has_next %}
+        <a href="?page={{ file_tree_page.next_page_number }}">next</a>
+    {% endif %}
+  </span>
 </div>
 {% endblock section_body %}

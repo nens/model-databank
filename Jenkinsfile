@@ -1,4 +1,4 @@
-node {
+node('3di') {
     stage('Checkout') {
         checkout scm
     }
