@@ -23,6 +23,10 @@ install_requires = [
     'lizard-auth-client',
     'mercurial',
     'six',
+    'requests',
+    'chardet',
+    'certifi',
+    'transifex-client',
 ],
 
 tests_require = [

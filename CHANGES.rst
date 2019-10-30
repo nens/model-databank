@@ -5,7 +5,7 @@ Changelog of model-databank
 0.19 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Management command to update symlinks
 
 
 0.18 (2018-07-11)
