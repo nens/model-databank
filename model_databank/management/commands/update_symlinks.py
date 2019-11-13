@@ -10,16 +10,16 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-def symlink_force(target, link_name):
+def symlink_force(link_name, target):
     try:
+        logger.info('target %s, link_name %s ', target, link_name)
         os.symlink(target, link_name)
     except OSError as e:
+        logger.warning(e)
         if e.errno == errno.EEXIST:
             os.remove(link_name)
             os.symlink(target, link_name)
             logger.info("Renamed %s to %s ", target, link_name)
-        else:
-            raise e
 
 
 class Command(BaseCommand):

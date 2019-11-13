@@ -5,7 +5,7 @@ Changelog of model-databank
 0.20 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Fix symlinks command. 
 
 
 0.19 (2019-10-30)
