@@ -1,4 +1,4 @@
-Django==1.5.4
+Django==1.11.29
 GeoAlchemy==0.7.2
 SQLAlchemy==0.8.2
 Shapely==1.2.18
